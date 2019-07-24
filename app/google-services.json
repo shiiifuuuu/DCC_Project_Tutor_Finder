@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "94076478194",
+    "firebase_url": "https://tutorfind-85951.firebaseio.com",
+    "project_id": "tutorfind-85951",
+    "storage_bucket": "tutorfind-85951.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94076478194:android:9e27b0b5ff3b2f1a",
+        "android_client_info": {
+          "package_name": "com.teamocta.dcc_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94076478194-929684cok053cv0v5db0d5e0qe6ecdjk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamocta.dcc_project",
+            "certificate_hash": "884f4518526f2fe8e9afdd755be6dbb0297c80ca"
+          }
+        },
+        {
+          "client_id": "94076478194-3g1r3o4gjjpvrsej0uopdbl7i248qkr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIdoyf3B0FlJ124lLqtOaRpep0lroKHh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94076478194-3g1r3o4gjjpvrsej0uopdbl7i248qkr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
