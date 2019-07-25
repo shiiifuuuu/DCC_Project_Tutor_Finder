@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DCC_Project</string>
+    <string name="err_email">Enter Email</string>
+    <string name="err_password">Enter Password</string>
 </resources>

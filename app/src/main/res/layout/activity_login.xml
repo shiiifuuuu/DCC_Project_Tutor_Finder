@@ -10,6 +10,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/search"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,6 +47,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvForgetPass"
                 android:text="Forget Password?"
+                android:textColor="@color/yellow"
+                android:textStyle="italic"
                 android:onClick="tvForgetPassClicked"
                 android:layout_marginLeft="5dp"/>
 
@@ -57,6 +63,14 @@
 
                 android:onClick="btnLoginClicked"/>
         </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/chkbxKeepLoggedIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keep me logged in"
+            android:textStyle="bold"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="match_parent"
