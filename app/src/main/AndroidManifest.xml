@@ -14,7 +14,8 @@
         </activity>
 
         <activity android:name=".Signup"
-            android:label="Signup Activity"/>
+            android:label="Signup Activity">
+        </activity>
 
         <activity
             android:name=".Login"

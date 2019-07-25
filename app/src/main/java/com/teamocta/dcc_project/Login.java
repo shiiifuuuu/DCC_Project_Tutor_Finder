@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
     }
 
     //When initializing the Activity, check to see if the user is currently signed in.
-    @Override
+/*    @Override
     protected void onStart() {
         super.onStart();
         currentUser = firebaseAuth.getCurrentUser();
@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
+    }*/
 
     //I N I T I A L I Z I N G    A L L    I D S
     private void init() {
@@ -105,10 +105,10 @@ public class Login extends AppCompatActivity {
 
     //T O A S T    M E S S A G E
     private void toastMessageShort(String msg) {
-        Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
     private void toastMessageLong(String msg){
-        Toast.makeText(Login.this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
 }
