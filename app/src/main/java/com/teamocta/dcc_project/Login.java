@@ -4,11 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,12 +20,11 @@ public class Login extends AppCompatActivity {
     //V A R I A B L E S
     private EditText etEmail;
     private EditText etPassword;
-    private CheckBox chkbxKeepLoggedIn;
 
     private String userEmail, userPassword;
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser currentUser;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +53,9 @@ public class Login extends AppCompatActivity {
     private void init() {
         etEmail=findViewById(R.id.etEmail);
         etPassword=findViewById(R.id.etPassword);
-        chkbxKeepLoggedIn=findViewById(R.id.chkbxKeepLoggedIn);
 
         firebaseAuth=FirebaseAuth.getInstance();
+        firebaseUser=firebaseAuth.getCurrentUser();
     }
 
     //O N     C L I C K
@@ -91,13 +87,13 @@ public class Login extends AppCompatActivity {
                     toastMessageShort("Sign In ERROR!!");
                     toastMessageLong("Check your email or password again.");
                 }else{
-                    /*if(firebaseAuth.getCurrentUser().isEmailVerified()){*/
+                    if(firebaseUser.isEmailVerified()){
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-                    /*}else{
+                    }else{
                         toastMessageLong("Please verify your email first");
-                    }*/
+                    }
                 }
             }
         });

@@ -32,7 +32,7 @@ public class ForgetPass extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public void btnResetPassClicked(View view) {
+    public void btnSendEmailClicked(View view) {
         userEmail=etEmail.getText().toString();
         if(userEmail.equals("")){
             toastMessageShort("Field Empty!!");

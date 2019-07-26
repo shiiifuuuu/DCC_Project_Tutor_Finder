@@ -2,14 +2,11 @@ package com.teamocta.dcc_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
@@ -19,33 +16,49 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.teamocta.dcc_project.databinding.ActivitySignupBinding;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
 public class Signup extends AppCompatActivity {
 
-    private EditText etFirstName, etLastName, etMobile;
-    private EditText etEmail, etPassword, etConfirmPass;
-    private RadioGroup rgUserProfile;
-    private RadioButton rbUserTutor, rbUserStudent, rbUserBoth;
-    private Button btnSignup;
+    private ActivitySignupBinding binding;
 
-    private String userEmail, userPassword;
+    private String firstName, lastName, email, mobile, gender, location;
+    private String userEmail, userPassword, Uid;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseTutorRef;
+    private DatabaseReference databaseStudentRef;
 
-    AwesomeValidation mAwesomeValidation;
+    private TutorInformation newTutor;
+
+    private AwesomeValidation mAwesomeValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
         
         init();
         validationCheck();
     }
 
+    //I N I T I A L I Z I N G    A L L    I D S
+    private void init() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        mAwesomeValidation = new AwesomeValidation(BASIC);
+
+
+    }
+
+    //C H E C K I N G    I N P U T    V A L I D A T I O N
     private void validationCheck() {
         mAwesomeValidation.addValidation(this, R.id.etFirstName, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(this, R.id.etLastName, "[a-zA-Z\\s]+", R.string.err_name);
@@ -54,69 +67,96 @@ public class Signup extends AppCompatActivity {
         mAwesomeValidation.addValidation(this, R.id.etConfirmPassword, R.id.etPassword, R.string.err_password_confirmation);
     }
 
-    //I N I T I A L I Z I N G    A L L    I D S
-    private void init() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-
-        etFirstName=findViewById(R.id.etFirstName);
-        etLastName=findViewById(R.id.etLastName);
-        etMobile=findViewById(R.id.etMobile);
-        etEmail=findViewById(R.id.etEmail);
-        etPassword=findViewById(R.id.etPassword);
-        etConfirmPass=findViewById(R.id.etConfirmPassword);
-        rgUserProfile=findViewById(R.id.rgUserProfile);
-        rbUserTutor=findViewById(R.id.rbUserTutor);
-        rbUserStudent=findViewById(R.id.rbUserStudent);
-        rbUserBoth=findViewById(R.id.rbUserBoth);
-        btnSignup=findViewById(R.id.btnSignup);
-
-        mAwesomeValidation = new AwesomeValidation(BASIC);
-    }
-
     //O N    C L I C K
     public void btnSignupClicked(View view) {
-        userEmail=etEmail.getText().toString();
-        userPassword=etPassword.getText().toString();
+        userEmail=binding.etEmail.getText().toString();
+        userPassword=binding.etPassword.getText().toString();
 
         if(mAwesomeValidation.validate()){
-            signupUser(userEmail, userPassword);
+            if(!binding.rbUserTutor.isChecked()){
+                toastMessageLong("Error!! Choose What Suits You");
+            }else{
+                signupTutor(userEmail,userPassword);
+            }
         }
     }
 
     //S I G N    U P    M E T H O D
-    private void signupUser(String userEmail, String userPassword) {
+    private void signupTutor(String userEmail, String userPassword) {
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(!task.isSuccessful()){
                     toastMessageShort("Sign up Error !! Try Again");
                 }else{
-                    firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                toastMessageShort("Regeistered Successfully!");
-                                toastMessageLong("Please check your email for verification.");
-                                nullifyAllFields();
-                            }
-                        }
-                    });
+                    toastMessageShort("Registered Successfully!");
+                    firebaseUser = firebaseAuth.getCurrentUser();
+                    Uid = firebaseUser.getUid();
+                    saveTutorData(Uid);
                 }
             }
         });
     }
 
-    private void nullifyAllFields() {
-        etFirstName.setText("");
-        etLastName.setText("");
-        etMobile.setText("");
-        etEmail.setText("");
-        etPassword.setText("");
-        etConfirmPass.setText("");
-        rgUserProfile.clearCheck();
+    private void saveTutorData(String Uid) {
+        addInputData(); //getting inputs from the user and putting it to a variable
+        newTutor = new TutorInformation(Uid, firstName,lastName, email, mobile, location, gender);
+        databaseTutorRef = database.getReference("Tutor");
+        databaseTutorRef.child(Uid).setValue(newTutor);
     }
 
+    private void addInputData() {
+        firstName = binding.etFirstName.getText().toString();
+        lastName = binding.etLastName.getText().toString();
+        email = binding.etEmail.getText().toString();
+        mobile = binding.etMobile.getText().toString();
+        location = binding.spnrLocation.getSelectedItem().toString();
+        gender = binding.spnrGender.getSelectedItem().toString();
+    }
+
+
+    /*private void signupUser(String userEmail, String userPassword) {
+        firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(!task.isSuccessful()){
+                    toastMessageShort("Sign up Error !! Try Again");
+                }else{
+                    toastMessageShort("Registered Successfully!");
+                    nullifyAllFields();
+                    Intent intent = new Intent(Signup.this,Login.class);
+                    startActivity(intent);
+                    finish();
+                    //email Verification Method
+                    *//*firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                toastMessageShort("Registered Successfully!");
+                                nullifyAllFields();
+                                Intent intent = new Intent(Signup.this,Login.class);
+                                startActivity(intent);
+                                finish();
+                                toastMessageLong("Please check your email for verification.");
+                            }
+                        }
+                    });*//*
+                }
+            }
+        });
+    }*/
+
+    private void nullifyAllFields() {
+        binding.etFirstName.setText("");
+        binding.etLastName.setText("");
+        binding.etMobile.setText("");
+        binding.etEmail.setText("");
+        binding.etPassword.setText("");
+        binding.etConfirmPassword.setText("");
+        binding.spnrGender.setAdapter(null);
+        binding.spnrLocation.setAdapter(null);
+        binding.rgUserProfile.clearCheck();
+    }
 
     //T O A S T    M E S S A G E
     private void toastMessageShort(String msg) {

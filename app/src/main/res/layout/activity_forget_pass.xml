@@ -10,6 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="We have sent a "/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnResetPass"
-            android:text="Reset Password"
-            android:onClick="btnResetPassClicked"
+            android:text="Send Email"
+            android:onClick="btnSendEmailClicked"
             android:layout_gravity="center"/>
     </LinearLayout>
 
