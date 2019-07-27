@@ -24,6 +24,34 @@ public class TutorInformation {
         this.gender = gender;
     }
 
+    public void setUid(String uid) {
+        Uid = uid;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getUid() {
         return Uid;
     }

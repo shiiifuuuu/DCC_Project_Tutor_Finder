@@ -74,7 +74,7 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
     }
     public void tvSignupClicked(View view) {
-        Intent intent = new Intent(Login.this, Signup.class);
+        Intent intent = new Intent(Login.this, SignUp.class);
         startActivity(intent);
     }
 
@@ -87,13 +87,13 @@ public class Login extends AppCompatActivity {
                     toastMessageShort("Sign In ERROR!!");
                     toastMessageLong("Check your email or password again.");
                 }else{
-                    if(firebaseUser.isEmailVerified()){
-                        Intent intent = new Intent(Login.this, MainActivity.class);
+                    /*if(firebaseUser.isEmailVerified()){*/
+                        Intent intent = new Intent(Login.this, TutorHome.class);
                         startActivity(intent);
                         finish();
-                    }else{
+                    /*}else{
                         toastMessageLong("Please verify your email first");
-                    }
+                    }*/
                 }
             }
         });

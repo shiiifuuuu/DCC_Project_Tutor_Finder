@@ -16,26 +16,27 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.databinding.ActivitySignupBinding;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
-public class Signup extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
 
     private ActivitySignupBinding binding;
 
-    private String firstName, lastName, email, mobile, gender, location;
-    private String userEmail, userPassword, Uid;
+    private String firstName, lastName, email, mobile, gender, location, Uid;
+    private String userEmail, userPassword;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
     private DatabaseReference databaseTutorRef;
     private DatabaseReference databaseStudentRef;
-
-    private TutorInformation newTutor;
 
     private AwesomeValidation mAwesomeValidation;
 
@@ -75,8 +76,12 @@ public class Signup extends AppCompatActivity {
         if(mAwesomeValidation.validate()){
             if(!binding.rbUserTutor.isChecked()){
                 toastMessageLong("Error!! Choose What Suits You");
-            }else{
+            }else if(binding.rbUserTutor.isChecked()){
                 signupTutor(userEmail,userPassword);
+            }else if(!binding.rbUserStudent.isChecked()){
+                toastMessageLong("Error!! Choose What Suits You");
+            }else if(binding.rbUserStudent.isChecked()){
+                signupStudent(userEmail,userPassword);
             }
         }
     }
@@ -89,23 +94,31 @@ public class Signup extends AppCompatActivity {
                 if(!task.isSuccessful()){
                     toastMessageShort("Sign up Error !! Try Again");
                 }else{
-                    toastMessageShort("Registered Successfully!");
                     firebaseUser = firebaseAuth.getCurrentUser();
                     Uid = firebaseUser.getUid();
-                    saveTutorData(Uid);
+                    writeTutorData(Uid);
+                    nullifyAllFields();
+                    Intent intent = new Intent(SignUp.this,Login.class);
+                    startActivity(intent);
+                    finish();
+                    toastMessageShort("Registered Successfully!");
                 }
             }
         });
     }
+    private void signupStudent(String userEmail, String userPassword) {
+    }
 
-    private void saveTutorData(String Uid) {
-        addInputData(); //getting inputs from the user and putting it to a variable
-        newTutor = new TutorInformation(Uid, firstName,lastName, email, mobile, location, gender);
+    //W R I T I N G   D A T A    O N    D A T A B A S E
+    private void writeTutorData(String Uid) {
+        initInputData();
+        TutorInformation newTutor = new TutorInformation(Uid, firstName,lastName, email, mobile, location, gender);
         databaseTutorRef = database.getReference("Tutor");
         databaseTutorRef.child(Uid).setValue(newTutor);
     }
 
-    private void addInputData() {
+    ////getting inputs from the user and putting it to a variable to simply create a new tutor
+    private void initInputData() {
         firstName = binding.etFirstName.getText().toString();
         lastName = binding.etLastName.getText().toString();
         email = binding.etEmail.getText().toString();
@@ -113,7 +126,6 @@ public class Signup extends AppCompatActivity {
         location = binding.spnrLocation.getSelectedItem().toString();
         gender = binding.spnrGender.getSelectedItem().toString();
     }
-
 
     /*private void signupUser(String userEmail, String userPassword) {
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -124,7 +136,7 @@ public class Signup extends AppCompatActivity {
                 }else{
                     toastMessageShort("Registered Successfully!");
                     nullifyAllFields();
-                    Intent intent = new Intent(Signup.this,Login.class);
+                    Intent intent = new Intent(SignUp.this,Login.class);
                     startActivity(intent);
                     finish();
                     //email Verification Method
@@ -134,7 +146,7 @@ public class Signup extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 toastMessageShort("Registered Successfully!");
                                 nullifyAllFields();
-                                Intent intent = new Intent(Signup.this,Login.class);
+                                Intent intent = new Intent(SignUp.this,Login.class);
                                 startActivity(intent);
                                 finish();
                                 toastMessageLong("Please check your email for verification.");
@@ -146,6 +158,7 @@ public class Signup extends AppCompatActivity {
         });
     }*/
 
+    //N U L L I F Y I N G    A L L    F I E L D S   AFTER REGISTRATION SUCCESSFUL
     private void nullifyAllFields() {
         binding.etFirstName.setText("");
         binding.etLastName.setText("");
