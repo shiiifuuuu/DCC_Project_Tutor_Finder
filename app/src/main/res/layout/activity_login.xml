@@ -10,10 +10,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tutor Finder"
+            android:textStyle="bold"
+            android:textColor="#ACA03B"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:layout_marginBottom="10sp"/>
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/search"/>
+            android:layout_width="240sp"
+            android:layout_height="240sp"
+            android:src="@drawable/search" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,17 +30,19 @@
             android:orientation="vertical">
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
                 android:id="@+id/etEmail"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
+                android:textSize="20sp"
                 android:drawableLeft="@drawable/ic_email_black_24dp"
                 android:drawablePadding="10sp"/>
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
                 android:id="@+id/etPassword"
                 android:hint="Password"
+                android:textSize="20sp"
                 android:inputType="textPassword"
                 android:drawableLeft="@drawable/ic_lock_black_24dp"
                 android:drawablePadding="10sp"/>
@@ -42,25 +53,28 @@
             android:orientation="horizontal"
             android:layout_marginTop="10dp">
             <TextView
-                android:layout_weight=".6"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvForgetPass"
                 android:text="Forget Password?"
-                android:textColor="@color/yellow"
+                android:textColor="#879606"
                 android:textStyle="italic"
                 android:onClick="tvForgetPassClicked"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="5dp"
+                android:padding="10sp"
+                android:textSize="16sp"/>
 
             <Button
                 android:id="@+id/btnLogin"
-                android:layout_weight=".4"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Login"
                 android:layout_marginRight="5dp"
                 android:textAllCaps="false"
-
+                android:padding="20sp"
+                android:background="#46DF4E"
                 android:onClick="btnLoginClicked"/>
         </LinearLayout>
 
@@ -68,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Don't Have and Account?"
+            android:textSize="16sp"
             android:textColor="@color/red"
             android:gravity="center"
             android:layout_marginTop="60dp"/>
@@ -77,7 +92,10 @@
             android:id="@+id/tvSignup"
             android:gravity="center"
             android:text="Sign Up Here"
-            android:textColor="@color/skyBlue"
+            android:textStyle="bold"
+            android:padding="20sp"
+            android:textSize="20sp"
+            android:textColor="#05A80C"
             android:onClick="tvSignupClicked"/>
     </LinearLayout>
 
