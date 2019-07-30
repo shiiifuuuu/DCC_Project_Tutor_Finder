@@ -2,6 +2,7 @@ package com.teamocta.dcc_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,29 +12,30 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.teamocta.dcc_project.databinding.ActivityForgetPassBinding;
 
 public class ForgetPass extends AppCompatActivity {
 
-    private EditText etEmail;
+    private ActivityForgetPassBinding binding;
+
     private String userEmail;
 
-    FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_pass);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_forget_pass);
 
         init();
     }
 
     private void init() {
-        etEmail = findViewById(R.id.etEmail);
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
     public void btnSendEmailClicked(View view) {
-        userEmail=etEmail.getText().toString();
+        userEmail=binding.etEmail.getText().toString();
         if(userEmail.equals("")){
             toastMessageShort("Field Empty!!");
         }else{

@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ForgetPass"
-    android:gravity="center">
-
-    <LinearLayout
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
+        android:layout_height="match_parent"
+        tools:context=".ForgetPass"
+        android:gravity="center">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="We have sent a "/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/etEmail"
-            android:hint="Enter your email"
-            android:gravity="center"
-            android:layout_marginBottom="10sp"/>
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter your VERIFIED EMAIL here for Resetting your Password"
+                android:gravity="center"
+                android:layout_marginBottom="80sp"
+                android:textSize="24sp"
+                android:textColor="#0C89C2"
+                android:padding="10sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="80sp"
+                android:id="@+id/etEmail"
+                android:hint="Enter your email"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:padding="10sp"
+                android:layout_marginBottom="10sp"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnResetPass"
-            android:text="Send Email"
-            android:onClick="btnSendEmailClicked"
-            android:layout_gravity="center"/>
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnResetPass"
+                android:text="Send Email"
+                android:padding="24sp"
+                android:background="#FFEB3B"
+                android:onClick="btnSendEmailClicked"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

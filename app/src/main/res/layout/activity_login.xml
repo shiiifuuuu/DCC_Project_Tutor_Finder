@@ -1,102 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Login">
-
-    <LinearLayout
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tutor Finder"
-            android:textStyle="bold"
-            android:textColor="#ACA03B"
-            android:gravity="center"
-            android:textSize="40sp"
-            android:layout_marginBottom="10sp"/>
-        <ImageView
-            android:layout_width="240sp"
-            android:layout_height="240sp"
-            android:src="@drawable/search" />
+        tools:context=".Login">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:id="@+id/etEmail"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:textSize="20sp"
-                android:drawableLeft="@drawable/ic_email_black_24dp"
-                android:drawablePadding="10sp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:id="@+id/etPassword"
-                android:hint="Password"
-                android:textSize="20sp"
-                android:inputType="textPassword"
-                android:drawableLeft="@drawable/ic_lock_black_24dp"
-                android:drawablePadding="10sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvForgetPass"
-                android:text="Forget Password?"
-                android:textColor="#879606"
-                android:textStyle="italic"
-                android:onClick="tvForgetPassClicked"
-                android:layout_marginLeft="5dp"
-                android:padding="10sp"
-                android:textSize="16sp"/>
+                android:text="Tutor Finder"
+                android:textStyle="bold"
+                android:textColor="#ACA03B"
+                android:gravity="center"
+                android:textSize="40sp"
+                android:layout_marginBottom="10sp"/>
+            <ImageView
+                android:layout_width="240sp"
+                android:layout_height="240sp"
+                android:src="@drawable/search" />
 
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_weight="1"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:layout_marginRight="5dp"
-                android:textAllCaps="false"
+                android:orientation="vertical">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:id="@+id/etEmail"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:textSize="20sp"
+                    android:drawableLeft="@drawable/ic_email_black_24dp"
+                    android:drawablePadding="10sp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:id="@+id/etPassword"
+                    android:hint="Password"
+                    android:textSize="20sp"
+                    android:inputType="textPassword"
+                    android:drawableLeft="@drawable/ic_lock_black_24dp"
+                    android:drawablePadding="10sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvForgetPass"
+                    android:text="Forget Password?"
+                    android:textColor="#879606"
+                    android:textStyle="italic"
+                    android:onClick="tvForgetPassClicked"
+                    android:layout_marginLeft="5dp"
+                    android:padding="10sp"
+                    android:textSize="16sp"/>
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Login"
+                    android:layout_marginRight="5dp"
+                    android:textAllCaps="false"
+                    android:padding="20sp"
+                    android:background="#46DF4E"
+                    android:onClick="btnLoginClicked"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Don't Have and Account?"
+                android:textSize="16sp"
+                android:textColor="@color/red"
+                android:gravity="center"
+                android:layout_marginTop="60dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSignup"
+                android:gravity="center"
+                android:text="Sign Up Here"
+                android:textStyle="bold"
                 android:padding="20sp"
-                android:background="#46DF4E"
-                android:onClick="btnLoginClicked"/>
+                android:textSize="20sp"
+                android:textColor="#05A80C"
+                android:onClick="tvSignUpClicked"/>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Don't Have and Account?"
-            android:textSize="16sp"
-            android:textColor="@color/red"
-            android:gravity="center"
-            android:layout_marginTop="60dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvSignup"
-            android:gravity="center"
-            android:text="Sign Up Here"
-            android:textStyle="bold"
-            android:padding="20sp"
-            android:textSize="20sp"
-            android:textColor="#05A80C"
-            android:onClick="tvSignupClicked"/>
-    </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

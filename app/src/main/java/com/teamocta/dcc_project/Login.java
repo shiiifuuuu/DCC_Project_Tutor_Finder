@@ -2,6 +2,7 @@ package com.teamocta.dcc_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,17 +10,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.teamocta.dcc_project.databinding.ActivityLoginBinding;
 
 public class Login extends AppCompatActivity {
 
-    //V A R I A B L E S
-    private EditText etEmail;
-    private EditText etPassword;
+    private ActivityLoginBinding binding;
 
     private String userEmail, userPassword;
 
@@ -29,7 +31,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
         init();
     }
@@ -51,17 +53,14 @@ public class Login extends AppCompatActivity {
 
     //I N I T I A L I Z I N G    A L L    I D S
     private void init() {
-        etEmail=findViewById(R.id.etEmail);
-        etPassword=findViewById(R.id.etPassword);
-
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
     }
 
     //O N     C L I C K
     public void btnLoginClicked(View view) {
-        userEmail=etEmail.getText().toString();
-        userPassword=etPassword.getText().toString();
+        userEmail=binding.etEmail.getText().toString();
+        userPassword=binding.etPassword.getText().toString();
 
         if(userEmail.equals("") || userPassword.equals("")){
             toastMessageShort("Fields Empty!");
@@ -73,7 +72,7 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent(Login.this, ForgetPass.class);
         startActivity(intent);
     }
-    public void tvSignupClicked(View view) {
+    public void tvSignUpClicked(View view) {
         Intent intent = new Intent(Login.this, SignUp.class);
         startActivity(intent);
     }
