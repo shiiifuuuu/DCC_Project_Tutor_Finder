@@ -16,7 +16,8 @@
             android:label="Reset Password Activity"></activity>
         <activity
             android:name=".SignUp"
-            android:label="Signup Activity">
+            android:label="Signup Activity"
+            android:theme="@style/NoActionBar">
 
         </activity>
         <activity

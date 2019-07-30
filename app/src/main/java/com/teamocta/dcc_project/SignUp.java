@@ -16,11 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.databinding.ActivitySignupBinding;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
@@ -69,7 +66,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     //O N    C L I C K
-    public void btnSignupClicked(View view) {
+    public void btnSignUpClicked(View view) {
         userEmail=binding.etEmail.getText().toString();
         userPassword=binding.etPassword.getText().toString();
 
@@ -77,17 +74,17 @@ public class SignUp extends AppCompatActivity {
             if(!binding.rbUserTutor.isChecked()){
                 toastMessageLong("Error!! Choose What Suits You");
             }else if(binding.rbUserTutor.isChecked()){
-                signupTutor(userEmail,userPassword);
+                signUpTutor(userEmail,userPassword);
             }else if(!binding.rbUserStudent.isChecked()){
                 toastMessageLong("Error!! Choose What Suits You");
             }else if(binding.rbUserStudent.isChecked()){
-                signupStudent(userEmail,userPassword);
+                signUpStudent(userEmail,userPassword);
             }
         }
     }
 
     //S I G N    U P    M E T H O D
-    private void signupTutor(String userEmail, String userPassword) {
+    private void signUpTutor(String userEmail, String userPassword) {
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -106,7 +103,7 @@ public class SignUp extends AppCompatActivity {
             }
         });
     }
-    private void signupStudent(String userEmail, String userPassword) {
+    private void signUpStudent(String userEmail, String userPassword) {
     }
 
     //W R I T I N G   D A T A    O N    D A T A B A S E
