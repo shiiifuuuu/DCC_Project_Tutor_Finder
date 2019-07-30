@@ -1,11 +1,15 @@
 package com.teamocta.dcc_project;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,6 +21,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.databinding.ActivityLoginBinding;
 
 public class Login extends AppCompatActivity {
@@ -25,8 +36,13 @@ public class Login extends AppCompatActivity {
 
     private String userEmail, userPassword;
 
+    private String studentUid, tutorUid;
+
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private FirebaseDatabase database;
+
+    private DatabaseReference studentRef, tutorRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +71,10 @@ public class Login extends AppCompatActivity {
     private void init() {
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
+        database=FirebaseDatabase.getInstance();
+
+        studentRef = database.getReference().child("Student");
+        tutorRef = database.getReference().child("Tutor");
     }
 
     //O N     C L I C K
@@ -87,9 +107,10 @@ public class Login extends AppCompatActivity {
                     toastMessageLong("Check your email or password again.");
                 }else{
                     /*if(firebaseUser.isEmailVerified()){*/
-                        Intent intent = new Intent(Login.this, TutorHome.class);
-                        startActivity(intent);
-                        finish();
+                    Intent intent = new Intent(Login.this, TutorHome.class);
+                    startActivity(intent);
+                    finish();
+                    //new MyAsyncTask().execute();
                     /*}else{
                         toastMessageLong("Please verify your email first");
                     }*/
@@ -97,6 +118,66 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+    /*private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        public MyAsyncTask() {
+        }
+
+        @Override
+        protected synchronized Void doInBackground(Void... args) {
+            getUserEmailUid();
+            return null;
+        }
+        @Override
+        protected synchronized void onPostExecute(Void result) {
+            gotoSpecificIntent();
+        }
+    }*/
+
+    /*private void getUserEmailUid() {
+        studentRef.orderByChild("email").equalTo(userEmail).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot email: dataSnapshot.getChildren()){
+                    studentUid = email.getKey();
+                    toastMessageShort("Student Profile Found");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
+
+        /*
+        tutorRef.orderByChild("email").equalTo(userEmail).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot email: dataSnapshot.getChildren()){
+                    tutorUid = email.getKey();
+                    toastMessageShort("Tutor Profile Found");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }*/
+    /*private void gotoSpecificIntent() {
+        if(studentUid != null){
+            Intent intent = new Intent(Login.this, StudentHome.class);
+            startActivity(intent);
+            finish();
+        }
+        else{
+            Intent intent = new Intent(Login.this, TutorHome.class);
+            startActivity(intent);
+            finish();
+        }
+    }*/
+
 
     //T O A S T    M E S S A G E
     private void toastMessageShort(String msg) {

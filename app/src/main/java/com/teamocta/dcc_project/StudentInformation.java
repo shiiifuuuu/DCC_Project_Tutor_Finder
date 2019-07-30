@@ -5,7 +5,6 @@ public class StudentInformation {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private String mobile;
     private String location;
     private String gender;
@@ -16,18 +15,14 @@ public class StudentInformation {
     public StudentInformation() {
     }
 
-    public StudentInformation(String uid, String firstName, String lastName, String email, String mobile, String location, String gender, String classNo, String dept) {
-        Uid = uid;
+    public StudentInformation(String Uid, String firstName, String lastName, String email, String mobile, String location, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.mobile = mobile;
         this.location = location;
         this.gender = gender;
-        this.classNo = classNo;
-        this.dept = dept;
     }
-
     public String getUid() {
         return Uid;
     }

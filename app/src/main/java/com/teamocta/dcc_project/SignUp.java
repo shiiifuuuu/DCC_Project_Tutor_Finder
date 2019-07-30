@@ -70,20 +70,18 @@ public class SignUp extends AppCompatActivity {
         userEmail=binding.etEmail.getText().toString();
         userPassword=binding.etPassword.getText().toString();
 
-        if(mAwesomeValidation.validate()){
-            if(!binding.rbUserTutor.isChecked()){
-                toastMessageLong("Error!! Choose What Suits You");
-            }else if(binding.rbUserTutor.isChecked()){
+        if(mAwesomeValidation.validate() && (binding.rbUserStudent.isChecked() || binding.rbUserTutor.isChecked())){
+            if(binding.rbUserTutor.isChecked()){
                 signUpTutor(userEmail,userPassword);
-            }else if(!binding.rbUserStudent.isChecked()){
-                toastMessageLong("Error!! Choose What Suits You");
             }else if(binding.rbUserStudent.isChecked()){
                 signUpStudent(userEmail,userPassword);
             }
+        }else{
+            toastMessageLong("Must Check one REGISTER button");
         }
     }
 
-    //S I G N    U P    M E T H O D
+    //S I G N    U P    M E T H O D -> TUTOR
     private void signUpTutor(String userEmail, String userPassword) {
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -98,20 +96,45 @@ public class SignUp extends AppCompatActivity {
                     Intent intent = new Intent(SignUp.this,Login.class);
                     startActivity(intent);
                     finish();
-                    toastMessageShort("Registered Successfully!");
+                    toastMessageShort("Registered Successfully as a Tutor!");
                 }
             }
         });
     }
+    //S I G N    U P    M E T H O D -> STUDENT
     private void signUpStudent(String userEmail, String userPassword) {
+        firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(!task.isSuccessful()){
+                    toastMessageShort("Sign up Error !! Try Again");
+                }else{
+                    firebaseUser = firebaseAuth.getCurrentUser();
+                    Uid = firebaseUser.getUid();
+                    writeStudentData(Uid);
+                    nullifyAllFields();
+                    Intent intent = new Intent(SignUp.this,Login.class);
+                    startActivity(intent);
+                    finish();
+                    toastMessageShort("Registered Successfully as a Student!");
+                }
+            }
+        });
     }
 
-    //W R I T I N G   D A T A    O N    D A T A B A S E
+    //W R I T I N G   D A T A    O N    D A T A B A S E -> TUTOR
     private void writeTutorData(String Uid) {
         initInputData();
         TutorInformation newTutor = new TutorInformation(Uid, firstName,lastName, email, mobile, location, gender);
         databaseTutorRef = database.getReference("Tutor");
         databaseTutorRef.child(Uid).setValue(newTutor);
+    }
+    //W R I T I N G   D A T A    O N    D A T A B A S E -> STUDENT
+    private void writeStudentData(String Uid) {
+        initInputData();
+        StudentInformation newStudent = new StudentInformation(Uid, firstName,lastName, email, mobile, location, gender);
+        databaseStudentRef = database.getReference("Student");
+        databaseStudentRef.child(Uid).setValue(newStudent);
     }
 
     ////getting inputs from the user and putting it to a variable to simply create a new tutor

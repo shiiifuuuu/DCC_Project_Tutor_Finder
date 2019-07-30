@@ -9,22 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TutorHome"
-            android:label="Tutor Home Activity"></activity>
+        <activity android:name=".StudentHome"></activity>
+        <activity
+            android:name=".TutorHome"
+            android:label="Tutor Home Activity" />
         <activity
             android:name=".ForgetPass"
-            android:label="Reset Password Activity"></activity>
+            android:label="Reset Password Activity" />
         <activity
             android:name=".SignUp"
             android:label="Signup Activity"
-            android:theme="@style/NoActionBar">
-
-        </activity>
+            android:theme="@style/NoActionBar"></activity>
         <activity
             android:name=".Login"
             android:label="Login Activity"
-            android:theme="@style/NoActionBar">
-        </activity>
+            android:theme="@style/NoActionBar"></activity>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/NoActionBar">

@@ -5,7 +5,6 @@ public class TutorInformation {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private String mobile;
     private String location;
     private String gender;
@@ -24,6 +23,8 @@ public class TutorInformation {
         this.gender = gender;
     }
 
+
+    //SETTERS
     public void setUid(String uid) {
         Uid = uid;
     }
@@ -52,6 +53,8 @@ public class TutorInformation {
         this.gender = gender;
     }
 
+
+    //GETTERS
     public String getUid() {
         return Uid;
     }
@@ -67,7 +70,6 @@ public class TutorInformation {
     public String getEmail() {
         return email;
     }
-
 
     public String getMobile() {
         return mobile;
