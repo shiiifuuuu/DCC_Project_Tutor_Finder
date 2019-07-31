@@ -15,8 +15,7 @@
             android:background="#FFEB3B"
             android:textSize="24sp"
             android:textColor="#000"
-            android:textStyle="bold"/>
-
+            android:textStyle="bold" />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -130,19 +129,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:padding="10sp">
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Register as a :"
+                        android:layout_weight="1"
+                        android:text="Register as :"
                         android:textSize="20sp"
-                        android:textStyle="italic"
+                        android:textColor="#A88A2F"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10sp"/>
                     <RadioGroup
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:id="@+id/rgUserProfile"
                         android:orientation="vertical"
                         android:layout_gravity="center">
@@ -152,9 +153,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/rbUserTutor"
                             android:text="Tutor"
+                            android:textStyle="bold"
                             android:textSize="20sp"
-                            android:background="#3EE647"
-                            android:paddingRight="5sp"
                             android:layout_margin="1sp"
                             android:textColor="#000"/>
                         <RadioButton
@@ -163,14 +163,12 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/rbUserStudent"
                             android:text="Student"
+                            android:textStyle="bold"
                             android:textSize="20sp"
                             android:layout_margin="1sp"
-                            android:paddingRight="5sp"
-                            android:background="#33B5F0"
-                            android:textColor="#FFF"/>
+                            android:textColor="#000"/>
                     </RadioGroup>
                 </LinearLayout>
-
                 <Button
                     android:id="@+id/btnSignup"
                     android:layout_width="match_parent"
@@ -181,8 +179,20 @@
                     android:textAllCaps="false"
                     android:textSize="24sp"
                     android:textStyle="bold" />
-            </LinearLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtBack"
+                    android:text="Back to login"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_marginTop="40sp"
+                    android:padding="15sp"
+                    android:onClick="btnBackClicked"/>
+            </LinearLayout>
         </ScrollView>
 
     </RelativeLayout>

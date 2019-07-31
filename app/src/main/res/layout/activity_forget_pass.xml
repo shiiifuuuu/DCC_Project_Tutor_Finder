@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="match_parent"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:fillViewport="true">
-        <RelativeLayout
-            xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent">
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ForgetPass"
-            android:gravity="center">
-
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:id="@+id/LineraLayout"
+                android:layout_centerVertical="true">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -35,7 +33,6 @@
                     android:gravity="center"
                     android:padding="10sp"
                     android:layout_marginBottom="10sp"/>
-
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -45,9 +42,19 @@
                     android:background="#FFEB3B"
                     android:onClick="btnSendEmailClicked"
                     android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtBack"
+                    android:text="Back to login"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_marginTop="40sp"
+                    android:onClick="btnBackClicked"/>
             </LinearLayout>
-
-        </RelativeLayout>
-    </ScrollView>
+        </ScrollView>
+    </RelativeLayout>
 
 </layout>

@@ -191,6 +191,10 @@ public class SignUp extends AppCompatActivity {
         binding.rgUserProfile.clearCheck();
     }
 
+    public void btnBackClicked(View view) {
+        onBackPressed();
+    }
+
     //T O A S T    M E S S A G E
     private void toastMessageShort(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

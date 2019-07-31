@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -10,110 +11,91 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center">
+            android:layout_gravity="center">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tutor Finder"
-                android:textStyle="bold"
-                android:textColor="#ACA03B"
-                android:gravity="center"
-                android:textSize="40sp"
                 android:layout_marginBottom="10sp"
-                android:paddingTop="10sp"/>
+                android:gravity="center"
+                android:paddingTop="10sp"
+                android:text="Tutor Finder"
+                android:textColor="#08C510"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
             <ImageView
-                android:layout_width="240sp"
-                android:layout_height="240sp"
-                android:src="@drawable/search" />
+                android:layout_width="200sp"
+                android:layout_height="200sp"
+                android:src="@drawable/search"
+                android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <EditText
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="60sp"
-                    android:id="@+id/etEmail"
+                    android:drawableStart="@drawable/ic_email_black_24dp"
+                    android:drawablePadding="10sp"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
-                    android:textSize="20sp"
-                    android:drawableStart="@drawable/ic_email_black_24dp"
-                    android:drawablePadding="10sp" />
+                    android:textSize="20sp" />
+
                 <EditText
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="60sp"
-                    android:id="@+id/etPassword"
-                    android:hint="Password"
-                    android:textSize="20sp"
-                    android:inputType="textPassword"
                     android:drawableStart="@drawable/ic_lock_black_24dp"
-                    android:drawablePadding="10sp" />
-            </LinearLayout>
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="10sp"
-                android:padding="5sp">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Student"/>
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Tutor"/>
-            </RadioGroup>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvForgetPass"
-                    android:text="Forget Password?"
-                    android:textColor="#879606"
-                    android:textStyle="italic"
-                    android:onClick="tvForgetPassClicked"
-                    android:layout_marginStart="5dp"
-                    android:padding="10sp"
-                    android:textSize="16sp"/>
-
-                <Button
-                    android:id="@+id/btnLogin"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Login"
-                    android:layout_marginEnd="5dp"
-                    android:textAllCaps="false"
-                    android:padding="20sp"
-                    android:background="#46DF4E"
-                    android:onClick="btnLoginClicked"/>
+                    android:drawablePadding="10sp"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:textSize="20sp" />
             </LinearLayout>
 
-            <TextView
+            <Button
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Don't Have and Account?"
-                android:textSize="16sp"
-                android:textColor="@color/red"
-                android:gravity="center"
-                android:layout_marginTop="60dp"/>
-            <TextView
-                android:layout_width="wrap_content"
+                android:background="#289DFA"
+                android:onClick="btnLoginClicked"
+                android:padding="15sp"
+                android:layout_margin="5sp"
+                android:text="Log In"
+                android:textColor="#FFF"
+                android:textSize="24sp"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvSignup"
-                android:gravity="center"
-                android:text="Sign Up Here"
-                android:textStyle="bold"
-                android:padding="20sp"
+                android:background="#51DA56"
+                android:onClick="btnSignUpClicked"
+                android:padding="15sp"
+                android:layout_margin="5sp"
+                android:text="Create New Account"
+                android:textColor="#FFF"
                 android:textSize="20sp"
-                android:textColor="#05A80C"
-                android:onClick="tvSignUpClicked"/>
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/tvForgetPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="tvForgetPassClicked"
+                android:padding="10sp"
+                android:text="Forget Password?"
+                android:textColor="#070707"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
     </ScrollView>

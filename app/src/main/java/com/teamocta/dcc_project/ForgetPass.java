@@ -52,6 +52,10 @@ public class ForgetPass extends AppCompatActivity {
         }
     }
 
+    public void btnBackClicked(View view) {
+        onBackPressed();
+    }
+
     //T O A S T    M E S S A G E
     private void toastMessageShort(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -59,5 +63,4 @@ public class ForgetPass extends AppCompatActivity {
     private void toastMessageLong(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-
 }
