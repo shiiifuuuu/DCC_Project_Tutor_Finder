@@ -22,7 +22,7 @@ import com.teamocta.dcc_project.databinding.ActivitySignupBinding;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
-public class SignUp extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     private ActivitySignupBinding binding;
 
@@ -93,7 +93,7 @@ public class SignUp extends AppCompatActivity {
                     Uid = firebaseUser.getUid();
                     writeTutorData(Uid);
                     nullifyAllFields();
-                    Intent intent = new Intent(SignUp.this,Login.class);
+                    Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                     startActivity(intent);
                     finish();
                     toastMessageShort("Registered Successfully as a Tutor!");
@@ -113,7 +113,7 @@ public class SignUp extends AppCompatActivity {
                     Uid = firebaseUser.getUid();
                     writeStudentData(Uid);
                     nullifyAllFields();
-                    Intent intent = new Intent(SignUp.this,Login.class);
+                    Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                     startActivity(intent);
                     finish();
                     toastMessageShort("Registered Successfully as a Student!");
@@ -156,7 +156,7 @@ public class SignUp extends AppCompatActivity {
                 }else{
                     toastMessageShort("Registered Successfully!");
                     nullifyAllFields();
-                    Intent intent = new Intent(SignUp.this,Login.class);
+                    Intent intent = new Intent(this,LoginActivity.class);
                     startActivity(intent);
                     finish();
                     //email Verification Method
@@ -166,7 +166,7 @@ public class SignUp extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 toastMessageShort("Registered Successfully!");
                                 nullifyAllFields();
-                                Intent intent = new Intent(SignUp.this,Login.class);
+                                Intent intent = new Intent(this,LoginActivity.class);
                                 startActivity(intent);
                                 finish();
                                 toastMessageLong("Please check your email for verification.");

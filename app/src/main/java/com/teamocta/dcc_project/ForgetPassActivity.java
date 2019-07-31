@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.teamocta.dcc_project.databinding.ActivityForgetPassBinding;
 
-public class ForgetPass extends AppCompatActivity {
+public class ForgetPassActivity extends AppCompatActivity {
 
     private ActivityForgetPassBinding binding;
 

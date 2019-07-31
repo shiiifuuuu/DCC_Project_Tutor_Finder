@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.teamocta.dcc_project.databinding.ActivityLoginBinding;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
 
@@ -77,11 +77,11 @@ public class Login extends AppCompatActivity {
         }
     }
     public void tvForgetPassClicked(View view) {
-        Intent intent = new Intent(Login.this, ForgetPass.class);
+        Intent intent = new Intent(this, ForgetPassActivity.class);
         startActivity(intent);
     }
     public void btnSignUpClicked(View view) {
-        Intent intent = new Intent(Login.this, SignUp.class);
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 
@@ -95,9 +95,9 @@ public class Login extends AppCompatActivity {
                     toastMessageLong("Check your email or password again.");
                 }else{
                     /*if(firebaseUser.isEmailVerified()){*/
-                    Intent intent = new Intent(Login.this, TutorHome.class);
+                    /*Intent intent = new Intent(this, TutorHome.class);
                     startActivity(intent);
-                    finish();
+                    finish();*/
                     //new MyAsyncTask().execute();
                     /*}else{
                         toastMessageLong("Please verify your email first");
@@ -155,12 +155,12 @@ public class Login extends AppCompatActivity {
     }*/
     /*private void gotoSpecificIntent() {
         if(studentUid != null){
-            Intent intent = new Intent(Login.this, StudentHome.class);
+            Intent intent = new Intent(this, StudentHome.class);
             startActivity(intent);
             finish();
         }
         else{
-            Intent intent = new Intent(Login.this, TutorHome.class);
+            Intent intent = new Intent(this, TutorHome.class);
             startActivity(intent);
             finish();
         }

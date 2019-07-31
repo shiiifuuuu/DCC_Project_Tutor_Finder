@@ -51,4 +51,8 @@
         <item>Vatara</item>
         <item>Wari</item>
     </array>
+    <string name="title_activity_student_home">StudentHomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
