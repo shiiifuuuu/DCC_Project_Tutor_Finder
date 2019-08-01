@@ -99,6 +99,8 @@ public class SignUpActivity extends AppCompatActivity {
     //W R I T I N G   D A T A    O N    D A T A B A S E -> TUTOR
     private void setDataTutor() {
 
+        initializeInputData();
+
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("ID", Uid);
         userMap.put("First Name", firstName);

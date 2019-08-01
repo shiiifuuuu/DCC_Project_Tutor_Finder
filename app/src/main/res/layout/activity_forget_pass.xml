@@ -53,6 +53,7 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_marginTop="40sp"
+                    android:padding="15sp"
                     android:onClick="btnBackClicked"/>
             </LinearLayout>
         </ScrollView>
