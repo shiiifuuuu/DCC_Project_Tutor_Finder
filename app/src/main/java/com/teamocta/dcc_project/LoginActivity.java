@@ -25,8 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
 
-    private String userEmail, userPassword, uid;
-
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
@@ -36,9 +34,6 @@ public class LoginActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
         init();
-        if(firebaseAuth.getCurrentUser() != null){
-
-        }
     }
 
     //I N I T I A L I Z I N G
@@ -49,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
 
     //O N     C L I C K
     public void btnLoginClicked(View view) {
-        userEmail=binding.etEmail.getText().toString();
-        userPassword=binding.etPassword.getText().toString();
+        String userEmail=binding.etEmail.getText().toString();
+        String userPassword=binding.etPassword.getText().toString();
 
         if(userEmail.equals("") || userPassword.equals("")){
             toastMessageShort("Doesn't match any account!");
@@ -84,17 +79,25 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //checking if the currentUser UID matches with Tutor or Student and then
+    //going according to that matching intent
     private void checkUser() {
-        uid = firebaseAuth.getCurrentUser().getUid();
+        String uid = firebaseAuth.getCurrentUser().getUid();
         DatabaseReference tutorReference = databaseReference.child("Tutor");
         tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){
-                    toastMessageShort("Tutor id found");
+                    //toastMessageShort("Tutor id found");
+                    startActivity(new Intent(LoginActivity.this, TutorHomeActivity.class));
+                    finish();
+                    toastMessageShort("Tutor Login Successful");
                 }
                 else{
-                    toastMessageShort("Student id found");
+                    //toastMessageShort("Student id found");
+                    startActivity(new Intent(LoginActivity.this, StudentHomeActivity.class));
+                    finish();
+                    toastMessageShort("Student Login Successful");
                 }
             }
 
