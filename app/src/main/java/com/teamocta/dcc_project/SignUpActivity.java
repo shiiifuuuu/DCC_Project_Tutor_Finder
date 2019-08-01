@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.teamocta.dcc_project.databinding.ActivitySignupBinding;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
@@ -30,10 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String userEmail, userPassword;
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-    private FirebaseDatabase database;
-    private DatabaseReference databaseTutorRef;
-    private DatabaseReference databaseStudentRef;
+    private DatabaseReference databaseReference;
 
     private AwesomeValidation mAwesomeValidation;
 
@@ -43,17 +44,14 @@ public class SignUpActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
         
         init();
-        validationCheck();
     }
 
     //I N I T I A L I Z I N G    A L L    I D S
     private void init() {
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference(); //database root reference
+
         mAwesomeValidation = new AwesomeValidation(BASIC);
-
-
     }
 
     //C H E C K I N G    I N P U T    V A L I D A T I O N
@@ -67,14 +65,14 @@ public class SignUpActivity extends AppCompatActivity {
 
     //O N    C L I C K
     public void btnSignUpClicked(View view) {
+        validationCheck();
         userEmail=binding.etEmail.getText().toString();
         userPassword=binding.etPassword.getText().toString();
-
         if(mAwesomeValidation.validate() && (binding.rbUserStudent.isChecked() || binding.rbUserTutor.isChecked())){
             if(binding.rbUserTutor.isChecked()){
                 signUpTutor(userEmail,userPassword);
             }else if(binding.rbUserStudent.isChecked()){
-                signUpStudent(userEmail,userPassword);
+               // signUpStudent(userEmail,userPassword);
             }
         }else{
             toastMessageLong("Must Check one REGISTER button");
@@ -86,109 +84,56 @@ public class SignUpActivity extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(!task.isSuccessful()){
-                    toastMessageShort("Sign up Error !! Try Again");
-                }else{
-                    firebaseUser = firebaseAuth.getCurrentUser();
-                    Uid = firebaseUser.getUid();
-                    writeTutorData(Uid);
-                    nullifyAllFields();
-                    Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
-                    startActivity(intent);
+                if(task.isSuccessful()){
+                    Uid = firebaseAuth.getCurrentUser().getUid();
+                    initializeInputData();
+                    writeTutorData();
+                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
                     finish();
-                    toastMessageShort("Registered Successfully as a Tutor!");
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                toastMessageLong(e.getMessage());
             }
         });
     }
+
     //S I G N    U P    M E T H O D -> STUDENT
     private void signUpStudent(String userEmail, String userPassword) {
-        firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(!task.isSuccessful()){
-                    toastMessageShort("Sign up Error !! Try Again");
-                }else{
-                    firebaseUser = firebaseAuth.getCurrentUser();
-                    Uid = firebaseUser.getUid();
-                    writeStudentData(Uid);
-                    nullifyAllFields();
-                    Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                    toastMessageShort("Registered Successfully as a Student!");
-                }
-            }
-        });
+
     }
 
     //W R I T I N G   D A T A    O N    D A T A B A S E -> TUTOR
-    private void writeTutorData(String Uid) {
-        initInputData();
-        TutorInformation newTutor = new TutorInformation(Uid, firstName,lastName, email, mobile, location, gender);
-        databaseTutorRef = database.getReference("Tutor");
-        databaseTutorRef.child(Uid).setValue(newTutor);
-    }
-    //W R I T I N G   D A T A    O N    D A T A B A S E -> STUDENT
-    private void writeStudentData(String Uid) {
-        initInputData();
-        StudentInformation newStudent = new StudentInformation(Uid, firstName,lastName, email, mobile, location, gender);
-        databaseStudentRef = database.getReference("Student");
-        databaseStudentRef.child(Uid).setValue(newStudent);
+    private void writeTutorData() {
+
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("First Name", firstName);
+        userMap.put("Last Name", lastName);
+        userMap.put("Email", email);
+        userMap.put("Mobile", mobile);
+        userMap.put("Location", location);
+        userMap.put("Gender", gender);
+
+        //databaseReference.setValue("My Message");
+        DatabaseReference tutorReference = databaseReference.child("Tutor");
+        tutorReference.child(Uid).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                toastMessageShort("Registered Successfully as a Tutor!");
+            }
+        });
     }
 
-    ////getting inputs from the user and putting it to a variable to simply create a new tutor
-    private void initInputData() {
+    //
+    private void initializeInputData() {
         firstName = binding.etFirstName.getText().toString();
         lastName = binding.etLastName.getText().toString();
         email = binding.etEmail.getText().toString();
         mobile = binding.etMobile.getText().toString();
         location = binding.spnrLocation.getSelectedItem().toString();
         gender = binding.spnrGender.getSelectedItem().toString();
-    }
-
-    /*private void signupUser(String userEmail, String userPassword) {
-        firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(!task.isSuccessful()){
-                    toastMessageShort("Sign up Error !! Try Again");
-                }else{
-                    toastMessageShort("Registered Successfully!");
-                    nullifyAllFields();
-                    Intent intent = new Intent(this,LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                    //email Verification Method
-                    *//*firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                toastMessageShort("Registered Successfully!");
-                                nullifyAllFields();
-                                Intent intent = new Intent(this,LoginActivity.class);
-                                startActivity(intent);
-                                finish();
-                                toastMessageLong("Please check your email for verification.");
-                            }
-                        }
-                    });*//*
-                }
-            }
-        });
-    }*/
-
-    //N U L L I F Y I N G    A L L    F I E L D S   AFTER REGISTRATION SUCCESSFUL
-    private void nullifyAllFields() {
-        binding.etFirstName.setText("");
-        binding.etLastName.setText("");
-        binding.etMobile.setText("");
-        binding.etEmail.setText("");
-        binding.etPassword.setText("");
-        binding.etConfirmPassword.setText("");
-        binding.spnrGender.setAdapter(null);
-        binding.spnrLocation.setAdapter(null);
-        binding.rgUserProfile.clearCheck();
     }
 
     public void btnBackClicked(View view) {
@@ -203,3 +148,17 @@ public class SignUpActivity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }
+//email Verification Method
+/*firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+@Override
+public void onComplete(@NonNull Task<Void> task) {
+        if(task.isSuccessful()){
+        toastMessageShort("Registered Successfully!");
+        nullifyAllFields();
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        finish();
+        toastMessageLong("Please check your email for verification.");
+        }
+        }
+        });*/
