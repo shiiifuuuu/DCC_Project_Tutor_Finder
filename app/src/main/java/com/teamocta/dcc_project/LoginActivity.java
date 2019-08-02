@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-
         init();
     }
 
@@ -88,13 +87,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){
-                    //toastMessageShort("Tutor id found");
                     startActivity(new Intent(LoginActivity.this, TutorHomeActivity.class));
                     finish();
                     toastMessageShort("Tutor Login Successful");
                 }
                 else{
-                    //toastMessageShort("Student id found");
                     startActivity(new Intent(LoginActivity.this, StudentHomeActivity.class));
                     finish();
                     toastMessageShort("Student Login Successful");
