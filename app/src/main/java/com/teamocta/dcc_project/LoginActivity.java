@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private void rememberUser() {
         if(firebaseAuth.getCurrentUser()!=null){
 
-            showAlertDialog("Loading..");
+            showAlertDialog("Loading your account..");
             String uid = firebaseAuth.getCurrentUser().getUid();
             DatabaseReference tutorReference = databaseReference.child("Tutor");
             tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    showAlertDialog("Signing In User..");
+                    showAlertDialog("Logging In..");
                     checkUser();
                 }
             }

@@ -67,7 +67,7 @@ public class TutorHomeActivity extends AppCompatActivity {
 
     private void logoutCurrentUser() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Log out from the app?").setCancelable(false)
+        builder.setMessage("Are you sure you want to log out?").setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
