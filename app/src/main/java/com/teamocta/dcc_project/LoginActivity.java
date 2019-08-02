@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences myPrefs;
     private static final String PREFS_NAME = "myPrefsFile";
-    private String currentUser;
+    private String saveUserProfileType = "";
 
     private ActivityLoginBinding binding;
     private AlertDialog alertDialog;
@@ -45,9 +45,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void rememberUser() {
         if(firebaseAuth.getCurrentUser()!=null){
-            toastMessageLong("Firebase user OK");
+            //toastMessageLong("Firebase user OK");
             loadPrefsFile();
-            if(currentUser.equals("tutor")){
+            if(saveUserProfileType.equals("tutor")){
                 showAlertDialog("Loading your account..");
                 Boolean userIsTutor = true;
                 Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
                 alertDialog.cancel();
                 toastMessageShort("Tutor Login Successful");
-            }else if(currentUser=="student"){
+            }else if(saveUserProfileType.equals("student")){
                 showAlertDialog("Loading your account..");
                 Boolean userIsStudent = true;
                 Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
@@ -65,36 +65,10 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
                 alertDialog.cancel();
                 toastMessageShort("Student Login Successful");
+            }else if(saveUserProfileType.equals("")){
+                //toastMessageLong("No data were saved");
+                firebaseAuth.signOut();
             }
-            /*showAlertDialog("Loading your account..");
-            String uid = firebaseAuth.getCurrentUser().getUid();
-            DatabaseReference tutorReference = databaseReference.child("Tutor");
-            tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.hasChildren()){
-                        Boolean userIsTutor = true;
-                        Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-                        intent.putExtra("userIsTutor", userIsTutor);
-                        startActivity(intent);
-                        finish();
-                        alertDialog.cancel();
-                        toastMessageShort("Tutor Login Successful");
-                    }
-                    else{
-                        Boolean userIsStudent = true;
-                        Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-                        intent.putExtra("userIsStudent", userIsStudent);
-                        startActivity(intent);
-                        finish();
-                        alertDialog.cancel();
-                        toastMessageShort("Student Login Successful");
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });*/
         }
     }
 
@@ -103,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         databaseReference =FirebaseDatabase.getInstance().getReference(); //database root reference
         myPrefs = getSharedPreferences(PREFS_NAME, 0);
-
     }
 
     //O N     C L I C K
@@ -134,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     if(firebaseAuth.getCurrentUser().isEmailVerified()){
                         showAlertDialog("Logging In..");
-                        checkUser();
+                        checkUserType();
                     }else{
                         toastMessageLong("Verify your email first.");
                     }
@@ -148,17 +121,21 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //checking if the currentUser UID matches with Tutor or Student and then
+    //checking if the logged in user Uid matches with Tutor or Student and then
     //going according to that matching intent
-    private void checkUser() {
+    private void checkUserType() {
         String uid = firebaseAuth.getCurrentUser().getUid();
         DatabaseReference tutorReference = databaseReference.child("Tutor");
         tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){
-                    currentUser = "tutor";
-                    savePrefsFile(currentUser);
+                    if(binding.cbRememberUser.isChecked()){
+                        saveUserProfileType = "tutor";
+                        savePrefsFile(saveUserProfileType);
+                    }else{
+                        myPrefs.edit().clear().commit();
+                    }
                     userIsTutor = true;
                     Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                     intent.putExtra("userIsTutor", userIsTutor);
@@ -168,8 +145,13 @@ public class LoginActivity extends AppCompatActivity {
                     toastMessageShort("Tutor Login Successful");
                 }
                 else{
-                    currentUser="student";
-                    savePrefsFile(currentUser);
+                    if(binding.cbRememberUser.isChecked()){
+                        saveUserProfileType ="student";
+                        savePrefsFile(saveUserProfileType);
+                    }
+                    else{
+                        myPrefs.edit().clear().commit();
+                    }
                     userIsStudent = true;
                     Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                     intent.putExtra("userIsStudent", userIsStudent);
@@ -191,12 +173,12 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = myPrefs.edit();
         editor.putString("USER", currentUser);
         editor.commit();
-        toastMessageLong(currentUser + " data saved");
+        //toastMessageLong(currentUser + " data saved");
     }
     private void loadPrefsFile(){
         if(myPrefs.contains("USER")){
-            currentUser = myPrefs.getString("USER", "");
-            toastMessageLong(currentUser + " data loaded");
+            saveUserProfileType = myPrefs.getString("USER", "");
+            //toastMessageLong(saveUserProfileType + " data loaded");
         }
     }
 
@@ -218,3 +200,32 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 }
+/*showAlertDialog("Loading your account..");
+            String uid = firebaseAuth.getCurrentUser().getUid();
+            DatabaseReference tutorReference = databaseReference.child("Tutor");
+            tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.hasChildren()){
+                        Boolean userIsTutor = true;
+                        Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+                        intent.putExtra("userIsTutor", userIsTutor);
+                        startActivity(intent);
+                        finish();
+                        alertDialog.cancel();
+                        toastMessageShort("Tutor Login Successful");
+                    }
+                    else{
+                        Boolean userIsStudent = true;
+                        Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+                        intent.putExtra("userIsStudent", userIsStudent);
+                        startActivity(intent);
+                        finish();
+                        alertDialog.cancel();
+                        toastMessageShort("Student Login Successful");
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });*/
