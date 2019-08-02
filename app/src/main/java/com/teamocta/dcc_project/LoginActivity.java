@@ -43,22 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private void rememberUser() {
         if(firebaseAuth.getCurrentUser()!=null){
             showAlertDialog("Loading your account..");
-            if(userIsStudent){
-                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-                intent.putExtra("userIsStudent", userIsStudent);
-                startActivity(intent);
-                finish();
-                alertDialog.cancel();
-                toastMessageShort("Student Login Successful");
-            }else if(userIsTutor){
-                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-                intent.putExtra("userIsTutor", userIsTutor);
-                startActivity(intent);
-                finish();
-                alertDialog.cancel();
-                toastMessageShort("Tutor Login Successful");
-            }
-            /*String uid = firebaseAuth.getCurrentUser().getUid();
+            String uid = firebaseAuth.getCurrentUser().getUid();
             DatabaseReference tutorReference = databaseReference.child("Tutor");
             tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -85,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-            });*/
+            });
         }
     }
 
