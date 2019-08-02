@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
 
     private AlertDialog alertDialog;
+    private Boolean userIsTutor, userIsStudent;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -41,9 +42,23 @@ public class LoginActivity extends AppCompatActivity {
 
     private void rememberUser() {
         if(firebaseAuth.getCurrentUser()!=null){
-
             showAlertDialog("Loading your account..");
-            String uid = firebaseAuth.getCurrentUser().getUid();
+            if(userIsStudent){
+                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+                intent.putExtra("userIsStudent", userIsStudent);
+                startActivity(intent);
+                finish();
+                alertDialog.cancel();
+                toastMessageShort("Student Login Successful");
+            }else if(userIsTutor){
+                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+                intent.putExtra("userIsTutor", userIsTutor);
+                startActivity(intent);
+                finish();
+                alertDialog.cancel();
+                toastMessageShort("Tutor Login Successful");
+            }
+            /*String uid = firebaseAuth.getCurrentUser().getUid();
             DatabaseReference tutorReference = databaseReference.child("Tutor");
             tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -70,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-            });
+            });*/
         }
     }
 
@@ -131,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){
-                    Boolean userIsTutor = true;
+                    userIsTutor = true;
                     Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                     intent.putExtra("userIsTutor", userIsTutor);
                     startActivity(intent);
@@ -140,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                     toastMessageShort("Tutor Login Successful");
                 }
                 else{
-                    Boolean userIsStudent = true;
+                    userIsStudent = true;
                     Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                     intent.putExtra("userIsStudent", userIsStudent);
                     startActivity(intent);
