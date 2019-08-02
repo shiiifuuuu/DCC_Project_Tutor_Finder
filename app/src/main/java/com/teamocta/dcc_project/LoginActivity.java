@@ -1,9 +1,11 @@
 package com.teamocta.dcc_project;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
 
+    private AlertDialog alertDialog;
+
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
@@ -33,6 +37,37 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         init();
+        rememberUser();
+    }
+
+    private void rememberUser() {
+        if(firebaseAuth.getCurrentUser()!=null){
+
+            showAlertDialog("Loading..");
+            String uid = firebaseAuth.getCurrentUser().getUid();
+            DatabaseReference tutorReference = databaseReference.child("Tutor");
+            tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.hasChildren()){
+                        startActivity(new Intent(LoginActivity.this, TutorHomeActivity.class));
+                        finish();
+                        alertDialog.cancel();
+                        toastMessageShort("Tutor Login Successful");
+                    }
+                    else{
+                        startActivity(new Intent(LoginActivity.this, StudentHomeActivity.class));
+                        finish();
+                        alertDialog.cancel();
+                        toastMessageShort("Student Login Successful");
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     //I N I T I A L I Z I N G
@@ -67,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    showAlertDialog("Signing In User..");
                     checkUser();
                 }
             }
@@ -89,11 +125,13 @@ public class LoginActivity extends AppCompatActivity {
                 if(dataSnapshot.hasChildren()){
                     startActivity(new Intent(LoginActivity.this, TutorHomeActivity.class));
                     finish();
+                    alertDialog.cancel();
                     toastMessageShort("Tutor Login Successful");
                 }
                 else{
                     startActivity(new Intent(LoginActivity.this, StudentHomeActivity.class));
                     finish();
+                    alertDialog.cancel();
                     toastMessageShort("Student Login Successful");
                 }
             }
@@ -103,6 +141,15 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    //P R E V E N T I N G    U S E R    F R O M    A C C E S S I N G    A C T I V I T Y
+    private void showAlertDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message).setCancelable(false);
+        alertDialog = builder.create();
+        alertDialog.show();
+        //Closing ALert Dialog use this (alertDialog.cancel();)
     }
 
     //T O A S T    M E S S A G E
