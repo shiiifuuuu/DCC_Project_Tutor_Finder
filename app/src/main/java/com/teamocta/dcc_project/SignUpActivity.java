@@ -1,6 +1,7 @@
 package com.teamocta.dcc_project;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -28,6 +29,7 @@ import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 public class SignUpActivity extends AppCompatActivity {
 
     private ActivitySignupBinding binding;
+    private AlertDialog alertDialog;
 
     private String firstName, lastName, email, mobile, gender, location, Uid;
 
@@ -69,11 +71,12 @@ public class SignUpActivity extends AppCompatActivity {
         if(mAwesomeValidation.validate()){
             if(binding.rbUserTutor.isChecked()){
                 signUpTutor(userEmail,userPassword);
-            }else if(binding.rbUserStudent.isChecked()){
-                signUpStudent(userEmail,userPassword);
             }
-        }else if(!(binding.rbUserStudent.isChecked() || binding.rbUserTutor.isChecked())){
-            toastMessageLong("Must Check any REGISTER button");
+            else if(binding.rbUserStudent.isChecked()){
+                signUpStudent(userEmail,userPassword);
+            }else if(!binding.rbUserTutor.isChecked() || !binding.rbUserStudent.isChecked()){
+                toastMessageLong("Check box emnpty!!");
+            }
         }
     }
 
@@ -83,10 +86,10 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    showAlertDialog("Signing Up...");
                     Uid = firebaseAuth.getCurrentUser().getUid();
                     setDataTutor();
-                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
-                    finish();
+                    sendVerificationEmail();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -126,20 +129,39 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    showAlertDialog("Signing Up...");
                     Uid = firebaseAuth.getCurrentUser().getUid();
-                    initializeInputData();
                     setDataStudent();
-                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
-                    finish();
+                    sendVerificationEmail();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                toastMessageLong(e.getMessage());
+                toastMessageLong("Sign Up failed: " + e.getMessage());
             }
         });
     }
+
+    private void sendVerificationEmail() {
+        firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                    finish();
+                    alertDialog.cancel();
+                    toastMessageLong("Please check your email for verification");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                toastMessageLong("Verification email send failure: " + e.getMessage());
+            }
+        });
+    }
+
     //W R I T I N G   D A T A    O N    D A T A B A S E -> STUDENT
     private void setDataStudent() {
 
@@ -184,6 +206,15 @@ public class SignUpActivity extends AppCompatActivity {
     }
     private void toastMessageLong(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    //P R E V E N T I N G    U S E R    F R O M    A C C E S S I N G    A C T I V I T Y
+    private void showAlertDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message).setCancelable(false);
+        alertDialog = builder.create();
+        alertDialog.show();
+        //Closing ALert Dialog use this (alertDialog.cancel();)
     }
 }
 //email Verification Method

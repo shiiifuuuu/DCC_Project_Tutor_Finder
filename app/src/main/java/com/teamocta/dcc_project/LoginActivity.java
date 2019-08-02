@@ -106,8 +106,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    showAlertDialog("Logging In..");
-                    checkUser();
+                    if(firebaseAuth.getCurrentUser().isEmailVerified()){
+                        showAlertDialog("Logging In..");
+                        checkUser();
+                    }else{
+                        toastMessageLong("Verify your email first.");
+                    }
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
