@@ -18,16 +18,16 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.MenuItem;
 
 public class TutorHomeActivity extends AppCompatActivity {
-    private ActivityTutorHomeBinding binding;
-
     private BottomNavigationView navView;
 
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_tutor_home);
+        setContentView(R.layout.activity_tutor_home);
         init();
+        replaceFragment(new ProfileFragment());
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
@@ -43,10 +43,13 @@ public class TutorHomeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
+                    replaceFragment(new ProfileFragment());
                     return true;
                 case R.id.navigation_search:
+                    replaceFragment(new SearchFragment());
                     return true;
                 case R.id.navigation_message:
+                    replaceFragment(new MessageFragment());
                     return true;
                 case R.id.navigation_logout:
                     logoutCurrentUser();
