@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "94076478194-4flsgi95tobl8ois07viv7je18kc2rt2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamocta.dcc_project",
+            "certificate_hash": "925d0038b4591fbd04a2bdacc695c3f2080922a0"
+          }
+        },
+        {
           "client_id": "94076478194-bkmooh8qr9ha91djlj8r32tbtdl5a70v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

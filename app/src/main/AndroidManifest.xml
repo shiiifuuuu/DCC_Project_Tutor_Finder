@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.teamocta.dcc_project">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,15 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".TutorHomeActivity"
-            android:label="@string/title_activity_tutor_home"
-            android:theme="@style/NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".StudentHomeActivity"
-            android:label="@string/title_activity_student_home" />
+        <activity android:name=".UserHomeActivity"></activity>
         <activity
             android:name=".ForgetPassActivity"
             android:label="Reset Password Activity" />
@@ -30,9 +22,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="Login Activity"
-            android:theme="@style/NoActionBar" >
-
-        </activity>
+            android:theme="@style/NoActionBar"></activity>
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/NoActionBar">
