@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -24,11 +25,13 @@ import com.teamocta.dcc_project.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private ActivityLoginBinding binding;
+    private SharedPreferences myPrefs;
+    private static final String PREFS_NAME = "myPrefsFile";
+    private String currentUser;
 
+    private ActivityLoginBinding binding;
     private AlertDialog alertDialog;
     private Boolean userIsTutor, userIsStudent;
-
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
@@ -42,7 +45,28 @@ public class LoginActivity extends AppCompatActivity {
 
     private void rememberUser() {
         if(firebaseAuth.getCurrentUser()!=null){
-            showAlertDialog("Loading your account..");
+            toastMessageLong("Firebase user OK");
+            loadPrefsFile();
+            if(currentUser.equals("tutor")){
+                showAlertDialog("Loading your account..");
+                Boolean userIsTutor = true;
+                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+                intent.putExtra("userIsTutor", userIsTutor);
+                startActivity(intent);
+                finish();
+                alertDialog.cancel();
+                toastMessageShort("Tutor Login Successful");
+            }else if(currentUser=="student"){
+                showAlertDialog("Loading your account..");
+                Boolean userIsStudent = true;
+                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+                intent.putExtra("userIsStudent", userIsStudent);
+                startActivity(intent);
+                finish();
+                alertDialog.cancel();
+                toastMessageShort("Student Login Successful");
+            }
+            /*showAlertDialog("Loading your account..");
             String uid = firebaseAuth.getCurrentUser().getUid();
             DatabaseReference tutorReference = databaseReference.child("Tutor");
             tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -70,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-            });
+            });*/
         }
     }
 
@@ -78,6 +102,8 @@ public class LoginActivity extends AppCompatActivity {
     private void init() {
         firebaseAuth=FirebaseAuth.getInstance();
         databaseReference =FirebaseDatabase.getInstance().getReference(); //database root reference
+        myPrefs = getSharedPreferences(PREFS_NAME, 0);
+
     }
 
     //O N     C L I C K
@@ -131,6 +157,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){
+                    currentUser = "tutor";
+                    savePrefsFile(currentUser);
                     userIsTutor = true;
                     Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                     intent.putExtra("userIsTutor", userIsTutor);
@@ -140,6 +168,8 @@ public class LoginActivity extends AppCompatActivity {
                     toastMessageShort("Tutor Login Successful");
                 }
                 else{
+                    currentUser="student";
+                    savePrefsFile(currentUser);
                     userIsStudent = true;
                     Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                     intent.putExtra("userIsStudent", userIsStudent);
@@ -157,13 +187,26 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void savePrefsFile(String currentUser) {
+        SharedPreferences.Editor editor = myPrefs.edit();
+        editor.putString("USER", currentUser);
+        editor.commit();
+        toastMessageLong(currentUser + " data saved");
+    }
+    private void loadPrefsFile(){
+        if(myPrefs.contains("USER")){
+            currentUser = myPrefs.getString("USER", "");
+            toastMessageLong(currentUser + " data loaded");
+        }
+    }
+
     //P R E V E N T I N G    U S E R    F R O M    A C C E S S I N G    A C T I V I T Y
     private void showAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message).setCancelable(false);
         alertDialog = builder.create();
         alertDialog.show();
-        //Closing ALert Dialog use this (alertDialog.cancel();)
+        //Closing Alert Dialog use this (alertDialog.cancel();)
     }
 
     //T O A S T    M E S S A G E
