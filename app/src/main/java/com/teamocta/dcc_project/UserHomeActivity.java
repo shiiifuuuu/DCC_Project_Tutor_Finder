@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class UserHomeActivity extends AppCompatActivity {
+    private AlertDialog alertDialog;
     private Fragment profileFragment, searchFragment, messageFragment;
     private BottomNavigationView navView;
     private Boolean userIsStudent, userIsTutor;
@@ -89,6 +90,7 @@ public class UserHomeActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        toastMessageLong("Signing out user...");
                         firebaseAuth.signOut();
                         startActivity(new Intent(UserHomeActivity.this, LoginActivity.class));
                         finish();
@@ -101,6 +103,14 @@ public class UserHomeActivity extends AppCompatActivity {
         });
 
         AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    //A L E R T   D I A L O G
+    private void showAlertDialog (String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message).setCancelable(false);
+        alertDialog = builder.create();
         alertDialog.show();
     }
 

@@ -112,11 +112,11 @@ public class LoginActivity extends AppCompatActivity {
 
     //S I G N    I N    M E T H O D
     private void signInUser(String userEmail, String userPassword) {
+        showAlertDialog("Logging In..");
         firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    showAlertDialog("Logging In..");
                     checkUserType();
                     /*if(firebaseAuth.getCurrentUser().isEmailVerified()){
                         showAlertDialog("Logging In..");
@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                alertDialog.cancel();
                 toastMessageLong(e.getMessage());
             }
         });
@@ -177,6 +178,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                alertDialog.cancel();
                 databaseError.getMessage();
             }
         });

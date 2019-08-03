@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cbRememberUser"
-                android:text="keep logged in"
+                android:text="Remember me"
                 android:textStyle="bold"
                 android:layout_gravity="right"
                 android:layout_marginEnd="10sp"
