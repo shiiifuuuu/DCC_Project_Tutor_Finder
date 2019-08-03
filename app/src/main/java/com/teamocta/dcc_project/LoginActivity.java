@@ -54,8 +54,8 @@ public class LoginActivity extends AppCompatActivity {
             myPrefs.edit().clear().commit();
         }else{
             loadPrefsFile();
+            showAlertDialog("Loading your account..");
             if(saveUserProfileType.equals("tutor")){
-                showAlertDialog("Loading your account..");
                 Boolean userIsTutor = true;
                 Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                 intent.putExtra("userIsTutor", userIsTutor);
@@ -64,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
                 alertDialog.cancel();
                 toastMessageShort("Tutor Login Successful");
             }else if(saveUserProfileType.equals("student")){
-                showAlertDialog("Loading your account..");
                 Boolean userIsStudent = true;
                 Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                 intent.putExtra("userIsStudent", userIsStudent);
