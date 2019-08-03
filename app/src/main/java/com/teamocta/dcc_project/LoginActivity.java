@@ -40,12 +40,18 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         init();
-        rememberUser();
     }
 
-    private void rememberUser() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isUserExist();
+        toastMessageLong("saved value: " + saveUserProfileType);
+    }
+
+    private void isUserExist() {
         if(firebaseAuth.getCurrentUser()!=null){
-            //toastMessageLong("Firebase user OK");
+            toastMessageLong("Firebase user OK");
             loadPrefsFile();
             if(saveUserProfileType.equals("tutor")){
                 showAlertDialog("Loading your account..");
@@ -65,10 +71,10 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
                 alertDialog.cancel();
                 toastMessageShort("Student Login Successful");
-            }else if(saveUserProfileType.equals("")){
-                //toastMessageLong("No data were saved");
-                firebaseAuth.signOut();
             }
+        }else{
+            toastMessageLong("No logged in user");
+            myPrefs.edit().clear().commit();
         }
     }
 
@@ -173,12 +179,12 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = myPrefs.edit();
         editor.putString("USER", currentUser);
         editor.commit();
-        //toastMessageLong(currentUser + " data saved");
+        toastMessageLong(currentUser + " data saved");
     }
     private void loadPrefsFile(){
         if(myPrefs.contains("USER")){
             saveUserProfileType = myPrefs.getString("USER", "");
-            //toastMessageLong(saveUserProfileType + " data loaded");
+            toastMessageLong(saveUserProfileType + " data loaded");
         }
     }
 

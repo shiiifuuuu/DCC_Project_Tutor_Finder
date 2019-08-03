@@ -148,6 +148,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    firebaseAuth.signOut();
                     startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
                     finish();
                     alertDialog.cancel();
@@ -181,7 +182,7 @@ public class SignUpActivity extends AppCompatActivity {
         studentReference.child(Uid).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                toastMessageShort("Registered Successfully as a Student!");
+                toastMessageShort("Data Saved to Firebase successfully");
             }
         });
     }
