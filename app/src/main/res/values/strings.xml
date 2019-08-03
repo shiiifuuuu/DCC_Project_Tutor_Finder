@@ -3,7 +3,7 @@
     <string name="err_email">Enter Email</string>
     <string name="err_password">Enter Password</string>
     <string name="err_name">Enter Name</string>
-    <string name="err_mobile">Enter Mobile Number</string>
+    <string name="err_mobile">Enter valid number</string>
     <string name="err_password_confirmation">Password not matched</string>
 
     <array name="Gender">

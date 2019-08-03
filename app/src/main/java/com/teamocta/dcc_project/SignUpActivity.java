@@ -58,7 +58,9 @@ public class SignUpActivity extends AppCompatActivity {
     private void validationCheck() {
         mAwesomeValidation.addValidation(this, R.id.etFirstName, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(this, R.id.etLastName, "[a-zA-Z\\s]+", R.string.err_name);
-        mAwesomeValidation.addValidation(this, R.id.etMobile, RegexTemplate.TELEPHONE, R.string.err_mobile);
+        if(binding.etMobile.getText().toString().length() > 11){
+            binding.etMobile.setError("Must contain a valid number");
+        }
         mAwesomeValidation.addValidation(this, R.id.etEmail, android.util.Patterns.EMAIL_ADDRESS, R.string.err_email);
         mAwesomeValidation.addValidation(this, R.id.etConfirmPassword, R.id.etPassword, R.string.err_password_confirmation);
     }
@@ -89,7 +91,11 @@ public class SignUpActivity extends AppCompatActivity {
                     showAlertDialog("Signing Up...");
                     Uid = firebaseAuth.getCurrentUser().getUid();
                     setDataTutor();
-                    sendVerificationEmail();
+                    firebaseAuth.signOut();
+                    //sendVerificationEmail();
+                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                    finish();
+                    alertDialog.cancel();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -132,37 +138,20 @@ public class SignUpActivity extends AppCompatActivity {
                     showAlertDialog("Signing Up...");
                     Uid = firebaseAuth.getCurrentUser().getUid();
                     setDataStudent();
-                    sendVerificationEmail();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                toastMessageLong("Sign Up failed: " + e.getMessage());
-            }
-        });
-    }
-
-    private void sendVerificationEmail() {
-        firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
                     firebaseAuth.signOut();
+                    //sendVerificationEmail();
                     startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
                     finish();
                     alertDialog.cancel();
-                    toastMessageLong("Please check your email for verification");
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                toastMessageLong("Verification email send failure: " + e.getMessage());
+                toastMessageLong(e.getMessage());
             }
         });
     }
-
     //W R I T I N G   D A T A    O N    D A T A B A S E -> STUDENT
     private void setDataStudent() {
 
@@ -187,6 +176,25 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /*private void sendVerificationEmail() {
+        firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                    finish();
+                    alertDialog.cancel();
+                    toastMessageLong("Please check your email for verification");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                toastMessageLong(e.getMessage());
+            }
+        });
+    }*/
+
     //
     private void initializeInputData() {
         firstName = binding.etFirstName.getText().toString();
@@ -209,7 +217,7 @@ public class SignUpActivity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
-    //P R E V E N T I N G    U S E R    F R O M    A C C E S S I N G    A C T I V I T Y
+    //A L E R T   D I A L O G   B O X
     private void showAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message).setCancelable(false);
@@ -218,17 +226,3 @@ public class SignUpActivity extends AppCompatActivity {
         //Closing ALert Dialog use this (alertDialog.cancel();)
     }
 }
-//email Verification Method
-/*firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-@Override
-public void onComplete(@NonNull Task<Void> task) {
-        if(task.isSuccessful()){
-        toastMessageShort("Registered Successfully!");
-        nullifyAllFields();
-        Intent intent = new Intent(this,LoginActivity.class);
-        startActivity(intent);
-        finish();
-        toastMessageLong("Please check your email for verification.");
-        }
-        }
-        });*/
