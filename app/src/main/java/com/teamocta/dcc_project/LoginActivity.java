@@ -83,14 +83,21 @@ public class LoginActivity extends AppCompatActivity {
         myPrefs = getSharedPreferences(PREFS_NAME, 0);
     }
 
+    private void validationCheck(){
+        if(binding.etEmail.getText().toString().length()==0){
+            binding.etEmail.setError("Email required");
+        }
+        if(binding.etPassword.getText().toString().length()==0){
+            binding.etPassword.setError("Password required");
+        }
+    }
     //O N     C L I C K
     public void btnLoginClicked(View view) {
+        validationCheck();
+
         String userEmail=binding.etEmail.getText().toString();
         String userPassword=binding.etPassword.getText().toString();
-
-        if(userEmail.equals("") || userPassword.equals("")){
-            toastMessageShort("Doesn't match any account!");
-        }else{
+        if(!userEmail.equals("") && !userPassword.equals("")){
             signInUser(userEmail, userPassword);
         }
     }
@@ -189,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //A L E R T   D I A L O G   B O X
     private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setMessage(message).setCancelable(false);
         alertDialog = builder.create();
         alertDialog.show();

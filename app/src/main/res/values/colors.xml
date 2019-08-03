@@ -8,4 +8,6 @@
     <color name="skyBlue">#46F8FF</color>
     <color name="orange">#FF9811</color>
     <color name="tia">#B2FA09</color>
+
+    <color name="ic_launcher_background">#E72767</color>
 </resources>

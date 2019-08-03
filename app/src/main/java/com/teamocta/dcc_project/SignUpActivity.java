@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -58,10 +57,13 @@ public class SignUpActivity extends AppCompatActivity {
     private void validationCheck() {
         mAwesomeValidation.addValidation(this, R.id.etFirstName, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(this, R.id.etLastName, "[a-zA-Z\\s]+", R.string.err_name);
-        if(binding.etMobile.getText().toString().length() > 11){
-            binding.etMobile.setError("Must contain a valid number");
+        if(binding.etMobile.getText().toString().length() == 0){
+            binding.etMobile.setError("Mobile number can't be empty");
         }
         mAwesomeValidation.addValidation(this, R.id.etEmail, android.util.Patterns.EMAIL_ADDRESS, R.string.err_email);
+        if(binding.etPassword.getText().toString().length() == 0){
+            binding.etPassword.setError("Password can't be empty");
+        }
         mAwesomeValidation.addValidation(this, R.id.etConfirmPassword, R.id.etPassword, R.string.err_password_confirmation);
     }
 
@@ -77,18 +79,18 @@ public class SignUpActivity extends AppCompatActivity {
             else if(binding.rbUserStudent.isChecked()){
                 signUpStudent(userEmail,userPassword);
             }else if(!binding.rbUserTutor.isChecked() || !binding.rbUserStudent.isChecked()){
-                toastMessageLong("Check box emnpty!!");
+                toastMessageLong("Check box empty!!");
             }
         }
     }
 
     //S I G N    U P    M E T H O D -> TUTOR
     private void signUpTutor(String userEmail, String userPassword) {
+        showAlertDialog("Signing Up...");
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    showAlertDialog("Signing Up...");
                     Uid = firebaseAuth.getCurrentUser().getUid();
                     setDataTutor();
                     firebaseAuth.signOut();
@@ -101,6 +103,7 @@ public class SignUpActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                alertDialog.cancel();
                 toastMessageLong(e.getMessage());
             }
         });
@@ -126,16 +129,21 @@ public class SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 toastMessageShort("Registered Successfully as a Tutor!");
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.getMessage();
+            }
         });
     }
 
     //S I G N    U P    M E T H O D -> STUDENT
     private void signUpStudent(String userEmail, String userPassword) {
+        showAlertDialog("Signing Up...");
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    showAlertDialog("Signing Up...");
                     Uid = firebaseAuth.getCurrentUser().getUid();
                     setDataStudent();
                     firebaseAuth.signOut();
@@ -148,6 +156,7 @@ public class SignUpActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                alertDialog.cancel();
                 toastMessageLong(e.getMessage());
             }
         });
@@ -171,7 +180,12 @@ public class SignUpActivity extends AppCompatActivity {
         studentReference.child(Uid).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                toastMessageShort("Data Saved to Firebase successfully");
+                toastMessageShort("Registered Successfully as a Student!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.getMessage();
             }
         });
     }
@@ -190,6 +204,7 @@ public class SignUpActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                alertDialog.cancel();
                 toastMessageLong(e.getMessage());
             }
         });
@@ -219,7 +234,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //A L E R T   D I A L O G   B O X
     private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
         builder.setMessage(message).setCancelable(false);
         alertDialog = builder.create();
         alertDialog.show();
