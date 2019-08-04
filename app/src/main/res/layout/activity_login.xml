@@ -19,7 +19,7 @@
                 android:layout_marginBottom="10sp"
                 android:gravity="center"
                 android:paddingTop="10sp"
-                android:text="Tutor Finder"
+                android:text="Find Tuition"
                 android:textColor="#08C510"
                 android:textSize="40sp"
                 android:textStyle="bold" />

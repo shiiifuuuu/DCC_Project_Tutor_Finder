@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="28dp"
-            android:text="Tutor Finder"
+            android:text="Find Tuition"
             android:fontFamily="sans-serif-smallcaps"
             android:textColor="@color/tia"
             android:textSize="50sp"
