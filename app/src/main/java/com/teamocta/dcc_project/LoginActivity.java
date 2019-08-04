@@ -143,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(dataSnapshot.hasChildren()){
                     if(binding.cbRememberUser.isChecked()){
                         saveUserProfileType = "tutor";
+                        savePrefsFile(saveUserProfileType);
                     }else{
                         myPrefs.edit().clear().commit();
                     }
@@ -155,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     if(binding.cbRememberUser.isChecked()){
                         saveUserProfileType ="student";
+                        savePrefsFile(saveUserProfileType);
                     }
                     else{
                         myPrefs.edit().clear().commit();
@@ -176,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //S A V I N G   &   L O A D I N G   internal data
-    private void savePrefsFile(String currentUser, String uid) {
+    private void savePrefsFile(String currentUser) {
         SharedPreferences.Editor editor = myPrefs.edit();
         editor.putString("USER", currentUser);
         editor.commit();
