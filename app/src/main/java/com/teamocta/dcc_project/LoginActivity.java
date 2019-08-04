@@ -1,15 +1,15 @@
 package com.teamocta.dcc_project;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private AlertDialog alertDialog;
-    private Boolean userIsTutor, userIsStudent;
+    //private Boolean userIsTutor, userIsStudent;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
@@ -56,17 +56,17 @@ public class LoginActivity extends AppCompatActivity {
             loadPrefsFile();
             showAlertDialog("Loading your account..");
             if(saveUserProfileType.equals("tutor")){
-                Boolean userIsTutor = true;
-                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-                intent.putExtra("userIsTutor", userIsTutor);
+                //Boolean userIsTutor = true;
+                Intent intent = new Intent(LoginActivity.this, TutorProfileActivity.class);
+                //intent.putExtra("userIsTutor", userIsTutor);
                 startActivity(intent);
                 finish();
                 alertDialog.cancel();
                 toastMessageShort("Tutor Login Successful");
             }else if(saveUserProfileType.equals("student")){
-                Boolean userIsStudent = true;
-                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-                intent.putExtra("userIsStudent", userIsStudent);
+                //Boolean userIsStudent = true;
+                Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
+                //intent.putExtra("userIsStudent", userIsStudent);
                 startActivity(intent);
                 finish();
                 alertDialog.cancel();
@@ -149,9 +149,9 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                         myPrefs.edit().clear().commit();
                     }
-                    userIsTutor = true;
-                    Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-                    intent.putExtra("userIsTutor", userIsTutor);
+                    //userIsTutor = true;
+                    Intent intent = new Intent(LoginActivity.this, TutorProfileActivity.class);
+                    //intent.putExtra("userIsTutor", userIsTutor);
                     startActivity(intent);
                     finish();
                     alertDialog.cancel();
@@ -165,9 +165,9 @@ public class LoginActivity extends AppCompatActivity {
                     else{
                         myPrefs.edit().clear().commit();
                     }
-                    userIsStudent = true;
-                    Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-                    intent.putExtra("userIsStudent", userIsStudent);
+                    //userIsStudent = true;
+                    Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
+                    //intent.putExtra("userIsStudent", userIsStudent);
                     startActivity(intent);
                     finish();
                     alertDialog.cancel();

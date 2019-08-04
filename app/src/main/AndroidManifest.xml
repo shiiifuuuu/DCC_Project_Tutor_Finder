@@ -11,30 +11,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserHomeActivity"
+        <activity android:name=".TutorProfileActivity"
+            android:theme="@style/NoActionBar"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".StudentSearchActivity"
             android:theme="@style/NoActionBar"
             android:screenOrientation="portrait">
-
+        </activity>
+        <activity android:name=".StudentProfileActivity"
+            android:theme="@style/NoActionBar"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ForgetPassActivity"
             android:label="Reset Password Activity"
-            android:theme="@style/NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".SignUpActivity"
             android:label="Signup Activity"
-            android:theme="@style/NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="Login Activity"
-            android:theme="@style/NoActionBar"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".SplashScreenActivity"
-            android:theme="@style/NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
