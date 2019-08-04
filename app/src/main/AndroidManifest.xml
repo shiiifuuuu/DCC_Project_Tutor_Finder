@@ -13,8 +13,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".UserHomeActivity"
             android:theme="@style/NoActionBar"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".ForgetPassActivity"
             android:label="Reset Password Activity"
