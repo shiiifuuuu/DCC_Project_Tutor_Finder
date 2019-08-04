@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private AlertDialog alertDialog;
-    //private Boolean userIsTutor, userIsStudent;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
@@ -56,21 +55,20 @@ public class LoginActivity extends AppCompatActivity {
             loadPrefsFile();
             showAlertDialog("Loading your account..");
             if(saveUserProfileType.equals("tutor")){
-                //Boolean userIsTutor = true;
                 Intent intent = new Intent(LoginActivity.this, TutorProfileActivity.class);
-                //intent.putExtra("userIsTutor", userIsTutor);
                 startActivity(intent);
                 finish();
                 alertDialog.cancel();
                 toastMessageShort("Tutor Login Successful");
             }else if(saveUserProfileType.equals("student")){
-                //Boolean userIsStudent = true;
                 Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
-                //intent.putExtra("userIsStudent", userIsStudent);
                 startActivity(intent);
                 finish();
                 alertDialog.cancel();
                 toastMessageShort("Student Login Successful");
+            }else if(saveUserProfileType.equals("")){
+                firebaseAuth.signOut();
+                alertDialog.cancel();
             }
         }
     }
@@ -137,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
     //checking if the logged in user Uid matches with Tutor or Student and then
     //going according to that matching intent
     private void checkUserType() {
-        String uid = firebaseAuth.getCurrentUser().getUid();
+        final String uid = firebaseAuth.getCurrentUser().getUid();
         DatabaseReference tutorReference = databaseReference.child("Tutor");
         tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -145,13 +143,10 @@ public class LoginActivity extends AppCompatActivity {
                 if(dataSnapshot.hasChildren()){
                     if(binding.cbRememberUser.isChecked()){
                         saveUserProfileType = "tutor";
-                        savePrefsFile(saveUserProfileType);
                     }else{
                         myPrefs.edit().clear().commit();
                     }
-                    //userIsTutor = true;
                     Intent intent = new Intent(LoginActivity.this, TutorProfileActivity.class);
-                    //intent.putExtra("userIsTutor", userIsTutor);
                     startActivity(intent);
                     finish();
                     alertDialog.cancel();
@@ -160,14 +155,11 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     if(binding.cbRememberUser.isChecked()){
                         saveUserProfileType ="student";
-                        savePrefsFile(saveUserProfileType);
                     }
                     else{
                         myPrefs.edit().clear().commit();
                     }
-                    //userIsStudent = true;
                     Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
-                    //intent.putExtra("userIsStudent", userIsStudent);
                     startActivity(intent);
                     finish();
                     alertDialog.cancel();
@@ -184,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //S A V I N G   &   L O A D I N G   internal data
-    private void savePrefsFile(String currentUser) {
+    private void savePrefsFile(String currentUser, String uid) {
         SharedPreferences.Editor editor = myPrefs.edit();
         editor.putString("USER", currentUser);
         editor.commit();
