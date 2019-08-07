@@ -36,7 +36,7 @@ public class StudentProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_student_profile);
         init();
-        getData();
+        /*getData();*/
     }
 
     private void init() {
@@ -70,16 +70,6 @@ public class StudentProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
 
     //A L E R T   D I A L O G   B O X
     private void showAlertDialog(String message) {
