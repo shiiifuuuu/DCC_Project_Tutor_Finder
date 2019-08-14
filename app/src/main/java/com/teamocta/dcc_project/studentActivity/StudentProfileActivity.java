@@ -104,8 +104,8 @@ public class StudentProfileActivity extends AppCompatActivity {
         binding.tvUserName.setText(currentStudent.getFirstName() + " " + currentStudent.getLastName());
         binding.tvUserEmail.setText(currentStudent.getEmail());
         binding.tvUserMobile.setText(currentStudent.getMobile());
-        binding.tvUserLocation.setText(currentStudent.getGender());
-        binding.tvUserGender.setText(currentStudent.getLocation());
+        binding.tvUserLocation.setText(currentStudent.getLocation() + ", Dhaka");
+        binding.tvUserGender.setText(currentStudent.getGender());
         if(currentStudent.getImageUrl()!=null){
             Glide.with(this).load(currentStudent.getImageUrl()).into(binding.ivProfilePic);
         }
