@@ -39,8 +39,6 @@ import com.teamocta.dcc_project.pojo.StudentProfile;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.teamocta.dcc_project.R.layout.activity_student_profile;
-
 public class StudentProfileActivity extends AppCompatActivity {
 
     private ActivityStudentProfileBinding binding;
@@ -60,7 +58,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, activity_student_profile);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_student_profile);
         init();
 
         showData();
@@ -112,12 +110,10 @@ public class StudentProfileActivity extends AppCompatActivity {
     }
 
     public void btnUpdatePicClicked(View view) {
-        //showPictureDialog();
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, GALLERY_CODE);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -141,13 +137,11 @@ public class StudentProfileActivity extends AppCompatActivity {
             alertDialog.show();
         }
     }
-
     private String getFileExtension(Uri uri){
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-
     private void uploadPic() {
         if(mImageUri!=null){
             final StorageReference filePath = storageRef.child("Student").child(uid).child("proPic." + getFileExtension(mImageUri));
@@ -189,6 +183,23 @@ public class StudentProfileActivity extends AppCompatActivity {
             toastMessageShort("no file selected!");
         }
     }
+
+    public void updateProfileClicked(View view) {
+        startActivity(new Intent(StudentProfileActivity.this, UpdateProfileActivity.class));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //A L E R T   D I A L O G   B O X
     private void showAlertDialog(String message) {
@@ -253,4 +264,5 @@ public class StudentProfileActivity extends AppCompatActivity {
     private void toastMessageLong(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
 }

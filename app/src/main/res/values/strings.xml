@@ -7,11 +7,13 @@
     <string name="err_password_confirmation">Password not matched</string>
 
     <array name="Gender">
+        <item></item>
         <item>Male</item>
         <item>Female</item>
     </array>
 
     <array name="Location">
+        <item></item>
         <item>Adabar</item>
         <item>Azampur</item>
         <item>Badda</item>

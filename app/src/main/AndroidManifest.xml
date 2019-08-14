@@ -20,6 +20,9 @@
             android:name=".tutorActivity.TutorProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
+        <activity android:name=".studentActivity.UpdateProfileActivity"
+            android:theme="@style/NoActionBar"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".studentActivity.StudentMessageActivity" />
         <activity
             android:name=".studentActivity.StudentSearchActivity"
