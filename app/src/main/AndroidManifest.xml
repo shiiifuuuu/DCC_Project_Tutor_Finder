@@ -3,6 +3,9 @@
     package="com.teamocta.dcc_project">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,38 +14,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TutorMessageActivity"></activity>
-        <activity android:name=".TutorSearchActivity" />
-        <activity android:name=".StudentMessageActivity" />
+        <activity android:name=".tutorActivity.TutorMessageActivity" />
+        <activity android:name=".tutorActivity.TutorSearchActivity" />
         <activity
-            android:name=".TutorProfileActivity"
+            android:name=".tutorActivity.TutorProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".studentActivity.StudentMessageActivity" />
+        <activity
+            android:name=".studentActivity.StudentSearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".StudentSearchActivity"
+            android:name=".studentActivity.StudentProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".StudentProfileActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
-        <activity
-            android:name=".ForgetPassActivity"
+            android:name=".mainActivity.ForgetPassActivity"
             android:label="Reset Password Activity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".mainActivity.SignUpActivity"
             android:label="Signup Activity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".mainActivity.LoginActivity"
             android:label="Login Activity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".mainActivity.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar">
             <intent-filter>

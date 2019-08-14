@@ -17,8 +17,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/upperLayout"
-                    android:background="#FFEB3B">
+                    android:id="@+id/upperLayout">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -30,23 +29,15 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/ivProfilePic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/user_image"
+                        android:layout_width="240sp"
+                        android:layout_height="240sp"
+                        android:src="@drawable/ic_add_box_black_24dp"
                         app:civ_border_width="2dp"
                         app:civ_border_color="#FF000000"
                         android:layout_centerHorizontal="true"
-                        android:padding="10sp"/>
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btnUpdateProfilePic"
-                        android:src="@drawable/ic_camera_alt_black_24dp"
-                        android:background="#F5F5F5"
-                        android:layout_alignRight="@+id/ivProfilePic"
-                        android:layout_alignBottom="@+id/ivProfilePic"
-                        android:layout_marginBottom="40sp"
-                        android:layout_marginEnd="30sp" />
+                        android:padding="10sp"
+                        android:onClick="btnUpdatePicClicked"/>
+
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
