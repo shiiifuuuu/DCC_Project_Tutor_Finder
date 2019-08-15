@@ -51,10 +51,9 @@ public class StudentProfileActivity extends AppCompatActivity {
     private StudentProfile currentStudent;
     private Uri mImageUri, downloadUri;
 
-    AlertDialog.Builder builder;
-
-
+    private AlertDialog.Builder builder;
     private AlertDialog alertDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +106,11 @@ public class StudentProfileActivity extends AppCompatActivity {
         if(currentStudent.getImageUrl()!=null){
             Glide.with(this).load(currentStudent.getImageUrl()).into(binding.ivProfilePic);
         }
+        binding.tvUserClass.setText(currentStudent.getStudentClass()+ "/ "+ currentStudent.getDepartment());
+        binding.tvUserInstitute.setText(currentStudent.getInstitute());
+        binding.tvUserAddress.setText(currentStudent.getFullAddress());
+        binding.tvGuardianName.setText(currentStudent.getGuardianName());
+        binding.tvGuardianMobile.setText(currentStudent.getGuardianMobile());
     }
 
     public void btnUpdatePicClicked(View view) {
@@ -185,7 +189,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     }
 
     public void updateProfileClicked(View view) {
-        startActivity(new Intent(StudentProfileActivity.this, UpdateProfileActivity.class));
+        startActivity(new Intent(StudentProfileActivity.this, UpdateStudentProfileActivity.class));
     }
 
 
@@ -201,14 +205,6 @@ public class StudentProfileActivity extends AppCompatActivity {
 
 
 
-    //A L E R T   D I A L O G   B O X
-    private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(StudentProfileActivity.this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-        //Closing Alert Dialog use this (alertDialog.cancel();)
-    }
 
     //N A V I G A T I O N   I T E M    L I S T E N E R
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -257,6 +253,14 @@ public class StudentProfileActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    //A L E R T   D I A L O G   B O X
+    private void showAlertDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(StudentProfileActivity.this);
+        builder.setMessage(message).setCancelable(false);
+        alertDialog = builder.create();
+        alertDialog.show();
+        //Closing Alert Dialog use this (alertDialog.cancel();)
+    }
     //T O A S T    M E S S A G E
     private void toastMessageShort(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
