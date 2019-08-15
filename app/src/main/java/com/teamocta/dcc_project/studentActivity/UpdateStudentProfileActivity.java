@@ -1,9 +1,7 @@
 package com.teamocta.dcc_project.studentActivity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,19 +66,16 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
             binding.etClass.setError("Field can't be empty!");
         }
         if(binding.etInstitute.getText().toString().length() == 0){
-            binding.etClass.setError("Field can't be empty!");
+            binding.etInstitute.setError("Field can't be empty!");
         }
-        if(binding.spnrGender.getSelectedItem().equals(null)){
-            TextView errorText = (TextView) binding.spnrGender.getSelectedView();
-            errorText.setError("");
-            errorText.setTextColor(Color.RED);//just to highlight that this is an error
-            errorText.setText("Empty!");
+        if(binding.etStreet.getText().toString().length() == 0){
+            binding.etStreet.setError("Field can't be empty!");
         }
-        if(binding.spnrLocation.getSelectedItem().equals(null)){
-            TextView errorText = (TextView) binding.spnrLocation.getSelectedView();
-            errorText.setError("");
-            errorText.setTextColor(Color.RED);//just to highlight that this is an error
-            errorText.setText("Empty!");
+        if(binding.etArea.getText().toString().length() == 0){
+            binding.etArea.setError("Field can't be empty!");
+        }
+        if(binding.etZipCode.getText().toString().length() == 0){
+            binding.etZipCode.setError("Field can't be empty!");
         }
     }
 
