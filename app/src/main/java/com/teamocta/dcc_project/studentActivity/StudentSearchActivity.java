@@ -4,19 +4,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.teamocta.dcc_project.R;
+import com.teamocta.dcc_project.databinding.ActivityStudentSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 
 public class StudentSearchActivity extends AppCompatActivity {
 
+    private ActivityStudentSearchBinding binding;
     private AlertDialog alertDialog;
     private BottomNavigationView navView;
     private FirebaseAuth firebaseAuth;
@@ -24,7 +28,8 @@ public class StudentSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_search);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_student_search);
+
         init();
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.getMenu().getItem(1).setChecked(true);
@@ -34,6 +39,18 @@ public class StudentSearchActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
+
+
+
+
+
+
+
+
+
+    public void btnBackClicked(View view) {
+        onBackPressed();
+    }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -57,7 +74,6 @@ public class StudentSearchActivity extends AppCompatActivity {
             return false;
         }
     };
-
     //L O G O U T    D I A L O G
     private void logoutCurrentUser() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -80,7 +96,6 @@ public class StudentSearchActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
     //A L E R T   D I A L O G
     private void showAlertDialog (String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -88,7 +103,6 @@ public class StudentSearchActivity extends AppCompatActivity {
         alertDialog = builder.create();
         alertDialog.show();
     }
-
     //T O A S T    M E S S A G E
     private void toastMessageShort(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
