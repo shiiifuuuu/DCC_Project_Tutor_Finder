@@ -48,6 +48,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private StorageReference storageRef;
     private String uid;
+
     private StudentProfile currentStudent;
     private Uri mImageUri, downloadUri;
 
@@ -60,7 +61,7 @@ public class StudentProfileActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_student_profile);
 
         init();
-        showData();
+        getStudentProfile();
     }
 
     private void init() {
@@ -77,7 +78,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     }
 
     //-------ReadFromDatabase-------
-    private void showData() {
+    private void getStudentProfile() {
         DatabaseReference studentRef = databaseReference.child("Student").child(uid);
         studentRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -226,9 +227,9 @@ public class StudentProfileActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_search:
                     startActivity(new Intent(StudentProfileActivity.this, StudentSearchActivity.class));
-                    finish();
                     return true;
                 case R.id.navigation_message:
+                    startActivity(new Intent(StudentProfileActivity.this, StudentMessageActivity.class));
                     return true;
                 case R.id.navigation_logout:
                     logoutCurrentUser();

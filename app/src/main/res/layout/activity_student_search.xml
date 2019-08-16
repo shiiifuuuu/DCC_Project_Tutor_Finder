@@ -11,29 +11,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="5sp"
             android:id="@+id/upperLayout">
             <ImageButton
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="60sp"
-                android:layout_weight="6"
                 android:id="@+id/btnBack"
+                android:paddingStart="10sp"
+                android:paddingEnd="10sp"
+                android:background="#fff"
                 android:onClick="btnBackClicked"
-                android:background="#FFEB3B"
-                android:src="@drawable/ic_keyboard_backspace_black_24dp"
-                />
-            <TextView
+                android:src="@drawable/ic_keyboard_backspace_black_24dp" />
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_weight="1"
-                android:id="@+id/txt"
-                android:text="Search Tutor"
+                android:id="@+id/etSearchTutor"
+                android:hint="Search Tutor"
                 android:gravity="center"
-                android:paddingEnd="40sp"
-                android:background="#FFEB3B"
+                android:background="@drawable/search_outline"
                 android:textSize="24sp"
-                android:textColor="#000"
-                android:textStyle="bold" />
+                android:textColor="#000" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:layout_weight="3"
+                android:id="@+id/btnSearchTutor"
+                android:background="#fff"
+                android:src="@drawable/ic_search_black_24dp"/>
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rvTutorList"
+            android:layout_below="@id/upperLayout"
+            android:layout_above="@id/nav_view"
+            android:layout_margin="10sp">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"

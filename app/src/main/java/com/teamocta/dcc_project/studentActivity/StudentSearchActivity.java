@@ -14,16 +14,33 @@ import androidx.databinding.DataBindingUtil;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityStudentSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
+import com.teamocta.dcc_project.pojo.TutorProfile;
+
+import java.util.ArrayList;
 
 public class StudentSearchActivity extends AppCompatActivity {
 
     private ActivityStudentSearchBinding binding;
-    private AlertDialog alertDialog;
-    private BottomNavigationView navView;
+
+    private ArrayList<TutorProfile> tutorList;
+
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
+    private StorageReference storageRef;
+    private String uid;
+
+    private TutorProfile tutorProfile;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +48,45 @@ public class StudentSearchActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_student_search);
 
         init();
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navView.getMenu().getItem(1).setChecked(true);
+        getTutors();
     }
+
     private void init() {
-        navView = findViewById(R.id.nav_view);
+        binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        binding.navView.getMenu().getItem(1).setChecked(true);
+
+        tutorProfile = new TutorProfile();
+        tutorList = new ArrayList<>();
+
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        storageRef = FirebaseStorage.getInstance().getReference();
+        uid = firebaseAuth.getCurrentUser().getUid();
+    }
+
+    private void getTutors() {
+        DatabaseReference tutorRef = databaseReference.child("Tutor");
+        tutorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot tutors: dataSnapshot.getChildren()){
+                        tutorProfile = tutors.getValue(TutorProfile.class);
+                        tutorList.add(tutorProfile);
+                        /*tutorProfile.getFirstName();
+                        tutorProfile.getLastName();
+                        tutorProfile.getProfession();
+                        tutorProfile.getInstitute();
+                        tutorProfile.getMinimumSalary();
+                        tutorProfile.getUid();
+                        tutorProfile.getImageUrl();*/
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
 
@@ -59,13 +109,13 @@ public class StudentSearchActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
                     startActivity(new Intent(StudentSearchActivity.this, StudentProfileActivity.class));
-                    finish();
                     return true;
                 case R.id.navigation_search:
                     /*startActivity(new Intent(StudentSearchActivity.this, StudentSearchActivity.class));
                     finish();*/
                     return true;
                 case R.id.navigation_message:
+                    startActivity(new Intent(StudentSearchActivity.this, StudentMessageActivity.class));
                     return true;
                 case R.id.navigation_logout:
                     logoutCurrentUser();
