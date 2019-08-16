@@ -10,4 +10,6 @@
     <color name="tia">#B2FA09</color>
 
     <color name="ic_launcher_background">#E72767</color>
+    <color name="oneTimeTuitionTrue">#FFE503</color>
+    <color name="oneTimeTuitionFalse">#FF0202</color>
 </resources>

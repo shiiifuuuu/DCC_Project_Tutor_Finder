@@ -36,7 +36,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
     private AwesomeValidation mAwesomeValidation;
 
     private String firstName,lastName,mobile,location,gender,studentClass, department,institute;
-    private String streetAddress,area,zipCode,guardianName,guardianMobile;
+    private String streetAddress,areaAddress,zipCode,guardianName,guardianMobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,8 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_update_student_profile);
 
         init();
+        getIntentExtras();
+        setCurrentField();
     }
 
     private void init() {
@@ -52,10 +54,37 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         uid = firebaseAuth.getCurrentUser().getUid();
         builder = new AlertDialog.Builder(this);
         mAwesomeValidation = new AwesomeValidation(BASIC);
-
     }
 
-    //C H E C K I N G    I N P U T    V A L I D A T I O N
+    //getting values from previous activity
+    private void getIntentExtras() {
+        firstName = getIntent().getExtras().getString("firstName");
+        lastName = getIntent().getExtras().getString("lastName");
+        mobile = getIntent().getExtras().getString("mobile");
+        studentClass = getIntent().getExtras().getString("studentClass");
+        institute = getIntent().getExtras().getString("institute");
+        department = getIntent().getExtras().getString("department");
+        streetAddress = getIntent().getStringExtra("streetAddress");
+        areaAddress = getIntent().getStringExtra("areaAddress");
+        zipCode = getIntent().getStringExtra("zipCode");
+        guardianName = getIntent().getExtras().getString("guardianName");
+        guardianMobile = getIntent().getExtras().getString("guardianMobile");
+    }
+    private void setCurrentField() {
+        binding.etFirstName.setText(firstName);
+        binding.etLastName.setText(lastName);
+        binding.etMobile.setText(mobile);
+        binding.etClass.setText(studentClass);
+        binding.etInstitute.setText(institute);
+        binding.etDept.setText(department);
+        binding.etStreet.setText(streetAddress);
+        binding.etArea.setText(areaAddress);
+        binding.etZipCode.setText(zipCode);
+        binding.etGuardianName.setText(guardianName);
+        binding.etGuardinaMobile.setText(guardianMobile);
+    }
+
+    //Database Update
     private void validationCheck() {
         mAwesomeValidation.addValidation(this, R.id.etFirstName, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(this, R.id.etLastName, "[a-zA-Z\\s]+", R.string.err_name);
@@ -78,7 +107,6 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
             binding.etZipCode.setError("Field can't be empty!");
         }
     }
-
     public void btnSaveProfileClicked(View view) {
         validationCheck();
         if(mAwesomeValidation.validate()){
@@ -86,13 +114,8 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
             updateDatabase();
         }
     }
-
     private void updateDatabase() {
         initializeInputData();
-        String fullAddress = "";
-        if(streetAddress != null || area != null || zipCode != null){
-            fullAddress = streetAddress + ",\n " + area + ",\n " + zipCode;
-        }
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("firstName", firstName);
         userMap.put("lastName", lastName);
@@ -102,7 +125,9 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         userMap.put("studentClass", studentClass);
         userMap.put("department", department);
         userMap.put("institute", institute);
-        userMap.put("fullAddress", fullAddress);
+        userMap.put("streetAddress", streetAddress);
+        userMap.put("areaAddress", areaAddress);
+        userMap.put("zipCode", zipCode);
         userMap.put("guardianName", guardianName);
         userMap.put("guardianMobile", guardianMobile);
 
@@ -124,7 +149,6 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
             }
         });
     }
-
     private void initializeInputData() {
         firstName = binding.etFirstName.getText().toString();
         lastName = binding.etLastName.getText().toString();
@@ -135,11 +159,14 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         department = binding.etDept.getText().toString();
         institute = binding.etInstitute.getText().toString();
         streetAddress = binding.etStreet.getText().toString();
-        area = binding.etArea.getText().toString();
+        areaAddress = binding.etArea.getText().toString();
         zipCode = binding.etZipCode.getText().toString();
-        guardianName = binding.etGurdianName.getText().toString();
+        guardianName = binding.etGuardianName.getText().toString();
         guardianMobile = binding.etGuardinaMobile.getText().toString();
     }
+
+
+
     //B A C K   B U T T O N
     public void btnBackClicked(View view) {
         onBackPressed();

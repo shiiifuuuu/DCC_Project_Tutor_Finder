@@ -14,9 +14,11 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#1D1D1D"
                     android:id="@+id/upperLayout">
                     <TextView
                         android:layout_width="wrap_content"
@@ -42,6 +44,7 @@
                         android:onClick="btnUpdatePicClicked"/>
 
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,6 +52,7 @@
                     android:orientation="vertical"
                     android:gravity="center_horizontal"
                     android:padding="5sp">
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
@@ -67,6 +71,7 @@
                         android:background="#E91E63"
                         android:layout_marginTop="5sp"
                         android:layout_marginBottom="5sp"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -76,82 +81,113 @@
                         android:drawablePadding="10sp"
                         android:text="Md. Shahadat Hossain"
                         android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="#030303"
+                        android:layout_marginBottom="10dp"
                         android:layout_gravity="center_horizontal"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:padding="5sp"
                         android:gravity="center_horizontal">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:text="Class: "
-                            android:textSize="14sp"/>
+                            android:textSize="18sp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:id="@+id/tvUserClass"
                             android:text="8"
-                            android:textSize="18sp"/>
+                            android:textSize="18sp"
+                            android:layout_marginStart="10sp"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="Department: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvDepartment"
+                            android:text=""
+                            android:textSize="18sp"
+                            android:layout_marginStart="10sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
                         android:gravity="center_horizontal">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:text="Institute: "
-                            android:textSize="14sp"/>
+                            android:textSize="18sp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:id="@+id/tvUserInstitute"
                             android:text="Dhaka City College"
-                            android:textSize="18sp"/>
+                            android:textSize="18sp"
+                            android:layout_marginStart="10sp"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:padding="5sp"
                         android:gravity="center_horizontal">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:text="Gender: "
-                            android:textSize="14sp"/>
+                            android:textSize="18sp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:id="@+id/tvUserGender"
                             android:text="Male"
-                            android:textSize="18sp"/>
+                            android:textSize="18sp"
+                            android:layout_marginStart="10sp"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:padding="5sp"
                         android:gravity="center_horizontal">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:text="Location: "
-                            android:textSize="14sp"/>
+                            android:textSize="18sp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:id="@+id/tvUserLocation"
                             android:text="Dhaka"
-                            android:layout_marginBottom="5sp"
+                            android:layout_marginStart="10sp"
                             android:textSize="18sp"/>
                     </LinearLayout>
                     <TextView
@@ -160,7 +196,7 @@
                         android:id="@+id/tvUserMobile"
                         android:padding="5sp"
                         android:drawableLeft="@drawable/ic_user_mobile"
-                        android:drawablePadding="2sp"
+                        android:drawablePadding="5sp"
                         android:text="017xxxxxxx"
                         android:layout_gravity="center"
                         android:textSize="20sp"/>
@@ -170,7 +206,7 @@
                         android:id="@+id/tvUserEmail"
                         android:padding="5sp"
                         android:drawableLeft="@drawable/ic_user_email"
-                        android:drawablePadding="2sp"
+                        android:drawablePadding="5sp"
                         android:text="email@gmail.com"
                         android:layout_gravity="center"
                         android:textSize="20sp"/>
@@ -195,14 +231,14 @@
                         android:background="#E91E63"
                         android:layout_marginTop="5sp"
                         android:layout_marginBottom="5sp"/>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tvUserAddress"
                         android:text=""
                         android:gravity="center"
-                        android:textSize="20sp"
-                        android:textStyle="italic"/>
+                        android:textSize="20sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -223,6 +259,7 @@
                         android:background="#E91E63"
                         android:layout_marginTop="5sp"
                         android:layout_marginBottom="5sp"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -263,7 +300,9 @@
                             android:layout_marginBottom="20dp"/>
                     </LinearLayout>
                 </LinearLayout>
+
             </RelativeLayout>
+
         </ScrollView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

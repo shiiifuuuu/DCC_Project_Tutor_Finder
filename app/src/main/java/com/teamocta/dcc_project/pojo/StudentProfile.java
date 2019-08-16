@@ -11,7 +11,9 @@ public class StudentProfile {
     private String studentClass;
     private String department;
     private String institute;
-    private String fullAddress;
+    private String streetAddress;
+    private String areaAddress;
+    private String zipCode;
     private String guardianName;
     private String guardianMobile;
     private String imageUrl;
@@ -28,64 +30,6 @@ public class StudentProfile {
         this.mobile = mobile;
         this.location = location;
         this.gender = gender;
-    }
-
-    public StudentProfile(String firstName, String lastName, String mobile, String location, String gender, String studentClass, String department, String institute, String fullAddress, String guardianName, String guardianMobile) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.mobile = mobile;
-        this.location = location;
-        this.gender = gender;
-        this.studentClass = studentClass;
-        this.department = department;
-        this.institute = institute;
-        this.fullAddress = fullAddress;
-        this.guardianName = guardianName;
-        this.guardianMobile = guardianMobile;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public void setStudentClass(String studentClass) {
-        this.studentClass = studentClass;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public void setInstitute(String institute) {
-        this.institute = institute;
-    }
-
-    public void setFullAddress(String fullAddress) {
-        this.fullAddress = fullAddress;
-    }
-
-    public void setGuardianName(String guardianName) {
-        this.guardianName = guardianName;
-    }
-
-    public void setGetGuardianMobile(String getGuardianMobile) {
-        this.guardianMobile = getGuardianMobile;
     }
 
     public String getUid() {
@@ -128,8 +72,16 @@ public class StudentProfile {
         return institute;
     }
 
-    public String getFullAddress() {
-        return fullAddress;
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public String getAreaAddress() {
+        return areaAddress;
+    }
+
+    public String getZipCode() {
+        return zipCode;
     }
 
     public String getGuardianName() {

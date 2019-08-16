@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
     private void checkUserType() {
         final String uid = firebaseAuth.getCurrentUser().getUid();
         DatabaseReference tutorReference = databaseReference.child("Tutor");
-        tutorReference.orderByChild("ID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        tutorReference.orderByChild("uid").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){

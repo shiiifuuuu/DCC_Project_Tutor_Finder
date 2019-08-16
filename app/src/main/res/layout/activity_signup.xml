@@ -106,7 +106,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:entries="@array/Gender"></Spinner>
+                        android:entries="@array/gender"></Spinner>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -126,7 +126,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:entries="@array/Location"
+                        android:entries="@array/location"
                         android:textSize="20sp"></Spinner>
                 </LinearLayout>
 

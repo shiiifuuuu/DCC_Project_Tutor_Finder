@@ -17,15 +17,23 @@
         <activity android:name=".tutorActivity.TutorMessageActivity" />
         <activity android:name=".tutorActivity.TutorSearchActivity" />
         <activity
+            android:name=".tutorActivity.UpdateTutorProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"/>
+        <activity
             android:name=".tutorActivity.TutorProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".studentActivity.UpdateStudentProfileActivity"
-            android:theme="@style/NoActionBar"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".studentActivity.StudentMessageActivity" />
+        <activity
+            android:name=".studentActivity.StudentMessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"/>
         <activity
             android:name=".studentActivity.StudentSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".studentActivity.UpdateStudentProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity

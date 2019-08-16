@@ -142,7 +142,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:entries="@array/Gender"></Spinner>
+                        android:entries="@array/gender"></Spinner>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -162,7 +162,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:entries="@array/Location"
+                        android:entries="@array/location"
                         android:textSize="20sp"></Spinner>
                 </LinearLayout>
                 <View
@@ -189,21 +189,21 @@
                     android:layout_height="60sp"
                     android:id="@+id/etStreet"
                     android:hint="Street Address"
-                    android:inputType="textCapWords"
+                    android:inputType="textMultiLine"
                     android:padding="10sp"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="60sp"
                     android:id="@+id/etArea"
                     android:hint="State/Region/Area"
-                    android:inputType="textCapWords"
+                    android:inputType="textMultiLine"
                     android:padding="10sp"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="60sp"
                     android:id="@+id/etZipCode"
                     android:hint="Zip Code"
-                    android:inputType="textCapWords"
+                    android:inputType="number"
                     android:padding="10sp"/>
 
                 <View
@@ -229,7 +229,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="60sp"
-                    android:id="@+id/etGurdianName"
+                    android:id="@+id/etGuardianName"
                     android:hint="Guardian Name"
                     android:inputType="textCapWords"
                     android:padding="10sp"/>
@@ -244,7 +244,7 @@
 
                 <Button
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60sp"
                     android:id="@+id/btnSaveProfile"
                     android:text="Save Profile"
                     android:background="#FFEB3B"

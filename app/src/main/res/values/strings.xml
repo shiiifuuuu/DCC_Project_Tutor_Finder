@@ -6,13 +6,78 @@
     <string name="err_mobile">Enter valid number</string>
     <string name="err_password_confirmation">Password not matched</string>
 
-    <array name="Gender">
+    <array name="teaching_subjects">
+        <item></item>
+        <item>Bangla</item>
+        <item>English</item>
+        <item>Math</item>
+    </array>
+    <array name="area_covered">
+        <item></item>
+        <item>Adabar</item>
+        <item>Azampur</item>
+        <item>Badda</item>
+        <item>Bimanbandar</item>
+        <item>Cantonment</item>
+        <item>Chowkbazar</item>
+        <item>Darus Salam</item>
+        <item>Demra</item>
+        <item>Dhanmondi</item>
+        <item>Gendaria</item>
+        <item>Gulshan</item>
+        <item>Hazaribagh</item>
+        <item>Kadamtali</item>
+        <item>Kafrul</item>
+        <item>Kalabagan</item>
+        <item>Khilgaon</item>
+        <item>Khilkhet</item>
+        <item>Kotwali</item>
+        <item>Lalbagh</item>
+        <item>Mirpur</item>
+        <item>Mohammadpur</item>
+        <item>Motijheel</item>
+        <item>New Market</item>
+        <item>Pallabi</item>
+        <item>Paltan</item>
+        <item>Panthapath</item>
+        <item>Ramna</item>
+        <item>Rampura</item>
+        <item>Sabujbagh</item>
+        <item>Shahbag</item>
+        <item>Shyampur</item>
+        <item>Sutrapur</item>
+        <item>Tejgaon</item>
+        <item>Turag</item>
+        <item>Uttar Khan</item>
+        <item>Uttara</item>
+        <item>Vatara</item>
+        <item>Wari</item>
+    </array>
+
+    <array name="days_per_week">
+        <item></item>
+        <item>1 day</item>
+        <item>2 days</item>
+        <item>3 days</item>
+        <item>4 days</item>
+        <item>5 days</item>
+        <item>6 days</item>
+        <item>7 days</item>
+    </array>
+
+    <array name="tuition_type">
+        <item></item>
+        <item>Available</item>
+        <item>Not Available</item>
+    </array>
+
+    <array name="gender">
         <item></item>
         <item>Male</item>
         <item>Female</item>
     </array>
 
-    <array name="Location">
+    <array name="location">
         <item></item>
         <item>Adabar</item>
         <item>Azampur</item>

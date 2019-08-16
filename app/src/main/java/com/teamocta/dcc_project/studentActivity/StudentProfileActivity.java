@@ -58,8 +58,8 @@ public class StudentProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_student_profile);
-        init();
 
+        init();
         showData();
     }
 
@@ -73,10 +73,10 @@ public class StudentProfileActivity extends AppCompatActivity {
         uid = firebaseAuth.getCurrentUser().getUid();
 
         builder = new AlertDialog.Builder(this);
-
         currentStudent = new StudentProfile();
     }
 
+    //-------ReadFromDatabase-------
     private void showData() {
         DatabaseReference studentRef = databaseReference.child("Student").child(uid);
         studentRef.addValueEventListener(new ValueEventListener() {
@@ -87,16 +87,13 @@ public class StudentProfileActivity extends AppCompatActivity {
                     setData();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
         /*String email = dataSnapshot.child("Email").getValue().toString();
                 toastMessageShort(email);*/
     }
-
     private void setData() {
         binding.tvUserName.setText(currentStudent.getFirstName() + " " + currentStudent.getLastName());
         binding.tvUserEmail.setText(currentStudent.getEmail());
@@ -106,13 +103,18 @@ public class StudentProfileActivity extends AppCompatActivity {
         if(currentStudent.getImageUrl()!=null){
             Glide.with(this).load(currentStudent.getImageUrl()).into(binding.ivProfilePic);
         }
-        binding.tvUserClass.setText(currentStudent.getStudentClass()+ "/ "+ currentStudent.getDepartment());
+        binding.tvUserClass.setText(currentStudent.getStudentClass());
+        binding.tvDepartment.setText(currentStudent.getDepartment());
         binding.tvUserInstitute.setText(currentStudent.getInstitute());
-        binding.tvUserAddress.setText(currentStudent.getFullAddress());
+        binding.tvUserAddress.setText(currentStudent.getStreetAddress() + ", "
+                + currentStudent.getAreaAddress() + ", " + "Dhaka, "
+                + currentStudent.getZipCode());
         binding.tvGuardianName.setText(currentStudent.getGuardianName());
         binding.tvGuardianMobile.setText(currentStudent.getGuardianMobile());
     }
+    //-------ReadFromDatabase-------
 
+    //-------PROFILE PIC UPDATE-------
     public void btnUpdatePicClicked(View view) {
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
@@ -187,23 +189,28 @@ public class StudentProfileActivity extends AppCompatActivity {
             toastMessageShort("no file selected!");
         }
     }
+    //-------PROFILE PIC UPDATE-------
 
+    //-------EDIT PROFILE-------
     public void updateProfileClicked(View view) {
-        startActivity(new Intent(StudentProfileActivity.this, UpdateStudentProfileActivity.class));
+        Intent intent = new Intent(StudentProfileActivity.this, UpdateStudentProfileActivity.class);
+
+        intent.putExtra("firstName", currentStudent.getFirstName());
+        intent.putExtra("lastName", currentStudent.getLastName());
+        intent.putExtra("mobile", binding.tvUserMobile.getText().toString());
+        intent.putExtra("studentClass", binding.tvUserClass.getText().toString());
+        intent.putExtra("department", currentStudent.getDepartment());
+        intent.putExtra("institute", binding.tvUserInstitute.getText().toString());
+        intent.putExtra("streetAddress", currentStudent.getStreetAddress());
+        intent.putExtra("areaAddress", currentStudent.getAreaAddress());
+        intent.putExtra("zipCode", currentStudent.getZipCode());
+        intent.putExtra("guardianName", binding.tvGuardianName.getText().toString());
+        intent.putExtra("guardianMobile", binding.tvGuardianMobile.getText().toString());
+
+        startActivity(intent);
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //-------EDIT PROFILE-------
 
 
     //N A V I G A T I O N   I T E M    L I S T E N E R
@@ -230,7 +237,6 @@ public class StudentProfileActivity extends AppCompatActivity {
             return false;
         }
     };
-
     //L O G O U T    D I A L O G
     private void logoutCurrentUser() {
         builder.setMessage("Are you sure you want to log out?").setCancelable(false)
@@ -252,7 +258,6 @@ public class StudentProfileActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
     //A L E R T   D I A L O G   B O X
     private void showAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(StudentProfileActivity.this);
@@ -268,5 +273,4 @@ public class StudentProfileActivity extends AppCompatActivity {
     private void toastMessageLong(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-
 }
