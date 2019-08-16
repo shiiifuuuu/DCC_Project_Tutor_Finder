@@ -1,5 +1,7 @@
 package com.teamocta.dcc_project.pojo;
 
+import android.net.Uri;
+
 public class TutorProfile {
     private String uid;
     private String firstName;

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.teamocta.dcc_project.R;
+import com.teamocta.dcc_project.adapter.TutorListAdapter;
 import com.teamocta.dcc_project.databinding.ActivityStudentSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.TutorProfile;
@@ -33,6 +35,7 @@ public class StudentSearchActivity extends AppCompatActivity {
     private ActivityStudentSearchBinding binding;
 
     private ArrayList<TutorProfile> tutorList;
+    private TutorListAdapter tutorListAdapter;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -49,6 +52,7 @@ public class StudentSearchActivity extends AppCompatActivity {
 
         init();
         getTutors();
+        configRecyclerView();
     }
 
     private void init() {
@@ -57,6 +61,7 @@ public class StudentSearchActivity extends AppCompatActivity {
 
         tutorProfile = new TutorProfile();
         tutorList = new ArrayList<>();
+        tutorListAdapter = new TutorListAdapter(tutorList);
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -73,13 +78,7 @@ public class StudentSearchActivity extends AppCompatActivity {
                     for(DataSnapshot tutors: dataSnapshot.getChildren()){
                         tutorProfile = tutors.getValue(TutorProfile.class);
                         tutorList.add(tutorProfile);
-                        /*tutorProfile.getFirstName();
-                        tutorProfile.getLastName();
-                        tutorProfile.getProfession();
-                        tutorProfile.getInstitute();
-                        tutorProfile.getMinimumSalary();
-                        tutorProfile.getUid();
-                        tutorProfile.getImageUrl();*/
+                        tutorListAdapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -89,6 +88,10 @@ public class StudentSearchActivity extends AppCompatActivity {
         });
     }
 
+    private void configRecyclerView() {
+        binding.rvTutorList.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvTutorList.setAdapter(tutorListAdapter);
+    }
 
 
 
