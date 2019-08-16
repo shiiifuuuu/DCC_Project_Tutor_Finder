@@ -14,12 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".viewActivity.StudentViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"></activity>
+        <activity
+            android:name=".viewActivity.TutorViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"
+            />
         <activity android:name=".tutorActivity.TutorMessageActivity" />
-        <activity android:name=".tutorActivity.TutorSearchActivity" />
+        <activity
+            android:name=".tutorActivity.TutorSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"/>
         <activity
             android:name=".tutorActivity.UpdateTutorProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"/>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".tutorActivity.TutorProfileActivity"
             android:screenOrientation="portrait"
@@ -27,7 +39,7 @@
         <activity
             android:name=".studentActivity.StudentMessageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"/>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".studentActivity.StudentSearchActivity"
             android:screenOrientation="portrait"

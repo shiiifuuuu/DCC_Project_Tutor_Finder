@@ -29,10 +29,11 @@ import com.teamocta.dcc_project.adapter.TutorListAdapter;
 import com.teamocta.dcc_project.databinding.ActivityStudentSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.viewActivity.TutorViewActivity;
 
 import java.util.ArrayList;
 
-public class StudentSearchActivity extends AppCompatActivity {
+public class StudentSearchActivity extends AppCompatActivity implements TutorListAdapter.OnTutorClickListener {
 
     private ActivityStudentSearchBinding binding;
 
@@ -64,7 +65,7 @@ public class StudentSearchActivity extends AppCompatActivity {
 
         tutorProfile = new TutorProfile();
         tutorList = new ArrayList<>();
-        tutorListAdapter = new TutorListAdapter(tutorList);
+        tutorListAdapter = new TutorListAdapter(tutorList, this);
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -130,13 +131,30 @@ public class StudentSearchActivity extends AppCompatActivity {
         tutorListAdapter.filterList(filteredList);
     }
 
-
-
-
-
-
-
-
+    @Override
+    public void onTutorClick(int position) {
+        tutorList.get(position);
+        Intent intent = new Intent(this, TutorViewActivity.class);
+        sentTutorInfo(intent, position);
+        startActivity(intent);
+    }
+    private void sentTutorInfo(Intent intent, int position) {
+        intent.putExtra("name",tutorList.get(position).getFirstName()
+                + " " + tutorList.get(position).getLastName());
+        intent.putExtra("mobile", tutorList.get(position).getMobile());
+        intent.putExtra("email", tutorList.get(position).getEmail());
+        intent.putExtra("profession", tutorList.get(position).getProfession());
+        intent.putExtra("institute", tutorList.get(position).getInstitute());
+        intent.putExtra("gender", tutorList.get(position).getGender());
+        intent.putExtra("location", tutorList.get(position).getLocation());
+        intent.putExtra("experience", tutorList.get(position).getExperience());
+        intent.putExtra("tuitionType", tutorList.get(position).getTuitionType());
+        intent.putExtra("daysPerWeek", tutorList.get(position).getDaysPerWeek());
+        intent.putExtra("areaCovered", tutorList.get(position).getAreaCovered());
+        intent.putExtra("teachingSubjects", tutorList.get(position).getTeachingSubjects());
+        intent.putExtra("minimumSalary", tutorList.get(position).getMinimumSalary());
+        intent.putExtra("tutorPic", tutorList.get(position).getImageUrl());
+    }
 
 
     public void btnBackClicked(View view) {
@@ -201,5 +219,4 @@ public class StudentSearchActivity extends AppCompatActivity {
     private void toastMessageLong(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-
 }

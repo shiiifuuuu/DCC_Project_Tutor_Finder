@@ -13,23 +13,24 @@ import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.TutorProfile;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.ViewHolder> {
 
+    private OnTutorClickListener mOnTutorClickListener;
     private ArrayList<TutorProfile> tutorList;
     private View view;
-    public TutorListAdapter(ArrayList<TutorProfile> tutorList) {
+    public TutorListAdapter(ArrayList<TutorProfile> tutorList, OnTutorClickListener onTutorClickListener) {
         this.tutorList = tutorList;
+        this.mOnTutorClickListener = onTutorClickListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_tutor_search, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnTutorClickListener);
     }
 
     @Override
@@ -47,20 +48,34 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
         return tutorList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        private OnTutorClickListener onTutorClickListener;
         private CircleImageView ivTutorPic;
         private TextView tvName;
         private TextView tvProfession;
         private TextView tvInstitute;
         private TextView tvMinimumSalary;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnTutorClickListener onTutorClickListener) {
             super(itemView);
+            this.onTutorClickListener = onTutorClickListener;
             ivTutorPic=itemView.findViewById(R.id.ivTutorPic);
             tvName=itemView.findViewById(R.id.tvName);
             tvProfession=itemView.findViewById(R.id.tvProfession);
             tvInstitute=itemView.findViewById(R.id.tvInstitute);
             tvMinimumSalary=itemView.findViewById(R.id.tvMinimumSalary);
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onTutorClickListener.onTutorClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnTutorClickListener {
+        void onTutorClick(int position);
     }
 
     public void filterList(ArrayList<TutorProfile> filteredList) {
