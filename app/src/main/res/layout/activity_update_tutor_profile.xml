@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".tutorActivity.UpdateTutorProfileActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/upperLayout">
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:layout_weight="6"
+                android:id="@+id/btnBack"
+                android:onClick="btnBackClicked"
+                android:background="#FFEB3B"
+                android:src="@drawable/ic_keyboard_backspace_black_24dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:layout_weight="1"
+                android:id="@+id/txt"
+                android:text="Update Profile"
+                android:gravity="center"
+                android:paddingEnd="40sp"
+                android:background="#FFEB3B"
+                android:textSize="24sp"
+                android:textColor="#000"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/upperLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#E91E63"
+                    android:layout_marginBottom="5sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Basic Info"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#E91E63"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="5sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="60sp"
+                        android:layout_weight="1"
+                        android:id="@+id/etFirstName"
+                        android:hint="First Name"
+                        android:nextFocusDown="@id/etLastName"
+                        android:inputType="textCapWords"
+                        android:padding="10sp"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="60sp"
+                        android:layout_weight="1"
+                        android:id="@+id/etLastName"
+                        android:hint="Last Name"
+                        android:inputType="textCapWords"
+                        android:padding="10sp"/>
+                </LinearLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:id="@+id/etMobile"
+                    android:hint="Mobile Number"
+                    android:nextFocusDown="@id/etClass"
+                    android:maxLength="11"
+                    android:inputType="number"
+                    android:padding="10sp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:layout_weight="1"
+                    android:id="@+id/etProfessiopn"
+                    android:hint="Profession"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:padding="10sp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:layout_weight="1"
+                    android:id="@+id/etInstitute"
+                    android:hint="Institute"
+                    android:inputType="textCapWords"
+                    android:padding="10sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20sp"
+                    android:padding="10sp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Select your Gender :"
+                        android:textSize="20sp"
+                        android:textColor="#49B34D"/>
+                    <Spinner
+                        android:id="@+id/spnrGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:entries="@array/gender"></Spinner>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10sp"
+                    android:padding="10sp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Primary location :"
+                        android:textSize="20sp"
+                        android:textColor="#099CE0"/>
+                    <Spinner
+                        android:id="@+id/spnrLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:entries="@array/location"
+                        android:textSize="20sp"></Spinner>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#E91E63"
+                    android:layout_marginBottom="5sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Experience"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#E91E63"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="5sp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:layout_weight="1"
+                    android:id="@+id/etExperience"
+                    android:hint="Write about your experience"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:padding="10sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#E91E63"
+                    android:layout_marginBottom="5sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tuition Info"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#E91E63"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="5sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="One Time Tuition: "
+                        android:textSize="18sp"
+                        android:padding="5sp"/>
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spnrTuitionType"
+                        android:layout_weight="1"
+                        android:entries="@array/tuition_type"></Spinner>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Days per week: "
+                        android:textSize="18sp"
+                        android:padding="5sp"/>
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spnrDaysPerWeek"
+                        android:layout_weight="1"
+                        android:entries="@array/days_per_week"></Spinner>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Area Covered: "
+                        android:textSize="18sp"
+                        android:padding="5sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvAreaCovered"
+                        android:layout_weight="1"
+                        android:text="click here"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:onClick="onAreaCoveredClicked" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Teaching Subjects: "
+                        android:textSize="18sp"
+                        android:padding="5sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTeachingSubjects"
+                        android:layout_weight="1"
+                        android:text="click here"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:onClick="onTeachingSubjectsClicked" />
+                </LinearLayout>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:layout_weight="1"
+                    android:id="@+id/etMinimumSalary"
+                    android:hint="Minimum Salary"
+                    android:inputType="number"
+                    android:padding="10sp"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:id="@+id/btnSaveProfile"
+                    android:text="Save Profile"
+                    android:background="#FFEB3B"
+                    android:textAllCaps="false"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:onClick="btnSaveProfileClicked"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>
