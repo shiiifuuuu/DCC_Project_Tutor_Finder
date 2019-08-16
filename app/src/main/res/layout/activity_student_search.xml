@@ -28,17 +28,12 @@
                 android:layout_weight="1"
                 android:id="@+id/etSearchTutor"
                 android:hint="Search Tutor"
-                android:gravity="center"
+                android:paddingStart="10sp"
+                android:drawableRight="@drawable/ic_search_black_24dp"
+                android:paddingEnd="20sp"
                 android:background="@drawable/search_outline"
                 android:textSize="24sp"
                 android:textColor="#000" />
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="3"
-                android:id="@+id/btnSearchTutor"
-                android:background="#fff"
-                android:src="@drawable/ic_search_black_24dp"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -47,7 +42,10 @@
             android:id="@+id/rvTutorList"
             android:layout_below="@id/upperLayout"
             android:layout_above="@id/nav_view"
-            android:layout_margin="10sp">
+            tools:itemCount="2"
+            tools:listitem="@layout/list_tutor_search"
+            android:background="#363636"
+            android:layout_marginTop="20sp">
 
         </androidx.recyclerview.widget.RecyclerView>
 

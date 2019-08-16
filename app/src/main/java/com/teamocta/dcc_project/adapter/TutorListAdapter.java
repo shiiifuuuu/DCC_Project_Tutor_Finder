@@ -13,6 +13,7 @@ import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.TutorProfile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -60,5 +61,10 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
             tvInstitute=itemView.findViewById(R.id.tvInstitute);
             tvMinimumSalary=itemView.findViewById(R.id.tvMinimumSalary);
         }
+    }
+
+    public void filterList(ArrayList<TutorProfile> filteredList) {
+        tutorList = filteredList;
+        notifyDataSetChanged();
     }
 }

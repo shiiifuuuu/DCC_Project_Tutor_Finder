@@ -3,6 +3,8 @@ package com.teamocta.dcc_project.studentActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -53,6 +55,7 @@ public class StudentSearchActivity extends AppCompatActivity {
         init();
         getTutors();
         configRecyclerView();
+        etTextChangeListner();
     }
 
     private void init() {
@@ -92,6 +95,41 @@ public class StudentSearchActivity extends AppCompatActivity {
         binding.rvTutorList.setLayoutManager(new LinearLayoutManager(this));
         binding.rvTutorList.setAdapter(tutorListAdapter);
     }
+
+    private void etTextChangeListner() {
+        binding.etSearchTutor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+    }
+    private void filter(String text) {
+        ArrayList<TutorProfile> filteredList = new ArrayList<>();
+        for(TutorProfile tutor: tutorList){
+            if(tutor.getFirstName().toLowerCase().contains(text.toLowerCase())
+                    || tutor.getLastName().toLowerCase().contains(text.toLowerCase())
+                    || tutor.getAreaCovered().toLowerCase().contains(text.toLowerCase())
+                    || tutor.getMinimumSalary().toLowerCase().contains(text.toLowerCase())
+                    || tutor.getLocation().toLowerCase().contains(text.toLowerCase())
+                    || tutor.getInstitute().toLowerCase().contains(text.toLowerCase())
+                    || tutor.getProfession().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(tutor);
+            }
+        }
+        tutorListAdapter.filterList(filteredList);
+    }
+
 
 
 
@@ -163,4 +201,5 @@ public class StudentSearchActivity extends AppCompatActivity {
     private void toastMessageLong(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
 }
