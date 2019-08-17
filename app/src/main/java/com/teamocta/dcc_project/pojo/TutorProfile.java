@@ -1,24 +1,25 @@
 package com.teamocta.dcc_project.pojo;
 
-import android.net.Uri;
-
 public class TutorProfile {
+
     private String uid;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String mobile;
-    private String location;
-    private String gender;
-    private String institute;
-    private String profession;
-    private String minimumSalary;
-    private String daysPerWeek;
-    private String teachingSubjects;
-    private String tuitionType;
-    private String experience;
-    private String areaCovered;
     private String imageUrl;
+
+    private String firstName = "";
+    private String lastName = "";
+    private String email = "";
+    private String mobile = "";
+    private String location = "";
+    private String gender = "";
+    private String institute = "";
+    private String profession = "";
+    private String minimumSalary = "";
+    private String daysPerWeek = "";
+    private String teachingSubjects = "";
+    private String tuitionType = "";
+    private String experience = "";
+    private String areaCovered = "";
+    private String tutorRating = "";
 
     public TutorProfile() {
     }
@@ -33,12 +34,16 @@ public class TutorProfile {
         this.gender = gender;
     }
 
-    public String getUid() {
-        return uid;
+    public String getTutorRating() {
+        return tutorRating;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setTutorRating(String tutorRating) {
+        this.tutorRating = tutorRating;
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public String getFirstName() {

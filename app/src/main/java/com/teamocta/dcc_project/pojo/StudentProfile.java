@@ -1,27 +1,29 @@
 package com.teamocta.dcc_project.pojo;
 
 public class StudentProfile {
+
     private String uid;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String mobile;
-    private String location;
-    private String gender;
-    private String studentClass;
-    private String department;
-    private String institute;
-    private String streetAddress;
-    private String areaAddress;
-    private String zipCode;
-    private String guardianName;
-    private String guardianMobile;
     private String imageUrl;
 
-    private String daysPerWeek;
-    private String subjects;
-    private String salaryRange;
-    private String additionalInfo;
+    private String firstName = "";
+    private String lastName = "";
+    private String email = "";
+    private String mobile = "";
+    private String location = "";
+    private String gender = "";
+    private String studentClass = "";
+    private String department = "";
+    private String institute = "";
+    private String streetAddress = "";
+    private String areaAddress = "";
+    private String zipCode = "";
+    private String guardianName = "";
+    private String guardianMobile = "";
+    private String daysPerWeek = "";
+    private String subjects = "";
+    private String salaryRange = "";
+    private String additionalInfo = "";
+    private String studentRating = "";
 
     public StudentProfile() {
     }
@@ -37,12 +39,16 @@ public class StudentProfile {
         this.gender = gender;
     }
 
-    public String getUid() {
-        return uid;
+    public String getStudentRating() {
+        return studentRating;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setStudentRating(String studentRating) {
+        this.studentRating = studentRating;
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public String getFirstName() {
