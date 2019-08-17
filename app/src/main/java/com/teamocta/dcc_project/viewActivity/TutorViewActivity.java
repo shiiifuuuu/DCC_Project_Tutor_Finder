@@ -16,7 +16,8 @@ public class TutorViewActivity extends AppCompatActivity {
 
     private ActivityTutorViewBinding binding;
     private String name, mobile, email, location, gender, experience, profession, institute;
-    private String tuitionType, daysPerWeek, areaCovered, teachingSubjects, minimumSalary, tutorPic;
+    private String tuitionType, daysPerWeek, areaCovered, teachingSubjects, minimumSalary, tutorPic,
+            tutorRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,12 @@ public class TutorViewActivity extends AppCompatActivity {
         teachingSubjects = getIntentValue("teachingSubjects");
         minimumSalary = getIntentValue("minimumSalary");
         tutorPic = getIntentValue("tutorPic");
+        tutorRating = getIntentValue("tutorRating");
     }
     private void setData() {
         Glide.with(this).load(tutorPic).into(binding.ivProfilePic);
         binding.tvUserName.setText(name);
+        //binding.tutorRating.setRating(Float.parseFloat(tutorRating));
         binding.tvUserEmail.setText(email);
         binding.tvUserMobile.setText(mobile);
         binding.tvUserLocation.setText(location + " Dhaka.");

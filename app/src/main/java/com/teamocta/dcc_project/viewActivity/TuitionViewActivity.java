@@ -16,9 +16,8 @@ public class TuitionViewActivity extends AppCompatActivity {
 
     private ActivityTuitionViewBinding binding;
     private String studentPic, name, studentClass, department, institute, gender, location, mobile, email;
-    private String streetAddress, areaAddress, zipCode,
-            guardianName, guardianMobile,
-            daysPerWeek, subjects, salaryRange, additionalInfo;
+    private String streetAddress, areaAddress, zipCode, guardianName, guardianMobile,
+            daysPerWeek, subjects, salaryRange, additionalInfo, tuitionRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,7 @@ public class TuitionViewActivity extends AppCompatActivity {
 
         studentPic = getIntentValue("studentPic");
         name = getIntentValue("name");
+        tuitionRating = getIntentValue("tuitionRating");
         studentClass = getIntentValue("studentClass");
         department = getIntentValue("department");
         institute = getIntentValue("institute");
@@ -59,6 +59,7 @@ public class TuitionViewActivity extends AppCompatActivity {
     private void setData() {
         Glide.with(this).load(studentPic).into(binding.ivProfilePic);
         binding.tvUserName.setText(name);
+        //binding.tuitionRating.setRating(Float.parseFloat(tuitionRating));
         binding.tvUserClass.setText(studentClass);
         binding.tvDepartment.setText(department);
         binding.tvUserInstitute.setText(institute);
@@ -71,7 +72,7 @@ public class TuitionViewActivity extends AppCompatActivity {
         binding.tvGuardianMobile.setText(guardianMobile);
         binding.tvDaysPerWeek.setText(daysPerWeek);
         binding.tvSubjects.setText(subjects);
-        binding.tvSalaryRange.setText(salaryRange);
+        binding.tvSalaryRange.setText(salaryRange + " tk/month");
         binding.tvAdditionalInfo.setText(additionalInfo);
     }
 

@@ -23,7 +23,7 @@ public class StudentProfile {
     private String subjects = "";
     private String salaryRange = "";
     private String additionalInfo = "";
-    private String studentRating = "";
+    private String tuitionRating = "";
 
     public StudentProfile() {
     }
@@ -39,12 +39,12 @@ public class StudentProfile {
         this.gender = gender;
     }
 
-    public String getStudentRating() {
-        return studentRating;
+    public String getTuitionRating() {
+        return tuitionRating;
     }
 
-    public void setStudentRating(String studentRating) {
-        this.studentRating = studentRating;
+    public void setTuitionRating(String tuitionRating) {
+        this.tuitionRating = tuitionRating;
     }
 
     public String getUid() {

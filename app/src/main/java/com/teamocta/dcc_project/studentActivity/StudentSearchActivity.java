@@ -113,12 +113,12 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         ArrayList<TutorProfile> filteredList = new ArrayList<>();
         for(TutorProfile tutor: tutorList){
             if(tutor.getFirstName().toLowerCase().contains(text.toLowerCase())
-                    || tutor.getLastName().toLowerCase().contains(text.toLowerCase())
-                    || tutor.getAreaCovered().toLowerCase().contains(text.toLowerCase())
-                    || tutor.getMinimumSalary().toLowerCase().contains(text.toLowerCase())
-                    || tutor.getLocation().toLowerCase().contains(text.toLowerCase())
-                    || tutor.getInstitute().toLowerCase().contains(text.toLowerCase())
-                    || tutor.getProfession().toLowerCase().contains(text.toLowerCase())){
+                || tutor.getLastName().toLowerCase().contains(text.toLowerCase())
+                || tutor.getAreaCovered().toLowerCase().contains(text.toLowerCase())
+                || tutor.getMinimumSalary().toLowerCase().contains(text.toLowerCase())
+                || tutor.getLocation().toLowerCase().contains(text.toLowerCase())
+                || tutor.getInstitute().toLowerCase().contains(text.toLowerCase())
+                || tutor.getProfession().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(tutor);
             }
         }
@@ -148,6 +148,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         intent.putExtra("teachingSubjects", tutorList.get(position).getTeachingSubjects());
         intent.putExtra("minimumSalary", tutorList.get(position).getMinimumSalary());
         intent.putExtra("tutorPic", tutorList.get(position).getImageUrl());
+        intent.putExtra("tutorRating", tutorList.get(position).getTutorRating());
     }
 
 

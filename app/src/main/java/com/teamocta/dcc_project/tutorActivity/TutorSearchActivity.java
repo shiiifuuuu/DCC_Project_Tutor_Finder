@@ -155,6 +155,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         intent.putExtra("subjects", tuitionList.get(position).getSubjects());
         intent.putExtra("salaryRange", tuitionList.get(position).getSalaryRange());
         intent.putExtra("studentPic", tuitionList.get(position).getImageUrl());
+        intent.putExtra("tuitionRating", tuitionList.get(position).getTuitionRating());
     }
 
 
