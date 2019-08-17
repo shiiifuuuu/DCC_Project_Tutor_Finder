@@ -112,6 +112,11 @@ public class StudentProfileActivity extends AppCompatActivity {
                 + currentStudent.getZipCode());
         binding.tvGuardianName.setText(currentStudent.getGuardianName());
         binding.tvGuardianMobile.setText(currentStudent.getGuardianMobile());
+
+        binding.tvDaysPerWeek.setText(currentStudent.getDaysPerWeek());
+        binding.tvSubjects.setText(currentStudent.getSubjects());
+        binding.tvSalaryRange.setText(currentStudent.getSalaryRange() + " tk/month");
+        binding.tvAdditionalInfo.setText(currentStudent.getAdditionalInfo());
     }
     //-------ReadFromDatabase-------
 
@@ -208,19 +213,15 @@ public class StudentProfileActivity extends AppCompatActivity {
         intent.putExtra("guardianName", binding.tvGuardianName.getText().toString());
         intent.putExtra("guardianMobile", binding.tvGuardianMobile.getText().toString());
 
+        intent.putExtra("daysPerWeek", binding.tvDaysPerWeek.getText().toString());
+        intent.putExtra("subjects", binding.tvSubjects.getText().toString());
+        intent.putExtra("salaryRange", binding.tvSalaryRange.getText().toString());
+        intent.putExtra("additionalInfo", binding.tvAdditionalInfo.getText().toString());
+
         startActivity(intent);
 
     }
     //-------EDIT PROFILE-------
-
-
-    public void btnPostTuitionClicked(View view) {
-        startActivity(new Intent(this, PostTuitionActivity.class));
-    }
-    public void btnShowPostedListClicked(View view) {
-        startActivity(new Intent(this, ShowPostedTuitionActivity.class));
-    }
-
 
     //N A V I G A T I O N   I T E M    L I S T E N E R
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -232,16 +233,16 @@ public class StudentProfileActivity extends AppCompatActivity {
                 case R.id.navigation_profile:
                     /*startActivity(new Intent(StudentProfileActivity.this, StudentProfileActivity.class));
                     finish();*/
-                    return true;
+                    //return true;
                 case R.id.navigation_search:
                     startActivity(new Intent(StudentProfileActivity.this, StudentSearchActivity.class));
-                    return true;
+                    //return true;
                 case R.id.navigation_message:
                     startActivity(new Intent(StudentProfileActivity.this, StudentMessageActivity.class));
-                    return true;
+                    //return true;
                 case R.id.navigation_logout:
                     logoutCurrentUser();
-                    return true;
+                    //return true;
             }
             return false;
         }

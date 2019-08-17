@@ -242,6 +242,84 @@
                     android:maxLength="11"
                     android:padding="10sp"/>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#E91E63"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="5sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Required Tutor"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#E91E63"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="5sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Days per week: "
+                        android:textSize="18sp"
+                        android:padding="5sp"/>
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spnrDaysPerWeek"
+                        android:layout_weight="1"
+                        android:entries="@array/days_per_week"></Spinner>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Subjects: "
+                        android:textSize="18sp"
+                        android:padding="5sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvSubjects"
+                        android:layout_weight="1"
+                        android:text="click here"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:onClick="onChooseSubjectsClicked" />
+                </LinearLayout>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60sp"
+                    android:layout_weight="1"
+                    android:id="@+id/etSalaryRange"
+                    android:hint="Desired Salary Range"
+                    android:inputType="number|phone"
+                    android:padding="10sp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="80sp"
+                    android:layout_weight="1"
+                    android:id="@+id/etAdditionalInfo"
+                    android:hint="Additional Info in details..."
+                    android:inputType="textMultiLine"
+                    android:padding="10sp"/>
+
+
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60sp"

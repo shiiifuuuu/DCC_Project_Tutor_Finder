@@ -9,6 +9,11 @@
     <array name="teaching_subjects">
         <item></item>
         <item>All Subject</item>
+        <item>1 Subject</item>
+        <item>2 Subjects</item>
+        <item>3 Subjects</item>
+        <item>4 Subjects</item>
+        <item>4 Subjects ++</item>
         <item>Bangla</item>
         <item>English</item>
         <item>Math</item>

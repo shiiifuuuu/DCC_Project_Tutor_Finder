@@ -53,43 +53,10 @@
                     android:gravity="center_horizontal"
                     android:padding="5sp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:id="@+id/btnPostTuition"
-                            android:text="P o s t   T u i t i o n"
-                            android:onClick="btnPostTuitionClicked"
-                            android:layout_marginEnd="2sp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:background="#FFEB3B"
-                            android:textAllCaps="false"/>
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:id="@+id/btnShowList"
-                            android:text="S h o w   L i s t"
-                            android:onClick="btnShowPostedListClicked"
-                            android:layout_marginStart="2sp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:background="#FFEB3B"
-                            android:textAllCaps="false"/>
-
-                    </LinearLayout>
-
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="#E91E63"
-                        android:layout_marginTop="5sp"
                         android:layout_marginBottom="5sp"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -312,26 +279,138 @@
                             android:text="Guardian Name"
                             android:textSize="24sp"/>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:gravity="center_horizontal">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:text="Mobile: "
-                            android:textSize="20sp"/>
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tvGuardianMobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_weight="1"
+                            android:text="00175xxxxxx"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#E91E63"
+                        android:layout_marginTop="15sp"
+                        android:layout_marginBottom="5sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Required Tutor"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#E91E63"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Days per week: "
+                            android:textSize="18sp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:id="@+id/tvGuardianMobile"
-                            android:text="00175xxxxxx"
-                            android:textSize="24sp"
-                            android:layout_marginBottom="20dp"/>
+                            android:id="@+id/tvDaysPerWeek"
+                            android:text=""
+                            android:layout_marginStart="10sp"
+                            android:textSize="18sp"/>
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="Subjects: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvSubjects"
+                            android:text=""
+                            android:layout_marginStart="10sp"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Desired Salary Range: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvSalaryRange"
+                            android:text=""
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10sp"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Additional Tuition Info: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvAdditionalInfo"
+                            android:text=""
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10sp"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </RelativeLayout>

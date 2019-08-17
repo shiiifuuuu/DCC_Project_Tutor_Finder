@@ -1,5 +1,6 @@
 package com.teamocta.dcc_project.studentActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityUpdateStudentProfileBinding;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +39,11 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
 
     private String firstName,lastName,mobile,location,gender,studentClass, department,institute;
     private String streetAddress,areaAddress,zipCode,guardianName,guardianMobile;
+    private String daysPerWeek, subjects, salaryRange, additionalInfo;
+
+    private String[] subjectListItems;
+    private boolean[] subjectCheckedItems;
+    private ArrayList<Integer> subjectUserItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,8 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         uid = firebaseAuth.getCurrentUser().getUid();
         builder = new AlertDialog.Builder(this);
         mAwesomeValidation = new AwesomeValidation(BASIC);
+
+        subjectUserItems = new ArrayList<>();
     }
 
     //getting values from previous activity
@@ -69,6 +78,10 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         zipCode = getIntent().getStringExtra("zipCode");
         guardianName = getIntent().getExtras().getString("guardianName");
         guardianMobile = getIntent().getExtras().getString("guardianMobile");
+
+        subjects = getIntent().getStringExtra("subjects");
+        salaryRange = getIntent().getStringExtra("salaryRange");
+        additionalInfo = getIntent().getStringExtra("additionalInfo");
     }
     private void setCurrentField() {
         binding.etFirstName.setText(firstName);
@@ -82,6 +95,10 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         binding.etZipCode.setText(zipCode);
         binding.etGuardianName.setText(guardianName);
         binding.etGuardinaMobile.setText(guardianMobile);
+
+        binding.tvSubjects.setText(subjects);
+        binding.etSalaryRange.setText(salaryRange);
+        binding.etAdditionalInfo.setText(additionalInfo);
     }
 
     //Database Update
@@ -131,6 +148,11 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         userMap.put("guardianName", guardianName);
         userMap.put("guardianMobile", guardianMobile);
 
+        userMap.put("daysPerWeek", daysPerWeek);
+        userMap.put("salaryRange", salaryRange);
+        userMap.put("subjects", subjects);
+        userMap.put("additionalInfo", additionalInfo);
+
         DatabaseReference studentReference = databaseReference.child("Student");
         studentReference.child(uid).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -163,8 +185,63 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         zipCode = binding.etZipCode.getText().toString();
         guardianName = binding.etGuardianName.getText().toString();
         guardianMobile = binding.etGuardinaMobile.getText().toString();
+
+        daysPerWeek = binding.spnrDaysPerWeek.getSelectedItem().toString();
+        subjects = binding.tvSubjects.getText().toString();
+        salaryRange = binding.etSalaryRange.getText().toString();
+        additionalInfo = binding.etAdditionalInfo.getText().toString();
     }
 
+
+    public void onChooseSubjectsClicked(View view) {
+        subjectListItems = getResources().getStringArray(R.array.teaching_subjects);
+        subjectCheckedItems = new boolean[subjectListItems.length];
+
+        builder.setTitle("Select Subjects");
+        builder.setMultiChoiceItems(subjectListItems, subjectCheckedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+                if(isChecked){
+                    if(!subjectUserItems.contains(position)){
+                        subjectUserItems.add(position);
+                    }else{
+                        subjectUserItems.remove(position);
+                    }
+                }
+            }
+        });
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                String item = "";
+                for(int i=0;i<subjectUserItems.size();i++){
+                    item = item + subjectListItems[subjectUserItems.get(i)];
+                    if(i!=subjectUserItems.size()-1){
+                        item = item + ", ";
+                    }
+                }
+                binding.tvSubjects.setText(item);
+            }
+        });
+        builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                for (int i=0;i<subjectCheckedItems.length;i++){
+                    subjectCheckedItems[i] = false;
+                    subjectUserItems.clear();
+                    binding.tvSubjects.setText("");
+                }
+            }
+        });
+        builder.create().show();
+    }
 
 
     //B A C K   B U T T O N
@@ -186,4 +263,5 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
     private void toastMessageLong(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
 }

@@ -14,13 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".studentActivity.ShowPostedTuitionActivity"></activity>
-        <activity android:name=".studentActivity.PostTuitionActivity" />
         <activity android:name=".viewActivity.TuitionViewActivity" />
-        <activity
-            android:name=".viewActivity.StudentViewActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
         <activity
             android:name=".viewActivity.TutorViewActivity"
             android:screenOrientation="portrait"

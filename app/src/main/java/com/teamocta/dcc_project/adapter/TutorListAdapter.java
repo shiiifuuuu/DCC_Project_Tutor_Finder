@@ -21,6 +21,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
     private OnTutorClickListener mOnTutorClickListener;
     private ArrayList<TutorProfile> tutorList;
     private View view;
+
     public TutorListAdapter(ArrayList<TutorProfile> tutorList, OnTutorClickListener onTutorClickListener) {
         this.tutorList = tutorList;
         this.mOnTutorClickListener = onTutorClickListener;
@@ -56,6 +57,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
         private TextView tvProfession;
         private TextView tvInstitute;
         private TextView tvMinimumSalary;
+
         public ViewHolder(@NonNull View itemView, OnTutorClickListener onTutorClickListener) {
             super(itemView);
             this.onTutorClickListener = onTutorClickListener;

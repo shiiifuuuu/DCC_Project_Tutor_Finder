@@ -27,23 +27,27 @@ public class TutorViewActivity extends AppCompatActivity {
         setData();
     }
 
+    private String getIntentValue(String keyValue) {
+        return getIntent().getStringExtra(keyValue);
+    }
     private void getTutorInfo() {
-        name = getIntent().getStringExtra("name");
-        mobile = getIntent().getStringExtra("mobile");
-        email = getIntent().getStringExtra("email");
-        location = getIntent().getStringExtra("location");
-        gender = getIntent().getStringExtra("gender");
-        experience = getIntent().getStringExtra("experience");
-        profession = getIntent().getStringExtra("profession");
-        institute = getIntent().getStringExtra("institute");
-        tuitionType = getIntent().getStringExtra("tuitionType");
-        daysPerWeek = getIntent().getStringExtra("daysPerWeek");
-        areaCovered = getIntent().getStringExtra("areaCovered");
-        teachingSubjects = getIntent().getStringExtra("teachingSubjects");
-        minimumSalary = getIntent().getStringExtra("minimumSalary");
-        tutorPic = getIntent().getStringExtra("tutorPic");
+        name = getIntentValue("name");
+        mobile = getIntentValue("mobile");
+        email = getIntentValue("email");
+        location = getIntentValue("location");
+        gender = getIntentValue("gender");
+        experience = getIntentValue("experience");
+        profession = getIntentValue("profession");
+        institute = getIntentValue("institute");
+        tuitionType = getIntentValue("tuitionType");
+        daysPerWeek = getIntentValue("daysPerWeek");
+        areaCovered = getIntentValue("areaCovered");
+        teachingSubjects = getIntentValue("teachingSubjects");
+        minimumSalary = getIntentValue("minimumSalary");
+        tutorPic = getIntentValue("tutorPic");
     }
     private void setData() {
+        Glide.with(this).load(tutorPic).into(binding.ivProfilePic);
         binding.tvUserName.setText(name);
         binding.tvUserEmail.setText(email);
         binding.tvUserMobile.setText(mobile);
@@ -64,11 +68,11 @@ public class TutorViewActivity extends AppCompatActivity {
         binding.tvAreaCovered.setText(areaCovered);
         binding.tvTeachingSubjects.setText(teachingSubjects);
         binding.tvMinimumSalary.setText(minimumSalary + "/=");
-        Glide.with(this).load(tutorPic).into(binding.ivProfilePic);
     }
 
     public void btnBackClicked(View view) {
         startActivity(new Intent(this, StudentSearchActivity.class));
+        finish();
     }
 
     public void btnSendMessageClicked(View view) {

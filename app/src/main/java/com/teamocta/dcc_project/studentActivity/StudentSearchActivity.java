@@ -22,8 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.adapter.TutorListAdapter;
 import com.teamocta.dcc_project.databinding.ActivityStudentSearchBinding;
@@ -42,8 +40,6 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-    private StorageReference storageRef;
-    private String uid;
 
     private TutorProfile tutorProfile;
     private AlertDialog alertDialog;
@@ -69,8 +65,6 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        storageRef = FirebaseStorage.getInstance().getReference();
-        uid = firebaseAuth.getCurrentUser().getUid();
     }
 
     private void getTutors() {
