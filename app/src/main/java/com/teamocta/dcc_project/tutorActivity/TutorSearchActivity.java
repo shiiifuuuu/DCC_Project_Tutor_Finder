@@ -112,16 +112,22 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
     private void filter(String text) {
         ArrayList<StudentProfile> filteredList = new ArrayList<>();
         for(StudentProfile tuition: tuitionList){
-            if(tuition.getDaysPerWeek().toLowerCase().contains(text.toLowerCase())
+            if(tuition.getFirstName().toLowerCase().contains(text.toLowerCase()) ||
+            tuition.getStudentClass().toLowerCase().contains(text.toLowerCase()) ||
+            tuition.getDepartment().toLowerCase().contains(text.toLowerCase()) ||
+            tuition.getSubjects().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(tuition);
+            }
+            /*if(tuition.getDaysPerWeek().toLowerCase().contains(text.toLowerCase())
                     || tuition.getSubjects().toLowerCase().contains(text.toLowerCase())
-                    || tuition.getSalaryRange().toLowerCase().contains(text.toLowerCase())
+                    || tuition.getSalaryRange().contains(text)
                     || tuition.getLocation().toLowerCase().contains(text.toLowerCase())
                     || tuition.getAdditionalInfo().toLowerCase().contains(text.toLowerCase())
                     || tuition.getInstitute().toLowerCase().contains(text.toLowerCase())
                     || tuition.getStudentClass().toLowerCase().contains(text.toLowerCase())
                     || tuition.getAreaAddress().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(tuition);
-            }
+            }*/
         }
         tuitionListAdapter.filterList(filteredList);
     }

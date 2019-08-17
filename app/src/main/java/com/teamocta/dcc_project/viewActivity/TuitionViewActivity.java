@@ -45,7 +45,7 @@ public class TuitionViewActivity extends AppCompatActivity {
         email = getIntentValue("email");
 
         streetAddress = getIntentValue("streetAddress");
-        areaAddress = getIntentValue("areaAdress");
+        areaAddress = getIntentValue("areaAddress");
         zipCode = getIntentValue("zipCode");
 
         guardianName = getIntentValue("guardianName");

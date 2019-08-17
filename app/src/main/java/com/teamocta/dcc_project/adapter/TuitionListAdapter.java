@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.StudentProfile;
-import com.teamocta.dcc_project.tutorActivity.TutorSearchActivity;
 
 import java.util.ArrayList;
 

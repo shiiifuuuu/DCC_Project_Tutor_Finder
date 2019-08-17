@@ -115,7 +115,7 @@ public class StudentProfileActivity extends AppCompatActivity {
 
         binding.tvDaysPerWeek.setText(currentStudent.getDaysPerWeek());
         binding.tvSubjects.setText(currentStudent.getSubjects());
-        binding.tvSalaryRange.setText(currentStudent.getSalaryRange() + " tk/month");
+        binding.tvSalaryRange.setText(currentStudent.getSalaryRange());
         binding.tvAdditionalInfo.setText(currentStudent.getAdditionalInfo());
     }
     //-------ReadFromDatabase-------
@@ -233,16 +233,16 @@ public class StudentProfileActivity extends AppCompatActivity {
                 case R.id.navigation_profile:
                     /*startActivity(new Intent(StudentProfileActivity.this, StudentProfileActivity.class));
                     finish();*/
-                    //return true;
+                    return true;
                 case R.id.navigation_search:
                     startActivity(new Intent(StudentProfileActivity.this, StudentSearchActivity.class));
-                    //return true;
+                    return true;
                 case R.id.navigation_message:
                     startActivity(new Intent(StudentProfileActivity.this, StudentMessageActivity.class));
-                    //return true;
+                    return true;
                 case R.id.navigation_logout:
                     logoutCurrentUser();
-                    //return true;
+                    return true;
             }
             return false;
         }
