@@ -53,10 +53,43 @@
                     android:gravity="center_horizontal"
                     android:padding="5sp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/btnPostTuition"
+                            android:text="P o s t   T u i t i o n"
+                            android:onClick="btnPostTuitionClicked"
+                            android:layout_marginEnd="2sp"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:background="#FFEB3B"
+                            android:textAllCaps="false"/>
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/btnShowList"
+                            android:text="S h o w   L i s t"
+                            android:onClick="btnShowPostedListClicked"
+                            android:layout_marginStart="2sp"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:background="#FFEB3B"
+                            android:textAllCaps="false"/>
+
+                    </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="#E91E63"
+                        android:layout_marginTop="5sp"
                         android:layout_marginBottom="5sp"/>
                     <TextView
                         android:layout_width="match_parent"

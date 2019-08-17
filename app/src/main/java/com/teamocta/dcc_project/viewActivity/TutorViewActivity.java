@@ -3,12 +3,14 @@ package com.teamocta.dcc_project.viewActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityTutorViewBinding;
+import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
 
 public class TutorViewActivity extends AppCompatActivity {
 
@@ -25,6 +27,22 @@ public class TutorViewActivity extends AppCompatActivity {
         setData();
     }
 
+    private void getTutorInfo() {
+        name = getIntent().getStringExtra("name");
+        mobile = getIntent().getStringExtra("mobile");
+        email = getIntent().getStringExtra("email");
+        location = getIntent().getStringExtra("location");
+        gender = getIntent().getStringExtra("gender");
+        experience = getIntent().getStringExtra("experience");
+        profession = getIntent().getStringExtra("profession");
+        institute = getIntent().getStringExtra("institute");
+        tuitionType = getIntent().getStringExtra("tuitionType");
+        daysPerWeek = getIntent().getStringExtra("daysPerWeek");
+        areaCovered = getIntent().getStringExtra("areaCovered");
+        teachingSubjects = getIntent().getStringExtra("teachingSubjects");
+        minimumSalary = getIntent().getStringExtra("minimumSalary");
+        tutorPic = getIntent().getStringExtra("tutorPic");
+    }
     private void setData() {
         binding.tvUserName.setText(name);
         binding.tvUserEmail.setText(email);
@@ -49,27 +67,11 @@ public class TutorViewActivity extends AppCompatActivity {
         Glide.with(this).load(tutorPic).into(binding.ivProfilePic);
     }
 
-    private void getTutorInfo() {
-        name = getIntent().getStringExtra("name");
-        mobile = getIntent().getStringExtra("mobile");
-        email = getIntent().getStringExtra("email");
-        location = getIntent().getStringExtra("location");
-        gender = getIntent().getStringExtra("gender");
-        experience = getIntent().getStringExtra("experience");
-        profession = getIntent().getStringExtra("profession");
-        institute = getIntent().getStringExtra("institute");
-        tuitionType = getIntent().getStringExtra("tuitionType");
-        daysPerWeek = getIntent().getStringExtra("daysPerWeek");
-        areaCovered = getIntent().getStringExtra("areaCovered");
-        teachingSubjects = getIntent().getStringExtra("teachingSubjects");
-        minimumSalary = getIntent().getStringExtra("minimumSalary");
-        tutorPic = getIntent().getStringExtra("tutorPic");
-    }
-
     public void btnBackClicked(View view) {
-        onBackPressed();
+        startActivity(new Intent(this, StudentSearchActivity.class));
     }
 
     public void btnSendMessageClicked(View view) {
+
     }
 }

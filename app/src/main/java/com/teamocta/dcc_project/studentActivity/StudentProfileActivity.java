@@ -214,6 +214,14 @@ public class StudentProfileActivity extends AppCompatActivity {
     //-------EDIT PROFILE-------
 
 
+    public void btnPostTuitionClicked(View view) {
+        startActivity(new Intent(this, PostTuitionActivity.class));
+    }
+    public void btnShowPostedListClicked(View view) {
+        startActivity(new Intent(this, ShowPostedTuitionActivity.class));
+    }
+
+
     //N A V I G A T I O N   I T E M    L I S T E N E R
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -274,4 +282,5 @@ public class StudentProfileActivity extends AppCompatActivity {
     private void toastMessageLong(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
 }

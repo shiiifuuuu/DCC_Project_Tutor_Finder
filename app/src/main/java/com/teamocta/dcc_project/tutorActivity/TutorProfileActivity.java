@@ -232,7 +232,6 @@ public class TutorProfileActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_search:
                     startActivity(new Intent(TutorProfileActivity.this, TutorSearchActivity.class));
-                    finish();
                     return true;
                 case R.id.navigation_message:
                     startActivity(new Intent(TutorProfileActivity.this, TutorMessageActivity.class));
