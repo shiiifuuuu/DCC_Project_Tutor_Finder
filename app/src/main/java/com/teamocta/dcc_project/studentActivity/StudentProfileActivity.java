@@ -267,8 +267,6 @@ public class StudentProfileActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
-                    /*startActivity(new Intent(StudentProfileActivity.this, StudentProfileActivity.class));
-                    finish();*/
                     return true;
                 case R.id.navigation_search:
                     startActivity(new Intent(StudentProfileActivity.this, StudentSearchActivity.class));
@@ -298,6 +296,7 @@ public class StudentProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
+                binding.navView.getMenu().getItem(3).setChecked(false);
             }
         }).create().show();
     }

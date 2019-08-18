@@ -190,7 +190,6 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
                     startActivity(new Intent(StudentSearchActivity.this, StudentProfileActivity.class));
                     return true;
                 case R.id.navigation_search:
-                    refreshActivity();
                     return true;
                 case R.id.navigation_message:
                     startActivity(new Intent(StudentSearchActivity.this, StudentMessageActivity.class));
@@ -218,6 +217,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
+                binding.navView.getMenu().getItem(3).setChecked(false);
             }
         });
 

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SplashScreenActivity"
-    android:background="#444242">
+    tools:context=".mainActivity.SplashScreenActivity"
+    android:background="#00BCD4">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_centerInParent="true"
-        android:background="@color/red">
+        android:background="@drawable/splash_screen_shape">
 
         <TextView
             android:id="@+id/textView"
@@ -24,7 +24,7 @@
             android:layout_marginBottom="28dp"
             android:text="Find Tuition"
             android:fontFamily="sans-serif-smallcaps"
-            android:textColor="@color/tia"
+            android:textColor="@color/red"
             android:textSize="50sp"
             android:textStyle="bold" />
 
@@ -32,7 +32,6 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="TODO"
             android:src="@drawable/ic_splash_screen" />
     </LinearLayout>
     <RelativeLayout
