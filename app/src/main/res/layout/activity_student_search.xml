@@ -28,6 +28,7 @@
                 android:layout_weight="1"
                 android:id="@+id/etSearchTutor"
                 android:hint="Search Tutor"
+                android:inputType="text"
                 android:paddingStart="10sp"
                 android:drawableRight="@drawable/ic_search_black_24dp"
                 android:paddingEnd="20sp"

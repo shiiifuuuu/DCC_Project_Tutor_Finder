@@ -36,6 +36,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
     private ActivityStudentSearchBinding binding;
 
     private ArrayList<TutorProfile> tutorList;
+    private ArrayList<TutorProfile> filteredList;
     private TutorListAdapter tutorListAdapter;
 
     private FirebaseAuth firebaseAuth;
@@ -52,7 +53,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         init();
         getTutors();
         configRecyclerView();
-        etTextChangeListner();
+        etTextChangeListener();
     }
 
     private void init() {
@@ -91,18 +92,14 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         binding.rvTutorList.setAdapter(tutorListAdapter);
     }
 
-    private void etTextChangeListner() {
+    private void etTextChangeListener() {
         binding.etSearchTutor.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
                 filter(editable.toString());
@@ -110,7 +107,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         });
     }
     private void filter(String text) {
-        ArrayList<TutorProfile> filteredList = new ArrayList<>();
+        filteredList = new ArrayList<>();
         for(TutorProfile tutor: tutorList){
             if(tutor.getFirstName().toLowerCase().contains(text.toLowerCase())
                 || tutor.getLastName().toLowerCase().contains(text.toLowerCase())
@@ -121,17 +118,45 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
                 || tutor.getProfession().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(tutor);
             }
+            tutorListAdapter.filterList(filteredList);
         }
-        tutorListAdapter.filterList(filteredList);
     }
-
     @Override
     public void onTutorClick(int position) {
-        tutorList.get(position);
-        Intent intent = new Intent(this, TutorViewActivity.class);
-        sentTutorInfo(intent, position);
-        startActivity(intent);
+        if(filteredList!=null){
+            filteredList.get(position);
+            Intent intent = new Intent(this, TutorViewActivity.class);
+            sentFilteredTutorInfo(intent, position);
+            startActivity(intent);
+
+        }else{
+            tutorList.get(position);
+            Intent intent = new Intent(this, TutorViewActivity.class);
+            sentTutorInfo(intent, position);
+            startActivity(intent);
+
+        }
     }
+
+    private void sentFilteredTutorInfo(Intent intent, int position) {
+        intent.putExtra("name",filteredList.get(position).getFirstName()
+                + " " + filteredList.get(position).getLastName());
+        intent.putExtra("mobile", filteredList.get(position).getMobile());
+        intent.putExtra("email", filteredList.get(position).getEmail());
+        intent.putExtra("profession", filteredList.get(position).getProfession());
+        intent.putExtra("institute", filteredList.get(position).getInstitute());
+        intent.putExtra("gender", filteredList.get(position).getGender());
+        intent.putExtra("location", filteredList.get(position).getLocation());
+        intent.putExtra("experience", filteredList.get(position).getExperience());
+        intent.putExtra("tuitionType", filteredList.get(position).getTuitionType());
+        intent.putExtra("daysPerWeek", filteredList.get(position).getDaysPerWeek());
+        intent.putExtra("areaCovered", filteredList.get(position).getAreaCovered());
+        intent.putExtra("teachingSubjects", filteredList.get(position).getTeachingSubjects());
+        intent.putExtra("minimumSalary", filteredList.get(position).getMinimumSalary());
+        intent.putExtra("tutorPic", filteredList.get(position).getImageUrl());
+        intent.putExtra("tutorRating", filteredList.get(position).getTutorRating());
+    }
+
     private void sentTutorInfo(Intent intent, int position) {
         intent.putExtra("name",tutorList.get(position).getFirstName()
                 + " " + tutorList.get(position).getLastName());
@@ -165,8 +190,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
                     startActivity(new Intent(StudentSearchActivity.this, StudentProfileActivity.class));
                     return true;
                 case R.id.navigation_search:
-                    /*startActivity(new Intent(StudentSearchActivity.this, StudentSearchActivity.class));
-                    finish();*/
+                    refreshActivity();
                     return true;
                 case R.id.navigation_message:
                     startActivity(new Intent(StudentSearchActivity.this, StudentMessageActivity.class));
@@ -199,6 +223,15 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+    //Refresh Current Activity
+    public void refreshActivity() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
     //A L E R T   D I A L O G
     private void showAlertDialog (String message){
