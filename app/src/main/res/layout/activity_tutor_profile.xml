@@ -30,18 +30,22 @@
                         android:textStyle="bold"
                         android:padding="5sp"
                         android:onClick="updateProfileClicked"/>
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/ivProfilePic"
+                    <RelativeLayout
                         android:layout_width="240sp"
                         android:layout_height="240sp"
-                        android:src="@drawable/ic_add_box_black_24dp"
-                        app:civ_border_width="2dp"
-                        app:civ_border_color="#FF000000"
-                        android:layout_centerHorizontal="true"
-                        android:padding="10sp"
-                        android:onClick="btnUpdatePicClicked"/>
-
+                        android:layout_centerInParent="true">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/ivProfilePic"
+                            android:layout_width="1080sp"
+                            android:layout_height="1080sp"
+                            android:src="@drawable/ic_add_box_black_24dp"
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="#FF000000"
+                            android:layout_centerHorizontal="true"
+                            android:padding="10sp"
+                            android:onClick="btnUpdatePicClicked"/>
+                    </RelativeLayout>
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

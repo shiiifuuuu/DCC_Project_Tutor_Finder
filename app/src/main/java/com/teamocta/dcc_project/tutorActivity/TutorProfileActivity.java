@@ -1,10 +1,13 @@
 package com.teamocta.dcc_project.tutorActivity;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -42,6 +45,7 @@ import java.util.Map;
 public class TutorProfileActivity extends AppCompatActivity {
 
     private ActivityTutorProfileBinding binding;
+    private static final int CAMERA_CODE=0;
     private static final int GALLERY_CODE=1;
 
     private FirebaseAuth firebaseAuth;
@@ -121,37 +125,64 @@ public class TutorProfileActivity extends AppCompatActivity {
 
     //-------PROFILE PIC UPDATE-------
     public void btnUpdatePicClicked(View view) {
-        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, GALLERY_CODE);
+        builder.setMessage("Choose Image using...").setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_CODE);
+            }
+        }).setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GALLERY_CODE);
+            }
+        });
+
+        builder.create().show();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == GALLERY_CODE && resultCode == RESULT_OK && data!=null && data.getData()!=null){
+        if(requestCode == CAMERA_CODE && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            binding.ivProfilePic.setImageBitmap(imageBitmap);
+            mImageUri = getImageUri(getApplicationContext(), imageBitmap);
+            saveImage();
+        }else if(requestCode == GALLERY_CODE && resultCode == RESULT_OK && data!=null && data.getData()!=null){
             mImageUri = data.getData();
-            builder.setMessage("Save Image?").setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            showAlertDialog("saving image...");
-                            uploadPic();
-                        }
-                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
-                }
-            });
-
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+            saveImage();
+        }else{
+            builder.setMessage("Could not get any image.!!").create().show();
         }
+    }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1000, 1000,true);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), OutImage, "Title", null);
+        return Uri.parse(path);
     }
     private String getFileExtension(Uri uri){
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+    private void saveImage(){
+        binding.ivProfilePic.setImageURI(mImageUri);
+        builder.setMessage("Save Image?").setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        uploadPic();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                refreshActivity();
+            }
+        }).create().show();
     }
     private void uploadPic() {
         if(mImageUri!=null){
@@ -186,7 +217,6 @@ public class TutorProfileActivity extends AppCompatActivity {
                                 e.getMessage();
                             }
                         });
-                        alertDialog.cancel();
                     }
                 }
             });
@@ -260,10 +290,16 @@ public class TutorProfileActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
             }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        }).create().show();
+    }
+    //Refresh Current Activity
+    public void refreshActivity() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
     //A L E R T   D I A L O G   B O X
     private void showAlertDialog(String message) {

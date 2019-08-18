@@ -27,7 +27,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35sp"
                 android:id="@+id/tvName"
                 android:text="Shahadat Hossain"
                 android:textSize="24sp"/>
@@ -43,7 +43,7 @@
                     android:textSize="16sp"/>
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="22sp"
                     android:layout_weight="1"
                     android:id="@+id/tvClass_Dept"
                     android:text="10 - Science"
@@ -61,7 +61,7 @@
                     android:textSize="16sp"/>
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="22sp"
                     android:layout_weight="1"
                     android:id="@+id/tvSubject"
                     android:text="4 Subject"
@@ -79,7 +79,7 @@
                     android:textSize="16sp"/>
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="22sp"
                     android:layout_weight="1"
                     android:id="@+id/tvDaysPerWeek"
                     android:text="4 days"
@@ -91,7 +91,7 @@
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="22sp"
                     android:layout_weight="1.5"
                     android:text="Salary Range: "
                     android:textSize="16sp"/>

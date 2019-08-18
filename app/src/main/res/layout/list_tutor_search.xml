@@ -19,32 +19,32 @@
             android:padding="10sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="120sp"
             android:orientation="vertical"
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
                 android:id="@+id/tvName"
                 android:text="Shahadat Hossain"
                 android:textSize="24sp"/>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="22sp"
                 android:id="@+id/tvProfession"
                 android:text="Part-time tutor"
                 android:textSize="18sp"/>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="22sp"
                 android:id="@+id/tvInstitute"
                 android:text="Model College"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="22sp"
                 android:id="@+id/tvMinimumSalary"
                 android:text="4000/="
                 android:textStyle="italic"
