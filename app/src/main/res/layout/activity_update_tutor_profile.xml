@@ -112,7 +112,7 @@
                     android:padding="10sp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60sp"
+                    android:layout_height="50sp"
                     android:orientation="horizontal"
                     android:layout_marginTop="20sp"
                     android:padding="10sp">
@@ -121,18 +121,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Select your Gender :"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#49B34D"/>
-                    <Spinner
-                        android:id="@+id/spnrGender"
+                    <TextView
+                        android:id="@+id/tvGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:entries="@array/gender"></Spinner>
+                        android:onClick="tvGenderClicked"
+                        android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:layout_marginEnd="12sp"
+                        android:textSize="18sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60sp"
+                    android:layout_height="50sp"
                     android:orientation="horizontal"
                     android:layout_marginTop="10sp"
                     android:padding="10sp">
@@ -141,15 +144,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Primary location :"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#099CE0"/>
-                    <Spinner
-                        android:id="@+id/spnrLocation"
+                    <TextView
+                        android:id="@+id/tvLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:entries="@array/location"
-                        android:textSize="20sp"></Spinner>
+                        android:onClick="tvLocationClicked"
+                        android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:layout_marginEnd="12sp"
+                        android:textSize="18sp"/>
                 </LinearLayout>
 
                 <View
@@ -210,12 +215,15 @@
                         android:text="One Time Tuition: "
                         android:textSize="18sp"
                         android:padding="5sp"/>
-                    <Spinner
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/spnrTuitionType"
+                        android:id="@+id/tvTuitionType"
                         android:layout_weight="1"
-                        android:entries="@array/tuition_type"></Spinner>
+                        android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:layout_marginEnd="12sp"
+                        android:textSize="18sp"
+                        android:onClick="tvTuitionTypeClicked"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -228,12 +236,15 @@
                         android:text="Days per week: "
                         android:textSize="18sp"
                         android:padding="5sp"/>
-                    <Spinner
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/spnrDaysPerWeek"
+                        android:id="@+id/tvDaysPerWeek"
                         android:layout_weight="1"
-                        android:entries="@array/days_per_week"></Spinner>
+                        android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:layout_marginEnd="12sp"
+                        android:textSize="18sp"
+                        android:onClick="tvDaysPerWeekClicked"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -251,10 +262,11 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvAreaCovered"
                         android:layout_weight="1"
-                        android:text="click here"
+                        android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:layout_marginEnd="12sp"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:onClick="onAreaCoveredClicked" />
+                        android:onClick="tvAreaCoveredClicked" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -272,19 +284,31 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvTeachingSubjects"
                         android:layout_weight="1"
-                        android:text="click here"
+                        android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:layout_marginEnd="12sp"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:onClick="onTeachingSubjectsClicked" />
+                        android:onClick="tvTeachingSubjectsClicked" />
                 </LinearLayout>
-                <EditText
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60sp"
-                    android:layout_weight="1"
-                    android:id="@+id/etMinimumSalary"
-                    android:hint="Minimum Salary"
-                    android:inputType="number"
-                    android:padding="10sp"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Minimum Salary:"
+                        android:textSize="18sp"
+                        android:padding="5sp"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etMinimumSalary"
+                        android:layout_weight="1"
+                        android:textSize="18sp"
+                        android:inputType="number|phone"/>
+                </LinearLayout>
 
                 <Button
                     android:layout_width="match_parent"

@@ -102,7 +102,7 @@ public class TutorProfileActivity extends AppCompatActivity {
         binding.tvUserName.setText(currentTutor.getFirstName() + " " + currentTutor.getLastName());
         binding.tvUserEmail.setText(currentTutor.getEmail());
         binding.tvUserMobile.setText(currentTutor.getMobile());
-        binding.tvUserLocation.setText(currentTutor.getLocation() + ", Dhaka");
+        binding.tvUserLocation.setText(currentTutor.getLocation());
         binding.tvUserGender.setText(currentTutor.getGender());
         if(currentTutor.getImageUrl()!=null){
             Glide.with(this).load(currentTutor.getImageUrl()).into(binding.ivProfilePic);
@@ -239,11 +239,11 @@ public class TutorProfileActivity extends AppCompatActivity {
         intent.putExtra("mobile", binding.tvUserMobile.getText().toString());
         intent.putExtra("profession", binding.tvProfession.getText().toString());
         intent.putExtra("institute", binding.tvUserInstitute.getText().toString());
-        //intent.putExtra("gender", binding.tvUserGender.getText().toString());
-        //intent.putExtra("location", binding.tvUserLocation.getText().toString());
+        intent.putExtra("gender", binding.tvUserGender.getText().toString());
+        intent.putExtra("location", binding.tvUserLocation.getText().toString());
         intent.putExtra("experience", binding.tvExperience.getText().toString());
-        //intent.putExtra("tuitionType", binding.tvTuitionType.getText().toString());
-        //intent.putExtra("daysPerWeek", binding.tvDaysPerWeek.getText().toString());
+        intent.putExtra("tuitionType", binding.tvTuitionType.getText().toString());
+        intent.putExtra("daysPerWeek", binding.tvDaysPerWeek.getText().toString());
         intent.putExtra("areaCovered", binding.tvAreaCovered.getText().toString());
         intent.putExtra("teachingSubjects", binding.tvTeachingSubjects.getText().toString());
         intent.putExtra("minimumSalary", binding.tvMinimumSalary.getText().toString());

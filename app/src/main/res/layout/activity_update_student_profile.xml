@@ -269,7 +269,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40sp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="match_parent"
@@ -290,12 +290,12 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40sp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:text="Subjects: "
                         android:textSize="18sp"
                         android:padding="5sp"/>
@@ -306,18 +306,31 @@
                         android:layout_weight="1"
                         android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
                         android:layout_marginEnd="12sp"
+                        android:gravity="center"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:onClick="tvSubjectsClicked" />
                 </LinearLayout>
-                <EditText
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60sp"
-                    android:layout_weight="1"
-                    android:id="@+id/etSalaryRange"
-                    android:hint="Desired Salary Range"
-                    android:inputType="number|phone"
-                    android:padding="10sp"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Salary Range: "
+                        android:textSize="18sp"
+                        android:padding="5sp"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etSalaryRange"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:inputType="number|phone"
+                        android:textSize="18sp" />
+                </LinearLayout>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="80sp"
@@ -326,8 +339,6 @@
                     android:hint="Additional Info in details..."
                     android:inputType="textMultiLine"
                     android:padding="10sp"/>
-
-
 
                 <Button
                     android:layout_width="match_parent"

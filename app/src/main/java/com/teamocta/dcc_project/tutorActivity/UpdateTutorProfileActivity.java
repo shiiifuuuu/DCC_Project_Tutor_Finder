@@ -69,14 +69,14 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
         firstName = getIntent().getExtras().getString("firstName");
         lastName = getIntent().getExtras().getString("lastName");
         mobile = getIntent().getExtras().getString("mobile");
-        //getIntent().getExtras().getString("location", location);
-        //getIntent().getExtras().getString("gender", gender);
+        location = getIntent().getExtras().getString("location", location);
+        gender = getIntent().getExtras().getString("gender", gender);
         profession = getIntent().getExtras().getString("profession");
         institute = getIntent().getExtras().getString("institute");
         experience = getIntent().getExtras().getString("experience");
-        //getIntent().getExtras().getString("tuitionType", tuitionType);
+        tuitionType = getIntent().getExtras().getString("tuitionType", tuitionType);
         areaCovered = getIntent().getExtras().getString("areaCovered");
-        //getIntent().getExtras().getString("daysPerWeek", daysPerWeek);
+        daysPerWeek = getIntent().getExtras().getString("daysPerWeek", daysPerWeek);
         minimumSalary = getIntent().getExtras().getString("minimumSalary");
         teachingSubjects = getIntent().getExtras().getString("teachingSubjects");
     }
@@ -84,10 +84,14 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
         binding.etFirstName.setText(firstName);
         binding.etLastName.setText(lastName);
         binding.etMobile.setText(mobile);
+        binding.tvLocation.setText(location);
+        binding.tvGender.setText(gender);
         binding.etProfessiopn.setText(profession);
         binding.etInstitute.setText(institute);
         binding.etExperience.setText(experience);
+        binding.tvTuitionType.setText(tuitionType);
         binding.tvAreaCovered.setText(areaCovered);
+        binding.tvDaysPerWeek.setText(daysPerWeek);
         binding.etMinimumSalary.setText(minimumSalary);
         binding.tvTeachingSubjects.setText(teachingSubjects);
     }
@@ -156,20 +160,65 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
         firstName = binding.etFirstName.getText().toString();
         lastName = binding.etLastName.getText().toString();
         mobile = binding.etMobile.getText().toString();
-        location = binding.spnrLocation.getSelectedItem().toString();
-        gender = binding.spnrGender.getSelectedItem().toString();
+        location = binding.tvLocation.getText().toString();
+        gender = binding.tvGender.getText().toString();
         profession = binding.etProfessiopn.getText().toString();
         institute = binding.etInstitute.getText().toString();
         experience = binding.etExperience.getText().toString();
-        tuitionType = binding.spnrTuitionType.getSelectedItem().toString();
-        daysPerWeek = binding.spnrDaysPerWeek.getSelectedItem().toString();
+        tuitionType = binding.tvTuitionType.getText().toString();
+        daysPerWeek = binding.tvDaysPerWeek.getText().toString();
         minimumSalary = binding.etMinimumSalary.getText().toString();
         areaCovered = binding.tvAreaCovered.getText().toString();
         teachingSubjects = binding.tvTeachingSubjects.getText().toString();
     }
 
+
+    public void tvLocationClicked(View view) {
+        final String[] locationList = getResources().getStringArray(R.array.location);
+        builder.setTitle("Select Location").setCancelable(true).setSingleChoiceItems(locationList, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                binding.tvLocation.setText(locationList[i]);
+                dialogInterface.dismiss();
+            }
+        }).create().show();
+    }
+
+    public void tvGenderClicked(View view) {
+        final String[] genderList = getResources().getStringArray(R.array.gender);
+        builder.setTitle("Select Gender").setCancelable(true).setSingleChoiceItems(genderList, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                binding.tvGender.setText(genderList[i]);
+                dialogInterface.dismiss();
+            }
+        }).create().show();
+    }
+
+    public void tvDaysPerWeekClicked(View view) {
+        final String[] daysPerWeekList = getResources().getStringArray(R.array.days_per_week);
+        builder.setTitle("Select Days Per Week").setCancelable(true).setSingleChoiceItems(daysPerWeekList, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                binding.tvDaysPerWeek.setText(daysPerWeekList[i]);
+                dialogInterface.dismiss();
+            }
+        }).create().show();
+    }
+
+    public void tvTuitionTypeClicked(View view) {
+        final String[] tuitionType = getResources().getStringArray(R.array.tuition_type);
+        builder.setTitle("One Time Tuition ?").setCancelable(true).setSingleChoiceItems(tuitionType, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                binding.tvTuitionType.setText(tuitionType[i]);
+                dialogInterface.dismiss();
+            }
+        }).create().show();
+    }
+
     //getting areaCovered Lists
-    public void onAreaCoveredClicked(View view) {
+    public void tvAreaCoveredClicked(View view) {
         areaListItems = getResources().getStringArray(R.array.area_covered);
         areaCheckedItems = new boolean[areaListItems.length];
 
@@ -220,7 +269,7 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
     }
 
     //getting teachingSubject Lists
-    public void onTeachingSubjectsClicked(View view) {
+    public void tvTeachingSubjectsClicked(View view) {
         subjectListItems = getResources().getStringArray(R.array.teaching_subjects);
         subjectCheckedItems = new boolean[subjectListItems.length];
 

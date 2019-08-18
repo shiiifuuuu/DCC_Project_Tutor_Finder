@@ -33,7 +33,8 @@
         <activity
             android:name=".tutorActivity.UpdateTutorProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".tutorActivity.TutorProfileActivity"
             android:screenOrientation="portrait"
@@ -49,26 +50,27 @@
         <activity
             android:name=".studentActivity.UpdateStudentProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".studentActivity.StudentProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".mainActivity.ForgetPassActivity"
-            android:label="Reset Password Activity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".mainActivity.SignUpActivity"
-            android:label="Signup Activity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".mainActivity.LoginActivity"
-            android:label="Login Activity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".mainActivity.SplashScreenActivity"
             android:screenOrientation="portrait"

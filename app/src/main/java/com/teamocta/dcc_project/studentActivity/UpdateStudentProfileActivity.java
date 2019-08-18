@@ -201,7 +201,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
 
     public void tvGenderClicked(View view) {
         final String[] genderList = getResources().getStringArray(R.array.gender);
-        builder.setTitle("Select Gender").setSingleChoiceItems(genderList, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("Select Gender").setCancelable(true).setSingleChoiceItems(genderList, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvGender.setText(genderList[i]);
@@ -212,7 +212,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
 
     public void tvLocationClicked(View view) {
         final String[] locationList = getResources().getStringArray(R.array.location);
-        builder.setTitle("Select Location").setSingleChoiceItems(locationList, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("Select Location").setCancelable(true).setSingleChoiceItems(locationList, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvLocation.setText(locationList[i]);
@@ -223,7 +223,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
 
     public void tvDaysPerWeekClicked(View view) {
         final String[] daysPerWeekList = getResources().getStringArray(R.array.days_per_week);
-        builder.setTitle("Select Days Per Week").setSingleChoiceItems(daysPerWeekList, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("Select Days Per Week").setCancelable(true).setSingleChoiceItems(daysPerWeekList, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvDaysPerWeek.setText(daysPerWeekList[i]);
