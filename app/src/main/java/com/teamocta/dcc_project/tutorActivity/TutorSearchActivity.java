@@ -36,6 +36,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
     private ActivityTutorSearchBinding binding;
 
     private ArrayList<StudentProfile> tuitionList;
+    ArrayList<StudentProfile> filteredList;
     private TuitionListAdapter tuitionListAdapter;
 
     private FirebaseAuth firebaseAuth;
@@ -110,7 +111,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         });
     }
     private void filter(String text) {
-        ArrayList<StudentProfile> filteredList = new ArrayList<>();
+        filteredList = new ArrayList<>();
         for(StudentProfile tuition: tuitionList){
             if(tuition.getFirstName().toLowerCase().contains(text.toLowerCase())
                 || tuition.getStudentClass().toLowerCase().contains(text.toLowerCase())
@@ -130,11 +131,42 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
     }
     @Override
     public void onTuitionClick(int position) {
-        tuitionList.get(position);
-        Intent intent = new Intent(this, TuitionViewActivity.class);
-        sentTuitionInfo(intent, position);
-        startActivity(intent);
+        if(filteredList!=null){
+            filteredList.get(position);
+            Intent intent = new Intent(this, TuitionViewActivity.class);
+            sentFilteredTuitionInfo(intent, position);
+            startActivity(intent);
+        }else{
+            tuitionList.get(position);
+            Intent intent = new Intent(this, TuitionViewActivity.class);
+            sentTuitionInfo(intent, position);
+            startActivity(intent);
+        }
     }
+
+    private void sentFilteredTuitionInfo(Intent intent, int position) {
+        intent.putExtra("name",filteredList.get(position).getFirstName()
+                + " " + filteredList.get(position).getLastName());
+        intent.putExtra("mobile", filteredList.get(position).getMobile());
+        intent.putExtra("email", filteredList.get(position).getEmail());
+        intent.putExtra("studentClass", filteredList.get(position).getStudentClass());
+        intent.putExtra("institute", filteredList.get(position).getInstitute());
+        intent.putExtra("gender", filteredList.get(position).getGender());
+        intent.putExtra("location", filteredList.get(position).getLocation());
+        intent.putExtra("department", filteredList.get(position).getDepartment());
+        intent.putExtra("guardianName", filteredList.get(position).getGuardianName());
+        intent.putExtra("guardianMobile", filteredList.get(position).getGuardianMobile());
+        intent.putExtra("streetAddress", filteredList.get(position).getStreetAddress());
+        intent.putExtra("areaAddress", filteredList.get(position).getAreaAddress());
+        intent.putExtra("zipCode", filteredList.get(position).getZipCode());
+        intent.putExtra("daysPerWeek", filteredList.get(position).getDaysPerWeek());
+        intent.putExtra("additionalInfo", filteredList.get(position).getAdditionalInfo());
+        intent.putExtra("subjects", filteredList.get(position).getSubjects());
+        intent.putExtra("salaryRange", filteredList.get(position).getSalaryRange());
+        intent.putExtra("studentPic", filteredList.get(position).getImageUrl());
+        intent.putExtra("tuitionRating", filteredList.get(position).getTuitionRating());
+    }
+
     private void sentTuitionInfo(Intent intent, int position) {
         intent.putExtra("name",tuitionList.get(position).getFirstName()
                 + " " + tuitionList.get(position).getLastName());
