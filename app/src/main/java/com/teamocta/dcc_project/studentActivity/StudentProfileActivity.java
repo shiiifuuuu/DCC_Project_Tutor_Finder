@@ -107,7 +107,7 @@ public class StudentProfileActivity extends AppCompatActivity {
         binding.tvUserName.setText(currentStudent.getFirstName() + " " + currentStudent.getLastName());
         binding.tvUserEmail.setText(currentStudent.getEmail());
         binding.tvUserMobile.setText(currentStudent.getMobile());
-        binding.tvUserLocation.setText(currentStudent.getLocation() + ", Dhaka");
+        binding.tvUserLocation.setText(currentStudent.getLocation());
         binding.tvUserGender.setText(currentStudent.getGender());
         if(currentStudent.getImageUrl()!=null){
             Glide.with(this).load(currentStudent.getImageUrl()).into(binding.ivProfilePic);
@@ -131,7 +131,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     //-------PROFILE PIC UPDATE-------
     public void btnUpdatePicClicked(View view) {
 
-        builder.setMessage("Choose Image using...").setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+        builder.setMessage("Choose Image using...").setCancelable(true).setPositiveButton("Camera", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -241,6 +241,8 @@ public class StudentProfileActivity extends AppCompatActivity {
         intent.putExtra("studentClass", binding.tvUserClass.getText().toString());
         intent.putExtra("department", currentStudent.getDepartment());
         intent.putExtra("institute", binding.tvUserInstitute.getText().toString());
+        intent.putExtra("gender", binding.tvUserGender.getText().toString());
+        intent.putExtra("location", binding.tvUserLocation.getText().toString());
         intent.putExtra("streetAddress", currentStudent.getStreetAddress());
         intent.putExtra("areaAddress", currentStudent.getAreaAddress());
         intent.putExtra("zipCode", currentStudent.getZipCode());

@@ -125,7 +125,7 @@ public class TutorProfileActivity extends AppCompatActivity {
 
     //-------PROFILE PIC UPDATE-------
     public void btnUpdatePicClicked(View view) {
-        builder.setMessage("Choose Image using...").setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+        builder.setMessage("Choose Image using...").setCancelable(true).setPositiveButton("Camera", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -150,10 +150,14 @@ public class TutorProfileActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             binding.ivProfilePic.setImageBitmap(imageBitmap);
             mImageUri = getImageUri(getApplicationContext(), imageBitmap);
+
             saveImage();
+
         }else if(requestCode == GALLERY_CODE && resultCode == RESULT_OK && data!=null && data.getData()!=null){
             mImageUri = data.getData();
+
             saveImage();
+
         }else{
             builder.setMessage("Could not get any image.!!").create().show();
         }

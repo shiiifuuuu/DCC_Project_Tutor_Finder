@@ -73,12 +73,15 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         studentClass = getIntent().getExtras().getString("studentClass");
         institute = getIntent().getExtras().getString("institute");
         department = getIntent().getExtras().getString("department");
+        gender = getIntent().getStringExtra("gender");
+        location = getIntent().getStringExtra("location");
         streetAddress = getIntent().getStringExtra("streetAddress");
         areaAddress = getIntent().getStringExtra("areaAddress");
         zipCode = getIntent().getStringExtra("zipCode");
         guardianName = getIntent().getExtras().getString("guardianName");
         guardianMobile = getIntent().getExtras().getString("guardianMobile");
 
+        daysPerWeek = getIntent().getStringExtra("daysPerWeek");
         subjects = getIntent().getStringExtra("subjects");
         salaryRange = getIntent().getStringExtra("salaryRange");
         additionalInfo = getIntent().getStringExtra("additionalInfo");
@@ -90,12 +93,15 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         binding.etClass.setText(studentClass);
         binding.etInstitute.setText(institute);
         binding.etDept.setText(department);
+        binding.tvGender.setText(gender);
+        binding.tvLocation.setText(location);
         binding.etStreet.setText(streetAddress);
         binding.etArea.setText(areaAddress);
         binding.etZipCode.setText(zipCode);
         binding.etGuardianName.setText(guardianName);
         binding.etGuardinaMobile.setText(guardianMobile);
 
+        binding.tvDaysPerWeek.setText(daysPerWeek);
         binding.tvSubjects.setText(subjects);
         binding.etSalaryRange.setText(salaryRange);
         binding.etAdditionalInfo.setText(additionalInfo);
@@ -175,8 +181,8 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         firstName = binding.etFirstName.getText().toString();
         lastName = binding.etLastName.getText().toString();
         mobile = binding.etMobile.getText().toString();
-        location = binding.spnrLocation.getSelectedItem().toString();
-        gender = binding.spnrGender.getSelectedItem().toString();
+        location = binding.tvLocation.getText().toString();
+        gender = binding.tvGender.getText().toString();
         studentClass = binding.etClass.getText().toString();
         department = binding.etDept.getText().toString();
         institute = binding.etInstitute.getText().toString();
@@ -186,19 +192,52 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         guardianName = binding.etGuardianName.getText().toString();
         guardianMobile = binding.etGuardinaMobile.getText().toString();
 
-        daysPerWeek = binding.spnrDaysPerWeek.getSelectedItem().toString();
+        daysPerWeek = binding.tvDaysPerWeek.getText().toString();
         subjects = binding.tvSubjects.getText().toString();
         salaryRange = binding.etSalaryRange.getText().toString();
         additionalInfo = binding.etAdditionalInfo.getText().toString();
     }
 
 
-    public void onChooseSubjectsClicked(View view) {
+    public void tvGenderClicked(View view) {
+        final String[] genderList = getResources().getStringArray(R.array.gender);
+        builder.setTitle("Select Gender").setSingleChoiceItems(genderList, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                binding.tvGender.setText(genderList[i]);
+                dialogInterface.dismiss();
+            }
+        }).create().show();
+    }
+
+    public void tvLocationClicked(View view) {
+        final String[] locationList = getResources().getStringArray(R.array.location);
+        builder.setTitle("Select Location").setSingleChoiceItems(locationList, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                binding.tvLocation.setText(locationList[i]);
+                dialogInterface.dismiss();
+            }
+        }).create().show();
+    }
+
+    public void tvDaysPerWeekClicked(View view) {
+        final String[] daysPerWeekList = getResources().getStringArray(R.array.days_per_week);
+        builder.setTitle("Select Days Per Week").setSingleChoiceItems(daysPerWeekList, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                binding.tvDaysPerWeek.setText(daysPerWeekList[i]);
+                dialogInterface.dismiss();
+            }
+        }).create().show();
+    }
+
+    public void tvSubjectsClicked(View view) {
         subjectListItems = getResources().getStringArray(R.array.teaching_subjects);
         subjectCheckedItems = new boolean[subjectListItems.length];
 
-        builder.setTitle("Select Subjects");
-        builder.setMultiChoiceItems(subjectListItems, subjectCheckedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setTitle("Select Subjects").setMultiChoiceItems(subjectListItems, subjectCheckedItems,
+                new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
                 if(isChecked){
@@ -209,9 +248,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
-        builder.setCancelable(false);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        }).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 String item = "";
@@ -223,14 +260,12 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
                 }
                 binding.tvSubjects.setText(item);
             }
-        });
-        builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
             }
-        });
-        builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+        }).setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 for (int i=0;i<subjectCheckedItems.length;i++){
@@ -239,8 +274,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
                     binding.tvSubjects.setText("");
                 }
             }
-        });
-        builder.create().show();
+        }).create().show();
     }
 
 
@@ -263,5 +297,4 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
     private void toastMessageLong(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-
 }
