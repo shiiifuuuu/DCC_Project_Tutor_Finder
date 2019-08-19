@@ -102,49 +102,6 @@ public class MessageViewActivity extends AppCompatActivity {
             }
         });
     }
-    /*private void checkingDatabase() {
-        firstUid = userUid;
-        secondUid = oppositeUid;
-        final DatabaseReference
-        userRef.child(userUid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for(DataSnapshot data: dataSnapshot.getChildren()){
-                        key = data.getKey();
-                    }
-                    if(key!=null && key.equals(oppositeUid)){
-                        firstUid = userUid;
-                        secondUid = oppositeUid;
-                    }
-                }else if(!dataSnapshot.exists()){
-                    userRef.child(oppositeUid).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
-                                for(DataSnapshot data: dataSnapshot.getChildren()){
-                                    key = data.getKey();
-                                }
-                                if(key != null && key.equals(userUid)){
-                                    firstUid = oppositeUid;
-                                    secondUid = userUid;
-                                }
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        alertDialog.cancel();
-    }*/
-
     private void setUids(String str1, String str2) {
         parent = str1;
         child = str2;
