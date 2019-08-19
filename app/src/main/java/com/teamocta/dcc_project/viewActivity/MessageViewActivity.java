@@ -4,8 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,7 +15,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.adapter.MessageListAdapter;
@@ -33,10 +33,10 @@ public class MessageViewActivity extends AppCompatActivity {
     private ActivityMessageViewBinding binding;
     private AlertDialog alertDialog;
 
-    private String key;
-
+    private Boolean isUserTutor, isUserStudent;
     private String displayName;
-    private String userUid, oppositeUid, parent, child;
+    private String userUid, userName, oppositeUid, oppositeName, parent, child;
+    private String tutor_student, student_tutor;
 
     private ArrayList<TutorProfile> tutorChatList;
     private ArrayList<StudentProfile> studentChatList;
@@ -52,23 +52,105 @@ public class MessageViewActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_message_view);
 
         init();
-        checkingDatabase();
+        checkUserType();
+        //setMessage();
     }
-
 
     private void init() {
 
         tutorChatList = new ArrayList<>();
         studentChatList = new ArrayList<>();
         messageListAdapter = new MessageListAdapter();
+
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        userRef = databaseReference.child("chatMessage");
+        //userRef = databaseReference.child("chatMessage");
+
         userUid = firebaseAuth.getCurrentUser().getUid();
         oppositeUid = getIntent().getStringExtra("msgReceiverUid");
     }
 
-    private void checkingDatabase() {
+
+    private void checkUserType() {
+        DatabaseReference tutorReference = databaseReference.child("Tutor");
+        tutorReference.orderByChild("uid").equalTo(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChildren()){
+                    isUserTutor = true;
+                    tutor_student = oppositeUid;
+                    student_tutor = userUid;
+                    //toastMessageShort("user is tutor");
+                    //toastMessageShort("opposite is student");
+                    isUserStudent = false;
+                }
+                else{
+                    isUserStudent = true;
+                    student_tutor = oppositeUid;
+                    tutor_student = userUid;
+                    //toastMessageShort("user is student");
+                    //toastMessageShort("opposite is tutor");
+                    isUserTutor = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                databaseError.getMessage();
+            }
+        });
+    }
+
+
+    public void btnSendMessageClicked(View view) {
+        toastMessageLong("Button is clicked");
+        setData();
+    }
+
+    private void setData() {
+        Date timeStamp = Calendar.getInstance().getTime();
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("msg", binding.etTypeMessage.getText().toString());
+
+        if(isUserTutor){
+            toastMessageLong("user tutor");
+            databaseReference.child("Tutor").child(userUid).child("chatMessage").child("sent").child(tutor_student)
+                    .child(timeStamp.toString()).setValue(userMap);
+            databaseReference.child("Student").child(oppositeUid).child("chatMessage").child("received").child(student_tutor)
+                    .child(timeStamp.toString()).setValue(userMap);
+        }else if(isUserStudent){
+            toastMessageLong("user student");
+            databaseReference.child("Student").child(userUid).child("chatMessage").child("sent").child(student_tutor)
+                    .child(timeStamp.toString()).setValue(userMap);
+            databaseReference.child("Tutor").child(oppositeUid).child("chatMessage").child("received").child(tutor_student)
+                    .child(timeStamp.toString()).setValue(userMap);
+        }else{
+            toastMessageLong("User type could not be verified");
+        }
+    }
+
+    //A L E R T   D I A L O G   B O X
+    private void showAlertDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MessageViewActivity.this);
+        builder.setMessage(message).setCancelable(false);
+        alertDialog = builder.create();
+        alertDialog.show();
+        //Closing Alert Dialog use this (alertDialog.cancel();)
+    }
+
+    //T O A S T    M E S S A G E
+    private void toastMessageShort(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+    private void toastMessageLong(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+}
+
+
+
+/*private void checkingDatabase() {
         toastMessageLong("entered Checking Database");
         userRef.child(userUid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -117,6 +199,7 @@ public class MessageViewActivity extends AppCompatActivity {
             DatabaseReference chatRef = databaseReference.child("chatMessage").child(parent)
                 .child(child);
             chatRef.child(currentTime.toString()).setValue(userMap);
+
         }else{
             DatabaseReference chatRef = databaseReference.child("chatMessage").child(userUid)
                     .child(oppositeUid);
@@ -125,23 +208,4 @@ public class MessageViewActivity extends AppCompatActivity {
     }
     private void getChatMessage() {
 
-    }
-
-    //A L E R T   D I A L O G   B O X
-    private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MessageViewActivity.this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-        //Closing Alert Dialog use this (alertDialog.cancel();)
-    }
-
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-}
+    }*/
