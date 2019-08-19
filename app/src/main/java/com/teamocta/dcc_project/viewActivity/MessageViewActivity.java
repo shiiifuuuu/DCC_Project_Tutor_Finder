@@ -36,7 +36,7 @@ public class MessageViewActivity extends AppCompatActivity {
     private String key;
 
     private String displayName;
-    private String userUid, oppositeUid, firstUid, secondUid;
+    private String userUid, oppositeUid, parent, child;
 
     private ArrayList<TutorProfile> tutorChatList;
     private ArrayList<StudentProfile> studentChatList;
@@ -44,7 +44,7 @@ public class MessageViewActivity extends AppCompatActivity {
     private MessageListAdapter messageListAdapter;
 
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference, userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +52,9 @@ public class MessageViewActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_message_view);
 
         init();
-        setChatMessage();
-        getChatMessage();
-
+        checkingDatabase();
     }
+
 
     private void init() {
 
@@ -64,29 +63,49 @@ public class MessageViewActivity extends AppCompatActivity {
         messageListAdapter = new MessageListAdapter();
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
+        userRef = databaseReference.child("chatMessage");
         userUid = firebaseAuth.getCurrentUser().getUid();
         oppositeUid = getIntent().getStringExtra("msgReceiverUid");
     }
 
-    public void btnSendMessageClicked(View view) {
-        setChatMessage();
-    }
+    private void checkingDatabase() {
+        toastMessageLong("entered Checking Database");
+        userRef.child(userUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    if(dataSnapshot.hasChild(oppositeUid)){
+                        setUids(userUid, oppositeUid);
+                    }
+                }else if(!dataSnapshot.exists()){
+                    userRef.child(oppositeUid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                if(dataSnapshot.hasChild(userUid)){
+                                    setUids(oppositeUid, userUid);
+                                }
+                            }
+                        }
 
-    private void setChatMessage() {
-        showAlertDialog("Loading...");
-        Date currentTime = Calendar.getInstance().getTime();
-        checkUserType();
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put("chats", binding.etTypeMessage.getText().toString());
-        /*DatabaseReference chatRef = databaseReference.child("chatMessage").child(firstUid)
-                .child(secondUid);
-        chatRef.child(currentTime.toString()).setValue(userMap);*/
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
-    private void checkUserType() {
+    /*private void checkingDatabase() {
         firstUid = userUid;
         secondUid = oppositeUid;
-        final DatabaseReference userRef = databaseReference.child("chatMessage");
+        final DatabaseReference
         userRef.child(userUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -124,8 +143,29 @@ public class MessageViewActivity extends AppCompatActivity {
             }
         });
         alertDialog.cancel();
+    }*/
+
+    private void setUids(String str1, String str2) {
+        parent = str1;
+        child = str2;
+        toastMessageLong("user Uid " + parent);
+        toastMessageLong("opposite Uid " + child);
     }
 
+    public void btnSendMessageClicked(View view) {
+        Date currentTime = Calendar.getInstance().getTime();
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("chats", binding.etTypeMessage.getText().toString());
+        if(parent!=null && child!=null){
+            DatabaseReference chatRef = databaseReference.child("chatMessage").child(parent)
+                .child(child);
+            chatRef.child(currentTime.toString()).setValue(userMap);
+        }else{
+            DatabaseReference chatRef = databaseReference.child("chatMessage").child(userUid)
+                    .child(oppositeUid);
+            chatRef.child(currentTime.toString()).setValue(userMap);
+        }
+    }
     private void getChatMessage() {
 
     }
