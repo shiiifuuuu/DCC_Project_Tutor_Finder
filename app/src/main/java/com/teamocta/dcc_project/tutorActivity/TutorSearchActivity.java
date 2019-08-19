@@ -145,6 +145,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
     }
 
     private void sentFilteredTuitionInfo(Intent intent, int position) {
+        intent.putExtra("studentUid", filteredList.get(position).getUid());
         intent.putExtra("name",filteredList.get(position).getFirstName()
                 + " " + filteredList.get(position).getLastName());
         intent.putExtra("mobile", filteredList.get(position).getMobile());
@@ -168,6 +169,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
     }
 
     private void sentTuitionInfo(Intent intent, int position) {
+        intent.putExtra("studentUid", tuitionList.get(position).getUid());
         intent.putExtra("name",tuitionList.get(position).getFirstName()
                 + " " + tuitionList.get(position).getLastName());
         intent.putExtra("mobile", tuitionList.get(position).getMobile());

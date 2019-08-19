@@ -15,12 +15,12 @@
             android:textSize="40sp"
             android:layout_marginBottom="20sp"/>
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMessageList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/rvMessageList"
             android:layout_below="@+id/tx1"
             android:layout_above="@+id/nav_view"
-            tools:listitem="@layout/list_message"
+            tools:listitem="@layout/list_message_profile"
             tools:itemCount="5">
 
         </androidx.recyclerview.widget.RecyclerView>

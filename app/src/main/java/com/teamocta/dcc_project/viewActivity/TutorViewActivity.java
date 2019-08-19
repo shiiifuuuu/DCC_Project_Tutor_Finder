@@ -15,7 +15,7 @@ import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
 public class TutorViewActivity extends AppCompatActivity {
 
     private ActivityTutorViewBinding binding;
-    private String name, mobile, email, location, gender, experience, profession, institute;
+    private String tutorUid, name, mobile, email, location, gender, experience, profession, institute;
     private String tuitionType, daysPerWeek, areaCovered, teachingSubjects, minimumSalary, tutorPic,
             tutorRating;
 
@@ -32,6 +32,7 @@ public class TutorViewActivity extends AppCompatActivity {
         return getIntent().getStringExtra(keyValue);
     }
     private void getTutorInfo() {
+        tutorUid = getIntentValue("tutorUid");
         name = getIntentValue("name");
         mobile = getIntentValue("mobile");
         email = getIntentValue("email");
@@ -79,6 +80,8 @@ public class TutorViewActivity extends AppCompatActivity {
     }
 
     public void btnSendMessageClicked(View view) {
-
+        Intent intent = new Intent(this, MessageViewActivity.class);
+        intent.putExtra("msgReceiverUid", tutorUid);
+        startActivity(intent);
     }
 }

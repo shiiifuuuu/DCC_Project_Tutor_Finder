@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="120sp"
             android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:layout_width="match_parent"
