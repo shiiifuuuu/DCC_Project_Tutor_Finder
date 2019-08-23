@@ -36,7 +36,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
     private ActivityTutorSearchBinding binding;
 
     private ArrayList<StudentProfile> tuitionList;
-    ArrayList<StudentProfile> filteredList;
+    private ArrayList<StudentProfile> filteredList;
     private TuitionListAdapter tuitionListAdapter;
 
     private FirebaseAuth firebaseAuth;

@@ -40,33 +40,32 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/messageBox"
             android:layout_below="@+id/upperLayout"
-            tools:listitem="@layout/list_chat_message_row"
+            tools:listitem="@layout/list_chat_message_left"
             tools:itemCount="5">
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <LinearLayout
-            android:id="@+id/messageBox"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20sp"
-            android:paddingBottom="4sp"
+            android:id="@+id/messageBox"
             android:layout_alignParentBottom="true">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:id="@+id/etTypeMessage"
+                android:layout_toLeftOf="@+id/btnSendMessage"
+                android:layout_centerVertical="true"
                 android:hint="Type your message..."/>
             <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:id="@+id/btnSendMessage"
                 android:src="@drawable/ic_send_black_24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:onClick="btnSendMessageClicked"/>
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

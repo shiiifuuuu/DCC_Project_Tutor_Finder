@@ -14,7 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".viewActivity.MessageViewActivity"></activity>
+        <activity
+            android:name=".viewActivity.MessageViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"/>
         <activity
             android:name=".viewActivity.TuitionViewActivity"
             android:screenOrientation="portrait"
