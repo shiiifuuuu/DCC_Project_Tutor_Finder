@@ -64,7 +64,6 @@ public class MessageViewActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        //userRef = databaseReference.child("chatMessage");
 
         userUid = firebaseAuth.getCurrentUser().getUid();
         oppositeUid = getIntent().getStringExtra("msgReceiverUid");
@@ -112,22 +111,47 @@ public class MessageViewActivity extends AppCompatActivity {
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("msg", binding.etTypeMessage.getText().toString());
 
+
         if(isUserTutor){
             toastMessageLong("user tutor");
-            databaseReference.child("Tutor").child(userUid).child("chatMessage").child("sent").child(tutor_student)
+            databaseReference.child("Tutor").child(userUid).child("chatMessage").child(tutor_student).child("sent")
                     .child(timeStamp.toString()).setValue(userMap);
-            databaseReference.child("Student").child(oppositeUid).child("chatMessage").child("received").child(student_tutor)
+            databaseReference.child("Student").child(oppositeUid).child("chatMessage").child(student_tutor).child("received")
                     .child(timeStamp.toString()).setValue(userMap);
         }else if(isUserStudent){
             toastMessageLong("user student");
-            databaseReference.child("Student").child(userUid).child("chatMessage").child("sent").child(student_tutor)
+            databaseReference.child("Student").child(userUid).child("chatMessage").child(student_tutor).child("sent")
                     .child(timeStamp.toString()).setValue(userMap);
-            databaseReference.child("Tutor").child(oppositeUid).child("chatMessage").child("received").child(tutor_student)
+            databaseReference.child("Tutor").child(oppositeUid).child("chatMessage").child(tutor_student).child("received")
                     .child(timeStamp.toString()).setValue(userMap);
         }else{
             toastMessageLong("User type could not be verified");
         }
+
     }
+
+    private void getData() {
+
+        if(isUserTutor){
+            DatabaseReference userRef = databaseReference.child("Tutor").child(userUid).child("chatMessage");
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot data : dataSnapshot.getChildren()){
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
 
     //A L E R T   D I A L O G   B O X
     private void showAlertDialog(String message) {
