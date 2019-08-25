@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,12 +21,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.teamocta.dcc_project.R;
+import com.teamocta.dcc_project.adapter.studentMessageAdapter;
 import com.teamocta.dcc_project.databinding.ActivityStudentMessageBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
+import com.teamocta.dcc_project.pojo.Chat;
 import com.teamocta.dcc_project.pojo.TutorProfile;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 public class StudentMessageActivity extends AppCompatActivity {
 
@@ -33,11 +40,12 @@ public class StudentMessageActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-    private StorageReference storageRef;
-    private String userUid, tutorUid;
 
-    private TutorProfile tutorProfile;
+    private ArrayList<String> msgSenderId;
+    private ArrayList<TutorProfile> tutorList;
 
+    private studentMessageAdapter studentMessageAdapter;
+    private String userUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,9 @@ public class StudentMessageActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_student_message);
 
         init();
-        getChatData();
+        getMessageSenderList();
+        configRecyclerView();
+
     }
 
     private void init() {
@@ -54,15 +64,33 @@ public class StudentMessageActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        storageRef = FirebaseStorage.getInstance().getReference();
         userUid = firebaseAuth.getCurrentUser().getUid();
+
+        msgSenderId = new ArrayList<>();
+        tutorList = new ArrayList<>();
+
+        studentMessageAdapter = new studentMessageAdapter(tutorList);
     }
 
-    private void getChatData() {
-        DatabaseReference chatMessage = databaseReference.child("Student").child("chatMessage");
-        chatMessage.addValueEventListener(new ValueEventListener() {
+    private void getMessageSenderList() {
+        DatabaseReference chatRef = databaseReference.child("chatMessage");
+        chatRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+//                    userList.clear();
+                    for(DataSnapshot chats: dataSnapshot.getChildren()){
+                        Chat chat = chats.getValue(Chat.class);
+//                        userList.add(chat);
+                        if(chat.getSender().equals(userUid)){
+                            msgSenderId.add(chat.getReceiver());
+                        }if (chat.getReceiver().equals(userUid)){
+                            msgSenderId.add(chat.getSender());
+                        }
+                    }
+
+                    readChats();
+                }
 
             }
 
@@ -72,6 +100,41 @@ public class StudentMessageActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void readChats() {
+        // delete duplicates (if any) from 'ArrayList'
+        msgSenderId = new ArrayList<>(new LinkedHashSet<>(msgSenderId));
+        DatabaseReference chatRef = databaseReference.child("Tutor");
+        chatRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        TutorProfile tutorProfile = snapshot.getValue(TutorProfile.class);
+
+                        for(String id: msgSenderId){
+                            if(tutorProfile.getUid().equals(id)){
+                                tutorList.add(tutorProfile);
+                            }
+                        }
+                        studentMessageAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void configRecyclerView() {
+        binding.rvMessageList.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvMessageList.setAdapter(studentMessageAdapter);
+    }
+
 
 
 

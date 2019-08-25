@@ -10,26 +10,32 @@
         <LinearLayout
             android:id="@+id/upperLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40sp"
             android:orientation="horizontal"
             android:layout_alignParentTop="true"
             android:gravity="center"
-            android:layout_marginTop="10sp">
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="20sp"
+            android:layout_marginStart="5sp"
+            android:layout_marginEnd="5sp">
             <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:src="@drawable/ic_keyboard_backspace_black_24dp"
-                android:background="#fff"/>
+                android:background="@drawable/search_outline"
+                android:onClick="btnBackClicked"/>
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvReceiverName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Shahadat Hossain"
-                android:gravity="center"
-                android:layout_marginEnd="15sp"
+                android:text="receiverName"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:layout_marginStart="5sp"
                 android:textSize="20sp"/>
 
         </LinearLayout>
@@ -49,22 +55,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/messageBox"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:padding="10sp">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/etTypeMessage"
                 android:layout_toLeftOf="@+id/btnSendMessage"
+                android:background="@drawable/search_outline"
                 android:layout_centerVertical="true"
+                android:padding="8sp"
                 android:hint="Type your message..."/>
             <ImageButton
-                android:layout_width="40sp"
+                android:layout_width="60sp"
                 android:layout_height="40sp"
                 android:id="@+id/btnSendMessage"
                 android:src="@drawable/ic_send_black_24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:onClick="btnSendMessageClicked"/>
+                android:background="@drawable/search_outline"
+                android:onClick="btnSendMessageClicked"
+                android:layout_marginStart="5sp"/>
         </RelativeLayout>
 
     </RelativeLayout>

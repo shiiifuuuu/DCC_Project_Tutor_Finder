@@ -85,6 +85,7 @@ public class TuitionViewActivity extends AppCompatActivity {
     public void btnSendMessageClicked(View view) {
         Intent intent = new Intent(this, MessageViewActivity.class);
         intent.putExtra("msgReceiverUid", studentUid);
+        intent.putExtra("receiverName", name);
         startActivity(intent);
     }
 }

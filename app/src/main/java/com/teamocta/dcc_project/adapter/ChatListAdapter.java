@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.ViewHolder> {
+public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
 
     public static final int MSG_TYPE_LEFT = 0;
     public static final int MSG_TYPE_RIGHT = 1;
@@ -27,7 +27,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
     private String userUid;
 
-    public MessageListAdapter(ArrayList<Chat> chatList) {
+    public ChatListAdapter(ArrayList<Chat> chatList) {
         this.chatList = chatList;
     }
 
@@ -45,7 +45,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChatListAdapter.ViewHolder holder, int position) {
         Chat currentChat = chatList.get(position);
         holder.tvShowMessage.setText(currentChat.getMsg());
         Glide.with(view).load(currentChat.getImageUrl()).into(holder.ivProfilePic);

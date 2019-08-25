@@ -1,19 +1,30 @@
 package com.teamocta.dcc_project.pojo;
 
 public class Chat {
+    private String receiverName;
     private String sender;
     private String receiver;
     private String msg;
     private String imageUrl;
 
+
     public Chat() {
     }
 
-    public Chat(String sender, String receiver, String msg, String imageUrl) {
+    public Chat(String receiverName, String sender, String receiver, String msg, String imageUrl) {
+        this.receiverName = receiverName;
         this.sender = sender;
         this.receiver = receiver;
         this.msg = msg;
         this.imageUrl = imageUrl;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
     public String getImageUrl() {
