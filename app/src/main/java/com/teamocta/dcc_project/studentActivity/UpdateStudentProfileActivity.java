@@ -29,7 +29,7 @@ import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 public class UpdateStudentProfileActivity extends AppCompatActivity {
 
     private ActivityUpdateStudentProfileBinding binding;
-    private AlertDialog.Builder builder;
+    //private AlertDialog.Builder builder;
     private AlertDialog alertDialog;
 
     private FirebaseAuth firebaseAuth;
@@ -59,7 +59,6 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         uid = firebaseAuth.getCurrentUser().getUid();
-        builder = new AlertDialog.Builder(this);
         mAwesomeValidation = new AwesomeValidation(BASIC);
 
         subjectUserItems = new ArrayList<>();
@@ -198,35 +197,43 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         additionalInfo = binding.etAdditionalInfo.getText().toString();
     }
 
-
+    private int genderCheckedItem=0;
     public void tvGenderClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final String[] genderList = getResources().getStringArray(R.array.gender);
-        builder.setTitle("Select Gender").setCancelable(true).setSingleChoiceItems(genderList, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("Select Gender").setCancelable(true).setSingleChoiceItems(genderList, genderCheckedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvGender.setText(genderList[i]);
+                genderCheckedItem=i;
                 dialogInterface.dismiss();
             }
         }).create().show();
     }
 
+    private int locationCheckedItem=0;
     public void tvLocationClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final String[] locationList = getResources().getStringArray(R.array.location);
-        builder.setTitle("Select Location").setCancelable(true).setSingleChoiceItems(locationList, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("Select Location").setCancelable(true).setSingleChoiceItems(locationList, locationCheckedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvLocation.setText(locationList[i]);
+                locationCheckedItem=i;
                 dialogInterface.dismiss();
             }
         }).create().show();
     }
 
+    private int daysCheckedItem=0;
     public void tvDaysPerWeekClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final String[] daysPerWeekList = getResources().getStringArray(R.array.days_per_week);
-        builder.setTitle("Select Days Per Week").setCancelable(true).setSingleChoiceItems(daysPerWeekList, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("Select Days Per Week").setCancelable(true).setSingleChoiceItems(daysPerWeekList, daysCheckedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvDaysPerWeek.setText(daysPerWeekList[i]);
+                daysCheckedItem=i;
                 dialogInterface.dismiss();
             }
         }).create().show();
@@ -236,16 +243,19 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         subjectListItems = getResources().getStringArray(R.array.teaching_subjects);
         subjectCheckedItems = new boolean[subjectListItems.length];
 
+        for (int i=0; i<subjectUserItems.size();i++){
+            subjectCheckedItems[subjectUserItems.get(i)] = true;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select Subjects").setMultiChoiceItems(subjectListItems, subjectCheckedItems,
                 new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
                 if(isChecked){
-                    if(!subjectUserItems.contains(position)){
-                        subjectUserItems.add(position);
-                    }else{
-                        subjectUserItems.remove(position);
-                    }
+                    subjectUserItems.add(position);
+                }else{
+                    subjectUserItems.remove((Integer.valueOf(position)));
                 }
             }
         }).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {

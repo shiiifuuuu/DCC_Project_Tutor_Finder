@@ -7,6 +7,8 @@
     <string name="err_password_confirmation">Password not matched</string>
 
     <array name="teaching_subjects">
+        <item>-</item>
+
         <item>All Subject</item>
         <item>1 Subject</item>
         <item>2 Subjects</item>
@@ -38,10 +40,11 @@
         <item>Sociology</item>
         <item>Social Science</item>
         <item>Statistics</item>
-        <item></item>
     </array>
 
     <array name="area_covered">
+        <item>-</item>
+
         <item>All Areas</item>
         <item>Adabar</item>
         <item>Ashulia</item>
@@ -98,6 +101,8 @@
     </array>
 
     <array name="medium">
+        <item>-</item>
+
         <item>Bangla Medium</item>
         <item>English Medium</item>
         <item>Arabic Medium</item>
@@ -108,6 +113,8 @@
     </array>
 
     <array name="days_per_week">
+        <item>-</item>
+
         <item>1 day</item>
         <item>2 days</item>
         <item>3 days</item>
@@ -118,20 +125,28 @@
     </array>
 
     <array name="tuition_type">
+        <item>-</item>
+
         <item>Available</item>
         <item>Not Available</item>
     </array>
     <array name="tuition_session">
+        <item>-</item>
+
         <item>One Time Session</item>
         <item>Recurring Session</item>
     </array>
 
     <array name="gender">
+        <item>-</item>
+
         <item>Male</item>
         <item>Female</item>
     </array>
 
     <array name="location">
+        <item>-</item>
+
         <item>Adabar</item>
         <item>Ashulia</item>
         <item>Azampur</item>

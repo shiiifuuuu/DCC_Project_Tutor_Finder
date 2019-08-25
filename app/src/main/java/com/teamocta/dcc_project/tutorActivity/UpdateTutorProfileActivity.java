@@ -29,7 +29,6 @@ import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 public class UpdateTutorProfileActivity extends AppCompatActivity {
 
     private ActivityUpdateTutorProfileBinding binding;
-    private AlertDialog.Builder builder;
     private AlertDialog alertDialog;
 
     private FirebaseAuth firebaseAuth;
@@ -57,7 +56,6 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         uid = firebaseAuth.getCurrentUser().getUid();
-        builder = new AlertDialog.Builder(this);
         mAwesomeValidation = new AwesomeValidation(BASIC);
 
         areaUserItems = new ArrayList<>();
@@ -172,46 +170,57 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
         teachingSubjects = binding.tvTeachingSubjects.getText().toString();
     }
 
-
+    private int locationCheckedItem=0;
     public void tvLocationClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final String[] locationList = getResources().getStringArray(R.array.location);
-        builder.setTitle("Select Location").setCancelable(true).setSingleChoiceItems(locationList, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("Select Location").setCancelable(true).setSingleChoiceItems(locationList, locationCheckedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvLocation.setText(locationList[i]);
+                locationCheckedItem = i;
                 dialogInterface.dismiss();
             }
         }).create().show();
     }
 
+    private int genderCheckedItem=0;
     public void tvGenderClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final String[] genderList = getResources().getStringArray(R.array.gender);
-        builder.setTitle("Select Gender").setCancelable(true).setSingleChoiceItems(genderList, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("Select Gender").setCancelable(true).setSingleChoiceItems(genderList, genderCheckedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvGender.setText(genderList[i]);
+                genderCheckedItem=i;
                 dialogInterface.dismiss();
             }
         }).create().show();
     }
 
+    private int daysCheckedItem=0;
     public void tvDaysPerWeekClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final String[] daysPerWeekList = getResources().getStringArray(R.array.days_per_week);
-        builder.setTitle("Select Days Per Week").setCancelable(true).setSingleChoiceItems(daysPerWeekList, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("Select Days Per Week").setCancelable(true).setSingleChoiceItems(daysPerWeekList, daysCheckedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvDaysPerWeek.setText(daysPerWeekList[i]);
+                daysCheckedItem=i;
                 dialogInterface.dismiss();
             }
         }).create().show();
     }
 
+    private int tuitionTypeCheckedItem=0;
     public void tvTuitionTypeClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final String[] tuitionType = getResources().getStringArray(R.array.tuition_type);
-        builder.setTitle("One Time Tuition ?").setCancelable(true).setSingleChoiceItems(tuitionType, 0, new DialogInterface.OnClickListener() {
+        builder.setTitle("One Time Tuition ?").setCancelable(true).setSingleChoiceItems(tuitionType, tuitionTypeCheckedItem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.tvTuitionType.setText(tuitionType[i]);
+                tuitionTypeCheckedItem=i;
                 dialogInterface.dismiss();
             }
         }).create().show();
@@ -219,19 +228,21 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
 
     //getting areaCovered Lists
     public void tvAreaCoveredClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         areaListItems = getResources().getStringArray(R.array.area_covered);
         areaCheckedItems = new boolean[areaListItems.length];
-
+        for (int i=0; i<areaUserItems.size();i++){
+            areaCheckedItems[areaUserItems.get(i)] = true;
+        }
         builder.setTitle("Select Areas");
         builder.setMultiChoiceItems(areaListItems, areaCheckedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+
                 if(isChecked){
-                    if(!areaUserItems.contains(position)){
-                        areaUserItems.add(position);
-                    }else{
-                        areaUserItems.remove(position);
-                    }
+                    areaUserItems.add(position);
+                }else{
+                    areaUserItems.remove((Integer.valueOf(position)));
                 }
             }
         });
@@ -270,19 +281,22 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
 
     //getting teachingSubject Lists
     public void tvTeachingSubjectsClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         subjectListItems = getResources().getStringArray(R.array.teaching_subjects);
         subjectCheckedItems = new boolean[subjectListItems.length];
+
+        for (int i=0; i<subjectUserItems.size();i++){
+            subjectCheckedItems[subjectUserItems.get(i)] = true;
+        }
 
         builder.setTitle("Select Subjects");
         builder.setMultiChoiceItems(subjectListItems, subjectCheckedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
                 if(isChecked){
-                    if(!subjectUserItems.contains(position)){
-                        subjectUserItems.add(position);
-                    }else{
-                        subjectUserItems.remove(position);
-                    }
+                    subjectUserItems.add(position);
+                }else{
+                    subjectUserItems.remove((Integer.valueOf(position)));
                 }
             }
         });
