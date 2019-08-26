@@ -10,14 +10,13 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityTuitionViewBinding;
+import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.tutorActivity.TutorSearchActivity;
 
 public class TuitionViewActivity extends AppCompatActivity {
 
     private ActivityTuitionViewBinding binding;
-    private String studentUid, studentPic, name, studentClass, department, institute, gender, location, mobile, email;
-    private String streetAddress, areaAddress, zipCode, guardianName, guardianMobile,
-            daysPerWeek, subjects, salaryRange, additionalInfo, tuitionRating;
+    private UserProfile tuitionProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,53 +27,27 @@ public class TuitionViewActivity extends AppCompatActivity {
         setData();
     }
 
-    private String getIntentValue(String keyValue) {
-        return getIntent().getStringExtra(keyValue);
-    }
     private void getTuitionInfo() {
-
-        studentUid = getIntentValue("studentUid");
-        studentPic = getIntentValue("studentPic");
-        name = getIntentValue("name");
-        tuitionRating = getIntentValue("tuitionRating");
-        studentClass = getIntentValue("studentClass");
-        department = getIntentValue("department");
-        institute = getIntentValue("institute");
-        gender = getIntentValue("gender");
-        location = getIntentValue("location");
-        mobile = getIntentValue("mobile");
-        email = getIntentValue("email");
-
-        streetAddress = getIntentValue("streetAddress");
-        areaAddress = getIntentValue("areaAddress");
-        zipCode = getIntentValue("zipCode");
-
-        guardianName = getIntentValue("guardianName");
-        guardianMobile = getIntentValue("guardianMobile");
-
-        daysPerWeek = getIntentValue("daysPerWeek");
-        subjects = getIntentValue("subjects");
-        salaryRange = getIntentValue("salaryRange");
-        additionalInfo = getIntentValue("additionalInfo");
+        tuitionProfile = (UserProfile) getIntent().getSerializableExtra("tuitionProfile");
     }
     private void setData() {
-        Glide.with(this).load(studentPic).into(binding.ivProfilePic);
-        binding.tvUserName.setText(name);
-        //binding.tuitionRating.setRating(Float.parseFloat(tuitionRating));
-        binding.tvUserClass.setText(studentClass);
-        binding.tvDepartment.setText(department);
-        binding.tvUserInstitute.setText(institute);
-        binding.tvUserGender.setText(gender);
-        binding.tvUserLocation.setText(location);
-        binding.tvUserMobile.setText(mobile);
-        binding.tvUserEmail.setText(email);
-        binding.tvUserAddress.setText(streetAddress + ", " + areaAddress + ", " + zipCode + ", Dhaka");
-        binding.tvGuardianName.setText(guardianName);
-        binding.tvGuardianMobile.setText(guardianMobile);
-        binding.tvDaysPerWeek.setText(daysPerWeek);
-        binding.tvSubjects.setText(subjects);
-        binding.tvSalaryRange.setText(salaryRange + " tk/month");
-        binding.tvAdditionalInfo.setText(additionalInfo);
+        Glide.with(this).load(tuitionProfile.getImageUrl()).into(binding.ivProfilePic);
+        binding.tvUserName.setText(tuitionProfile.getFirstName() + " " + tuitionProfile.getLastName());
+        binding.tvUserClass.setText(tuitionProfile.getStudentClass());
+        binding.tvDepartment.setText(tuitionProfile.getDepartment());
+        binding.tvUserInstitute.setText(tuitionProfile.getInstitute());
+        binding.tvUserGender.setText(tuitionProfile.getGender());
+        binding.tvUserLocation.setText(tuitionProfile.getLocation());
+        binding.tvUserMobile.setText(tuitionProfile.getMobile());
+        binding.tvUserEmail.setText(tuitionProfile.getEmail());
+        binding.tvUserAddress.setText(tuitionProfile.getStreetAddress() + ", "
+                + tuitionProfile.getAreaAddress() + ", " + tuitionProfile.getZipCode() + ", Dhaka");
+        binding.tvGuardianName.setText(tuitionProfile.getGuardianName());
+        binding.tvGuardianMobile.setText(tuitionProfile.getGuardianMobile());
+        binding.tvDaysPerWeek.setText(tuitionProfile.getDaysPerWeek());
+        binding.tvSubjects.setText(tuitionProfile.getSubjects());
+        binding.tvSalaryRange.setText(tuitionProfile.getSalaryRange() + " tk/month");
+        binding.tvAdditionalInfo.setText(tuitionProfile.getAdditionalInfo());
     }
 
     public void btnBackClicked(View view) {
@@ -84,8 +57,8 @@ public class TuitionViewActivity extends AppCompatActivity {
 
     public void btnSendMessageClicked(View view) {
         Intent intent = new Intent(this, MessageViewActivity.class);
-        intent.putExtra("msgReceiverUid", studentUid);
-        intent.putExtra("receiverName", name);
+        intent.putExtra("msgReceiverUid", tuitionProfile.getUid());
+        intent.putExtra("receiverName", tuitionProfile.getFirstName());
         startActivity(intent);
     }
 }

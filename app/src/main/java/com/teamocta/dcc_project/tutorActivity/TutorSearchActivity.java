@@ -24,7 +24,6 @@ import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.adapter.TuitionListAdapter;
 import com.teamocta.dcc_project.databinding.ActivityTutorSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
-import com.teamocta.dcc_project.pojo.StudentProfile;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.viewActivity.TuitionViewActivity;
@@ -133,62 +132,14 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         if(filteredList!=null){
             filteredList.get(position);
             Intent intent = new Intent(this, TuitionViewActivity.class);
-            sentFilteredTuitionInfo(intent, position);
+            intent.putExtra("tuitionProfile", filteredList.get(position));
             startActivity(intent);
         }else{
             tuitionList.get(position);
             Intent intent = new Intent(this, TuitionViewActivity.class);
-            sentTuitionInfo(intent, position);
+            intent.putExtra("tuitionProfile", tuitionList.get(position));
             startActivity(intent);
         }
-    }
-
-    private void sentFilteredTuitionInfo(Intent intent, int position) {
-        intent.putExtra("studentUid", filteredList.get(position).getUid());
-        intent.putExtra("name",filteredList.get(position).getFirstName()
-                + " " + filteredList.get(position).getLastName());
-        intent.putExtra("mobile", filteredList.get(position).getMobile());
-        intent.putExtra("email", filteredList.get(position).getEmail());
-        intent.putExtra("studentClass", filteredList.get(position).getStudentClass());
-        intent.putExtra("institute", filteredList.get(position).getInstitute());
-        intent.putExtra("gender", filteredList.get(position).getGender());
-        intent.putExtra("location", filteredList.get(position).getLocation());
-        intent.putExtra("department", filteredList.get(position).getDepartment());
-        intent.putExtra("guardianName", filteredList.get(position).getGuardianName());
-        intent.putExtra("guardianMobile", filteredList.get(position).getGuardianMobile());
-        intent.putExtra("streetAddress", filteredList.get(position).getStreetAddress());
-        intent.putExtra("areaAddress", filteredList.get(position).getAreaAddress());
-        intent.putExtra("zipCode", filteredList.get(position).getZipCode());
-        intent.putExtra("daysPerWeek", filteredList.get(position).getDaysPerWeek());
-        intent.putExtra("additionalInfo", filteredList.get(position).getAdditionalInfo());
-        intent.putExtra("subjects", filteredList.get(position).getSubjects());
-        intent.putExtra("salaryRange", filteredList.get(position).getSalaryRange());
-        intent.putExtra("studentPic", filteredList.get(position).getImageUrl());
-        intent.putExtra("tuitionRating", filteredList.get(position).getTuitionRating());
-    }
-
-    private void sentTuitionInfo(Intent intent, int position) {
-        intent.putExtra("studentUid", tuitionList.get(position).getUid());
-        intent.putExtra("name",tuitionList.get(position).getFirstName()
-                + " " + tuitionList.get(position).getLastName());
-        intent.putExtra("mobile", tuitionList.get(position).getMobile());
-        intent.putExtra("email", tuitionList.get(position).getEmail());
-        intent.putExtra("studentClass", tuitionList.get(position).getStudentClass());
-        intent.putExtra("institute", tuitionList.get(position).getInstitute());
-        intent.putExtra("gender", tuitionList.get(position).getGender());
-        intent.putExtra("location", tuitionList.get(position).getLocation());
-        intent.putExtra("department", tuitionList.get(position).getDepartment());
-        intent.putExtra("guardianName", tuitionList.get(position).getGuardianName());
-        intent.putExtra("guardianMobile", tuitionList.get(position).getGuardianMobile());
-        intent.putExtra("streetAddress", tuitionList.get(position).getStreetAddress());
-        intent.putExtra("areaAddress", tuitionList.get(position).getAreaAddress());
-        intent.putExtra("zipCode", tuitionList.get(position).getZipCode());
-        intent.putExtra("daysPerWeek", tuitionList.get(position).getDaysPerWeek());
-        intent.putExtra("additionalInfo", tuitionList.get(position).getAdditionalInfo());
-        intent.putExtra("subjects", tuitionList.get(position).getSubjects());
-        intent.putExtra("salaryRange", tuitionList.get(position).getSalaryRange());
-        intent.putExtra("studentPic", tuitionList.get(position).getImageUrl());
-        intent.putExtra("tuitionRating", tuitionList.get(position).getTuitionRating());
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
