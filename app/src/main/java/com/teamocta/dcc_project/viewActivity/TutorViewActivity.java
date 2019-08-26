@@ -10,11 +10,13 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityTutorViewBinding;
+import com.teamocta.dcc_project.pojo.TutorProfile;
 import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
 
-public class TutorViewActivity extends AppCompatActivity {
+public class TutorViewActivity extends AppCompatActivity{
 
     private ActivityTutorViewBinding binding;
+    private TutorProfile tutorProfile;
     private String tutorUid, name, mobile, email, location, gender, experience, profession, institute;
     private String tuitionType, daysPerWeek, areaCovered, teachingSubjects, minimumSalary, tutorPic,
             tutorRating;
@@ -28,50 +30,31 @@ public class TutorViewActivity extends AppCompatActivity {
         setData();
     }
 
-    private String getIntentValue(String keyValue) {
-        return getIntent().getStringExtra(keyValue);
-    }
     private void getTutorInfo() {
-        tutorUid = getIntentValue("tutorUid");
-        name = getIntentValue("name");
-        mobile = getIntentValue("mobile");
-        email = getIntentValue("email");
-        location = getIntentValue("location");
-        gender = getIntentValue("gender");
-        experience = getIntentValue("experience");
-        profession = getIntentValue("profession");
-        institute = getIntentValue("institute");
-        tuitionType = getIntentValue("tuitionType");
-        daysPerWeek = getIntentValue("daysPerWeek");
-        areaCovered = getIntentValue("areaCovered");
-        teachingSubjects = getIntentValue("teachingSubjects");
-        minimumSalary = getIntentValue("minimumSalary");
-        tutorPic = getIntentValue("tutorPic");
-        tutorRating = getIntentValue("tutorRating");
+        tutorProfile = (TutorProfile) getIntent().getSerializableExtra("tutorProfile");
     }
     private void setData() {
-        Glide.with(this).load(tutorPic).into(binding.ivProfilePic);
-        binding.tvUserName.setText(name);
-        //binding.tutorRating.setRating(Float.parseFloat(tutorRating));
-        binding.tvUserEmail.setText(email);
-        binding.tvUserMobile.setText(mobile);
-        binding.tvUserLocation.setText(location + " Dhaka.");
-        binding.tvUserGender.setText(gender);
-        binding.tvExperience.setText(experience);
-        binding.tvProfession.setText(profession);
-        binding.tvUserInstitute.setText(institute);
+        Glide.with(this).load(tutorProfile.getImageUrl()).into(binding.ivProfilePic);
+        binding.tvUserName.setText(tutorProfile.getFirstName() + " " + tutorProfile.getLastName());
+        binding.tvUserEmail.setText(tutorProfile.getEmail());
+        binding.tvUserMobile.setText(tutorProfile.getMobile());
+        binding.tvUserLocation.setText(tutorProfile.getLocation() + " Dhaka.");
+        binding.tvUserGender.setText(tutorProfile.getGender());
+        binding.tvExperience.setText(tutorProfile.getExperience());
+        binding.tvProfession.setText(tutorProfile.getProfession());
+        binding.tvUserInstitute.setText(tutorProfile.getInstitute());
 
-        binding.tvTuitionType.setText(tuitionType);
+        binding.tvTuitionType.setText(tutorProfile.getTuitionType());
         if(binding.tvTuitionType.getText().toString().equals("Available")){
             binding.tvTuitionType.setTextColor(getResources().getColor(R.color.oneTimeTuitionTrue));
         }else{
             binding.tvTuitionType.setTextColor(getResources().getColor(R.color.oneTimeTuitionFalse));
         }
 
-        binding.tvDaysPerWeek.setText(daysPerWeek);
-        binding.tvAreaCovered.setText(areaCovered);
-        binding.tvTeachingSubjects.setText(teachingSubjects);
-        binding.tvMinimumSalary.setText(minimumSalary + "/=");
+        binding.tvDaysPerWeek.setText(tutorProfile.getDaysPerWeek());
+        binding.tvAreaCovered.setText(tutorProfile.getAreaCovered());
+        binding.tvTeachingSubjects.setText(tutorProfile.getTeachingSubjects());
+        binding.tvMinimumSalary.setText(tutorProfile.getMinimumSalary() + "/=");
     }
 
     public void btnBackClicked(View view) {
@@ -81,8 +64,8 @@ public class TutorViewActivity extends AppCompatActivity {
 
     public void btnSendMessageClicked(View view) {
         Intent intent = new Intent(this, MessageViewActivity.class);
-        intent.putExtra("msgReceiverUid", tutorUid);
-        intent.putExtra("receiverName", name);
+        intent.putExtra("msgReceiverUid", tutorProfile.getUid());
+        intent.putExtra("receiverName", tutorProfile.getFirstName());
         startActivity(intent);
     }
 }

@@ -1,6 +1,8 @@
 package com.teamocta.dcc_project.pojo;
 
-public class TutorProfile {
+import java.io.Serializable;
+
+public class TutorProfile implements Serializable {
 
     private String uid;
     private String imageUrl;
