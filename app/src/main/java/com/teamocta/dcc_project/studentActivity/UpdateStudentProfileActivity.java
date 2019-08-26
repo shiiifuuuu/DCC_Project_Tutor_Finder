@@ -1,12 +1,11 @@
 package com.teamocta.dcc_project.studentActivity;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -19,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityUpdateStudentProfileBinding;
+import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.ArrayList;
@@ -30,8 +30,6 @@ import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 public class UpdateStudentProfileActivity extends AppCompatActivity {
 
     private ActivityUpdateStudentProfileBinding binding;
-    //private AlertDialog.Builder builder;
-    private AlertDialog alertDialog;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -54,7 +52,6 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
 
         init();
         getIntentExtras();
-        setCurrentField();
     }
 
     private void init() {
@@ -69,8 +66,6 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
     //getting values from previous activity
     private void getIntentExtras() {
         studentProfile = (UserProfile) getIntent().getSerializableExtra("studentProfile");
-    }
-    private void setCurrentField() {
         binding.etFirstName.setText(studentProfile.getFirstName());
         binding.etLastName.setText(studentProfile.getLastName());
         binding.etMobile.setText(studentProfile.getMobile());
@@ -117,7 +112,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
     public void btnSaveProfileClicked(View view) {
         validationCheck();
         if(mAwesomeValidation.validate()){
-            showAlertDialog("Updating user profile...");
+            Support.showAlertDialog("Updating user profile...", UpdateStudentProfileActivity.this);
             updateDatabase();
         }
     }
@@ -148,16 +143,16 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    alertDialog.cancel();
-                    toastMessageLong("Profile Updated Successfully.");
+                    Support.cancelAlertDialog();
+                    Support.toastMessageLong("Profile Updated Successfully.", UpdateStudentProfileActivity.this);
                     finish();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                alertDialog.cancel();
-                toastMessageLong(e.getMessage());
+                Support.cancelAlertDialog();
+                Support.toastMessageLong(e.getMessage(), UpdateStudentProfileActivity.this);
             }
         });
     }
@@ -272,24 +267,8 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
         }).create().show();
     }
 
-
     //B A C K   B U T T O N
     public void btnBackClicked(View view) {
         onBackPressed();
-    }
-    //A L E R T   D I A L O G   B O X
-    private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-        //Closing Alert Dialog use this (alertDialog.cancel();)
-    }
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

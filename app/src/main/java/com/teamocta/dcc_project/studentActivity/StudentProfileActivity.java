@@ -37,6 +37,7 @@ import com.google.firebase.storage.UploadTask;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityStudentProfileBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
+import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.HashMap;
@@ -57,7 +58,6 @@ public class StudentProfileActivity extends AppCompatActivity {
     private Uri mImageUri, downloadUri;
 
     private AlertDialog.Builder builder;
-    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +181,7 @@ public class StudentProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                refreshActivity();
+                Support.refreshActivity(getIntent(), StudentProfileActivity.this);
             }
         }).create().show();
     }
@@ -209,7 +209,7 @@ public class StudentProfileActivity extends AppCompatActivity {
                         studentReference.child(uid).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                toastMessageShort("Image upload complete");
+                                Support.toastMessageShort("Image upload complete", StudentProfileActivity.this);
                                 binding.ivProfilePic.setImageURI(downloadUri);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -222,7 +222,7 @@ public class StudentProfileActivity extends AppCompatActivity {
                 }
             });
         }else{
-            toastMessageShort("no file selected!");
+            Support.toastMessageShort("no file selected!", StudentProfileActivity.this);
         }
     }
     //-------PROFILE PIC UPDATE-------
@@ -264,7 +264,7 @@ public class StudentProfileActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        toastMessageShort("Signing out user...");
+                        Support.toastMessageShort("Signing out user...", StudentProfileActivity.this);
                         firebaseAuth.signOut();
                         startActivity(new Intent(StudentProfileActivity.this, LoginActivity.class));
                         finish();
@@ -277,29 +277,4 @@ public class StudentProfileActivity extends AppCompatActivity {
             }
         }).create().show();
     }
-    //A L E R T   D I A L O G   B O X
-    private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(StudentProfileActivity.this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-        //Closing Alert Dialog use this (alertDialog.cancel();)
-    }
-    //Refresh Current Activity
-    public void refreshActivity() {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
-    }
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
 }

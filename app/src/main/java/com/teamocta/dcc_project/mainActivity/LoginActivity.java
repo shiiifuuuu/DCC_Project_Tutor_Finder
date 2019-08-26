@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityLoginBinding;
+import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.studentActivity.StudentProfileActivity;
 import com.teamocta.dcc_project.tutorActivity.TutorProfileActivity;
 
@@ -33,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     private String saveUserProfileType = "";
 
     private ActivityLoginBinding binding;
-    private AlertDialog alertDialog;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
@@ -56,22 +56,22 @@ public class LoginActivity extends AppCompatActivity {
             myPrefs.edit().clear().commit();
         }else{
             loadPrefsFile();
-            showAlertDialog("Loading your account..");
+            Support.showAlertDialog("Loading your account..", LoginActivity.this);
             if(saveUserProfileType.equals("tutor")){
                 Intent intent = new Intent(LoginActivity.this, TutorProfileActivity.class);
                 startActivity(intent);
                 finish();
-                alertDialog.cancel();
-                toastMessageShort("Tutor Login Successful");
+                Support.cancelAlertDialog();
+                Support.toastMessageShort("Tutor Login Successful", LoginActivity.this);
             }else if(saveUserProfileType.equals("student")){
                 Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
                 startActivity(intent);
                 finish();
-                alertDialog.cancel();
-                toastMessageShort("Student Login Successful");
+                Support.cancelAlertDialog();
+                Support.toastMessageShort("Student Login Successful", LoginActivity.this);
             }else if(saveUserProfileType.equals("")){
                 firebaseAuth.signOut();
-                alertDialog.cancel();
+                Support.cancelAlertDialog();
             }
         }
     }
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //S I G N    I N    M E T H O D
     private void signInUser(String userEmail, String userPassword) {
-        showAlertDialog("Logging In..");
+        Support.showAlertDialog("Logging In..", LoginActivity.this);
         firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -131,8 +131,8 @@ public class LoginActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                alertDialog.cancel();
-                toastMessageLong(e.getMessage());
+                Support.cancelAlertDialog();
+                Support.toastMessageLong(e.getMessage(), LoginActivity.this);
             }
         });
     }
@@ -155,8 +155,8 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, TutorProfileActivity.class);
                     startActivity(intent);
                     finish();
-                    alertDialog.cancel();
-                    toastMessageShort("Tutor Login Successful");
+                    Support.cancelAlertDialog();
+                    Support.toastMessageShort("Tutor Login Successful", LoginActivity.this);
                 }
                 else{
                     if(binding.cbRememberUser.isChecked()){
@@ -169,14 +169,14 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
                     startActivity(intent);
                     finish();
-                    alertDialog.cancel();
-                    toastMessageShort("Student Login Successful");
+                    Support.cancelAlertDialog();
+                    Support.toastMessageShort("Student Login Successful", LoginActivity.this);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                alertDialog.cancel();
+                Support.cancelAlertDialog();
                 databaseError.getMessage();
             }
         });
@@ -192,22 +192,5 @@ public class LoginActivity extends AppCompatActivity {
         if(myPrefs.contains("USER")){
             saveUserProfileType = myPrefs.getString("USER", "");
         }
-    }
-
-    //A L E R T   D I A L O G   B O X
-    private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-        //Closing Alert Dialog use this (alertDialog.cancel();)
-    }
-
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,6 +25,7 @@ import com.teamocta.dcc_project.adapter.TuitionListAdapter;
 import com.teamocta.dcc_project.databinding.ActivityTutorSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.StudentProfile;
+import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.viewActivity.TuitionViewActivity;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
     private DatabaseReference databaseReference;
 
     private StudentProfile studentProfile;
-    private AlertDialog alertDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +51,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         init();
         getTuitions();
         configRecyclerView();
-        etTextChangeListner();
+        etTextChangeListener();
     }
 
 
@@ -92,7 +91,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         binding.rvTutorList.setAdapter(tuitionListAdapter);
     }
 
-    private void etTextChangeListner() {
+    private void etTextChangeListener() {
         binding.etSearchTuition.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -222,7 +221,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        toastMessageShort("Signing out user...");
+                        Support.toastMessageShort("Signing out user...", TutorSearchActivity.this);
                         firebaseAuth.signOut();
                         startActivity(new Intent(TutorSearchActivity.this, LoginActivity.class));
                         finish();
@@ -236,19 +235,5 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
-    //A L E R T   D I A L O G
-    private void showAlertDialog (String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-    }
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

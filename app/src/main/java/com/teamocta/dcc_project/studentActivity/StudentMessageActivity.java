@@ -25,6 +25,7 @@ import com.teamocta.dcc_project.adapter.StudentMessageAdapter;
 import com.teamocta.dcc_project.databinding.ActivityStudentMessageBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Chat;
+import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.TutorProfile;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
@@ -34,7 +35,6 @@ import java.util.LinkedHashSet;
 public class StudentMessageActivity extends AppCompatActivity implements StudentMessageAdapter.OnMessageClickListener {
 
     private ActivityStudentMessageBinding binding;
-    private AlertDialog alertDialog;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -138,15 +138,6 @@ public class StudentMessageActivity extends AppCompatActivity implements Student
 
 
 
-
-
-
-
-
-
-
-
-
     public void btnBackClicked(View view) {
         onBackPressed();
     }
@@ -178,7 +169,7 @@ public class StudentMessageActivity extends AppCompatActivity implements Student
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        toastMessageShort("Signing out user...");
+                        Support.toastMessageShort("Signing out user...", StudentMessageActivity.this);
                         firebaseAuth.signOut();
                         startActivity(new Intent(StudentMessageActivity.this, LoginActivity.class));
                         finish();
@@ -194,28 +185,4 @@ public class StudentMessageActivity extends AppCompatActivity implements Student
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-    //Refresh Current Activity
-    public void refreshActivity() {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
-    }
-    //A L E R T   D I A L O G
-    private void showAlertDialog (String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-    }
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
 }

@@ -2,7 +2,6 @@ package com.teamocta.dcc_project.mainActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityForgetPassBinding;
+import com.teamocta.dcc_project.pojo.Support;
 
 public class ForgetPassActivity extends AppCompatActivity {
 
@@ -37,15 +37,15 @@ public class ForgetPassActivity extends AppCompatActivity {
     public void btnSendEmailClicked(View view) {
         userEmail=binding.etEmail.getText().toString();
         if(userEmail.equals("")){
-            toastMessageShort("Field Empty!!");
+            Support.toastMessageShort("Field Empty!!",ForgetPassActivity.this);
         }else{
             firebaseAuth.sendPasswordResetEmail(userEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(!task.isSuccessful()){
-                        toastMessageShort("Email Not Found!!");
+                        Support.toastMessageShort("Email Not Found!!", ForgetPassActivity.this);
                     }else{
-                        toastMessageLong("Password sent to your Email.");
+                        Support.toastMessageLong("Password sent to your Email.", ForgetPassActivity.this);
                     }
                 }
             });
@@ -54,13 +54,5 @@ public class ForgetPassActivity extends AppCompatActivity {
 
     public void btnBackClicked(View view) {
         onBackPressed();
-    }
-
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

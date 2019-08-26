@@ -26,6 +26,7 @@ import com.teamocta.dcc_project.databinding.ActivityTutorMessageBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Chat;
 import com.teamocta.dcc_project.pojo.StudentProfile;
+import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.TutorProfile;
 import com.teamocta.dcc_project.studentActivity.StudentMessageActivity;
 import com.teamocta.dcc_project.studentActivity.StudentProfileActivity;
@@ -37,7 +38,6 @@ import java.util.LinkedHashSet;
 public class TutorMessageActivity extends AppCompatActivity {
 
     private ActivityTutorMessageBinding binding;
-    private AlertDialog alertDialog;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -132,20 +132,12 @@ public class TutorMessageActivity extends AppCompatActivity {
         binding.rvMessageList.setAdapter(tutorMessageAdapter);
     }
 
-
-
-
-
-
-
-
-
-
-
-
     public void btnBackClicked(View view) {
         onBackPressed();
     }
+
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -174,7 +166,7 @@ public class TutorMessageActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        toastMessageShort("Signing out user...");
+                        Support.toastMessageShort("Signing out user...", TutorMessageActivity.this);
                         firebaseAuth.signOut();
                         startActivity(new Intent(TutorMessageActivity.this, LoginActivity.class));
                         finish();
@@ -189,28 +181,5 @@ public class TutorMessageActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
-    //Refresh Current Activity
-    public void refreshActivity() {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
-    }
-    //A L E R T   D I A L O G
-    private void showAlertDialog (String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-    }
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

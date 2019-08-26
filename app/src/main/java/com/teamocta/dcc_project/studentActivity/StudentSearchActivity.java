@@ -25,7 +25,7 @@ import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.adapter.TutorListAdapter;
 import com.teamocta.dcc_project.databinding.ActivityStudentSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
-import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.viewActivity.TutorViewActivity;
 import java.util.ArrayList;
@@ -33,7 +33,6 @@ import java.util.ArrayList;
 public class StudentSearchActivity extends AppCompatActivity implements TutorListAdapter.OnTutorClickListener {
 
     private ActivityStudentSearchBinding binding;
-    private AlertDialog alertDialog;
 
     private UserProfile tutorProfile;
     private ArrayList<UserProfile> tutorList, filteredList;
@@ -166,7 +165,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        toastMessageShort("Signing out user...");
+                        Support.toastMessageShort("Signing out user...", StudentSearchActivity.this);
                         firebaseAuth.signOut();
                         startActivity(new Intent(StudentSearchActivity.this, LoginActivity.class));
                         finish();
@@ -181,28 +180,5 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
-    //Refresh Current Activity
-    public void refreshActivity() {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
-    }
-    //A L E R T   D I A L O G
-    private void showAlertDialog (String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-    }
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

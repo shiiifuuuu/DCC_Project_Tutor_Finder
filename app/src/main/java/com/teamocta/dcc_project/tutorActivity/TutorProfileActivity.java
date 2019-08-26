@@ -37,7 +37,8 @@ import com.google.firebase.storage.UploadTask;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityTutorProfileBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
-import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.pojo.Support;
+import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,11 +53,10 @@ public class TutorProfileActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private StorageReference storageRef;
     private String uid;
-    private TutorProfile currentTutor;
+    private UserProfile currentTutor;
     private Uri mImageUri, downloadUri;
 
     private AlertDialog.Builder builder;
-    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class TutorProfileActivity extends AppCompatActivity {
         uid = firebaseAuth.getCurrentUser().getUid();
 
         builder = new AlertDialog.Builder(this);
-        currentTutor = new TutorProfile();
+        currentTutor = new UserProfile();
     }
 
     //-------ReadFromDatabase-------
@@ -87,7 +87,7 @@ public class TutorProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    currentTutor = dataSnapshot.getValue(TutorProfile.class);
+                    currentTutor = dataSnapshot.getValue(UserProfile.class);
                     setData();
                 }
             }
@@ -125,7 +125,8 @@ public class TutorProfileActivity extends AppCompatActivity {
 
     //-------PROFILE PIC UPDATE-------
     public void btnUpdatePicClicked(View view) {
-        builder.setMessage("Choose Image using...").setCancelable(true).setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Profile Picture").setMessage("Choose Image using...").setCancelable(true).setPositiveButton("Camera", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -138,9 +139,7 @@ public class TutorProfileActivity extends AppCompatActivity {
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, GALLERY_CODE);
             }
-        });
-
-        builder.create().show();
+        }).create().show();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -173,8 +172,9 @@ public class TutorProfileActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
     private void saveImage(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         binding.ivProfilePic.setImageURI(mImageUri);
-        builder.setMessage("Save Image?").setCancelable(false)
+        builder.setTitle("Save Image?").setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -184,10 +184,11 @@ public class TutorProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                refreshActivity();
+                Support.refreshActivity(getIntent(), TutorProfileActivity.this);
             }
         }).create().show();
     }
+
     private void uploadPic() {
         if(mImageUri!=null){
             final StorageReference filePath = storageRef.child("Tutor").child(uid).child("proPic." + getFileExtension(mImageUri));
@@ -212,7 +213,7 @@ public class TutorProfileActivity extends AppCompatActivity {
                         studentReference.child(uid).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                toastMessageShort("Image upload complete");
+                                Support.toastMessageShort("Image upload complete", TutorProfileActivity.this);
                                 binding.ivProfilePic.setImageURI(downloadUri);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -225,7 +226,7 @@ public class TutorProfileActivity extends AppCompatActivity {
                 }
             });
         }else{
-            toastMessageShort("no file selected!");
+            Support.toastMessageShort("no file selected!", TutorProfileActivity.this);
         }
     }
     //-------PROFILE PIC UPDATE-------
@@ -233,20 +234,7 @@ public class TutorProfileActivity extends AppCompatActivity {
     //-------EDIT PROFILE-------
     public void updateProfileClicked(View view) {
         Intent intent = new Intent(TutorProfileActivity.this, UpdateTutorProfileActivity.class);
-
-        intent.putExtra("firstName", currentTutor.getFirstName());
-        intent.putExtra("lastName", currentTutor.getLastName());
-        intent.putExtra("mobile", binding.tvUserMobile.getText().toString());
-        intent.putExtra("profession", binding.tvProfession.getText().toString());
-        intent.putExtra("institute", binding.tvUserInstitute.getText().toString());
-        intent.putExtra("gender", binding.tvUserGender.getText().toString());
-        intent.putExtra("location", binding.tvUserLocation.getText().toString());
-        intent.putExtra("experience", binding.tvExperience.getText().toString());
-        intent.putExtra("tuitionType", binding.tvTuitionType.getText().toString());
-        intent.putExtra("daysPerWeek", binding.tvDaysPerWeek.getText().toString());
-        intent.putExtra("areaCovered", binding.tvAreaCovered.getText().toString());
-        intent.putExtra("teachingSubjects", binding.tvTeachingSubjects.getText().toString());
-        intent.putExtra("minimumSalary", binding.tvMinimumSalary.getText().toString());
+        intent.putExtra("tutorProfile", currentTutor);
         startActivity(intent);
     }
     //-------EDIT PROFILE-------
@@ -284,7 +272,7 @@ public class TutorProfileActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        toastMessageShort("Signing out user...");
+                        Support.toastMessageShort("Signing out user...", TutorProfileActivity.this);
                         firebaseAuth.signOut();
                         startActivity(new Intent(TutorProfileActivity.this, LoginActivity.class));
                         finish();
@@ -295,29 +283,5 @@ public class TutorProfileActivity extends AppCompatActivity {
                 dialogInterface.cancel();
             }
         }).create().show();
-    }
-    //Refresh Current Activity
-    public void refreshActivity() {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
-    }
-    //A L E R T   D I A L O G   B O X
-    private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(TutorProfileActivity.this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-        //Closing Alert Dialog use this (alertDialog.cancel();)
-    }
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

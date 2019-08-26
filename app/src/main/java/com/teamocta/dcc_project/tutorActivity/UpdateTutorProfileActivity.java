@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityUpdateTutorProfileBinding;
+import com.teamocta.dcc_project.pojo.Support;
+import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +38,8 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
     private String uid;
     private AwesomeValidation mAwesomeValidation;
 
+    private UserProfile tutorProfile;
+
     private String firstName,lastName,mobile,location,gender,profession,institute;
     private String experience,tuitionType,areaCovered,daysPerWeek,minimumSalary,teachingSubjects;
 
@@ -49,7 +53,6 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_update_tutor_profile);
         init();
         getIntentExtras();
-        setCurrentField();
     }
 
     private void init() {
@@ -64,34 +67,20 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
 
     //getting values from previous activity
     private void getIntentExtras() {
-        firstName = getIntent().getExtras().getString("firstName");
-        lastName = getIntent().getExtras().getString("lastName");
-        mobile = getIntent().getExtras().getString("mobile");
-        location = getIntent().getExtras().getString("location", location);
-        gender = getIntent().getExtras().getString("gender", gender);
-        profession = getIntent().getExtras().getString("profession");
-        institute = getIntent().getExtras().getString("institute");
-        experience = getIntent().getExtras().getString("experience");
-        tuitionType = getIntent().getExtras().getString("tuitionType", tuitionType);
-        areaCovered = getIntent().getExtras().getString("areaCovered");
-        daysPerWeek = getIntent().getExtras().getString("daysPerWeek", daysPerWeek);
-        minimumSalary = getIntent().getExtras().getString("minimumSalary");
-        teachingSubjects = getIntent().getExtras().getString("teachingSubjects");
-    }
-    private void setCurrentField() {
-        binding.etFirstName.setText(firstName);
-        binding.etLastName.setText(lastName);
-        binding.etMobile.setText(mobile);
-        binding.tvLocation.setText(location);
-        binding.tvGender.setText(gender);
-        binding.etProfessiopn.setText(profession);
-        binding.etInstitute.setText(institute);
-        binding.etExperience.setText(experience);
-        binding.tvTuitionType.setText(tuitionType);
-        binding.tvAreaCovered.setText(areaCovered);
-        binding.tvDaysPerWeek.setText(daysPerWeek);
-        binding.etMinimumSalary.setText(minimumSalary);
-        binding.tvTeachingSubjects.setText(teachingSubjects);
+        tutorProfile = (UserProfile) getIntent().getSerializableExtra("tutorProfile");
+        binding.etFirstName.setText(tutorProfile.getFirstName());
+        binding.etLastName.setText(tutorProfile.getLastName());
+        binding.etMobile.setText(tutorProfile.getMobile());
+        binding.tvLocation.setText(tutorProfile.getLocation());
+        binding.tvGender.setText(tutorProfile.getGender());
+        binding.etProfessiopn.setText(tutorProfile.getProfession());
+        binding.etInstitute.setText(tutorProfile.getInstitute());
+        binding.etExperience.setText(tutorProfile.getExperience());
+        binding.tvTuitionType.setText(tutorProfile.getTuitionType());
+        binding.tvAreaCovered.setText(tutorProfile.getAreaCovered());
+        binding.tvDaysPerWeek.setText(tutorProfile.getDaysPerWeek());
+        binding.etMinimumSalary.setText(tutorProfile.getMinimumSalary());
+        binding.tvTeachingSubjects.setText(tutorProfile.getTeachingSubjects());
     }
 
     //Database Update
@@ -114,7 +103,7 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
     public void btnSaveProfileClicked(View view) {
         validationCheck();
         if(mAwesomeValidation.validate()){
-            showAlertDialog("Updating user profile...");
+            Support.showAlertDialog("Updating user profile...", this);
             updateDatabase();
         }
     }
@@ -141,16 +130,16 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    alertDialog.cancel();
-                    toastMessageLong("Profile Updated Successfully.");
+                    Support.cancelAlertDialog();
+                    Support.toastMessageLong("Profile Updated Successfully.", UpdateTutorProfileActivity.this);
                     finish();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                alertDialog.cancel();
-                toastMessageLong(e.getMessage());
+                Support.cancelAlertDialog();
+                Support.toastMessageLong(e.getMessage(), UpdateTutorProfileActivity.this);
             }
         });
     }
@@ -333,25 +322,8 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-
-
     //B A C K   B U T T O N
     public void btnBackClicked(View view) {
         onBackPressed();
-    }
-    //A L E R T   D I A L O G   B O X
-    private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-        //Closing Alert Dialog use this (alertDialog.cancel();)
-    }
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

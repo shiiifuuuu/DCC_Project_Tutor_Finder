@@ -21,6 +21,7 @@ import com.teamocta.dcc_project.adapter.ChatListAdapter;
 import com.teamocta.dcc_project.databinding.ActivityMessageViewBinding;
 import com.teamocta.dcc_project.pojo.Chat;
 import com.teamocta.dcc_project.pojo.StudentProfile;
+import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.TutorProfile;
 
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ import java.util.Map;
 public class MessageViewActivity extends AppCompatActivity {
 
     private ActivityMessageViewBinding binding;
-    private AlertDialog alertDialog;
 
     private Boolean isUserTutor, isUserStudent;
     private String userUid, oppositeUid;
@@ -163,21 +163,21 @@ public class MessageViewActivity extends AppCompatActivity {
 
 
     public void btnSendMessageClicked(View view) {
-        toastMessageLong("Button is clicked");
+        Support.toastMessageLong("Button is clicked", MessageViewActivity.this);
         String msg = binding.etTypeMessage.getText().toString();
         if(isUserTutor){
             if(!msg.equals("")){
                 imageUrl = tutorProfile.getImageUrl();
                 sendMessage(msg);
             }else{
-                toastMessageLong("you can't send empty message!");
+                Support.toastMessageLong("you can't send empty message!", MessageViewActivity.this);
             }
         }else if(isUserStudent){
             if(!msg.equals("")){
                 imageUrl = studentProfile.getImageUrl();
                 sendMessage(msg);
             }else{
-                toastMessageLong("you can't send empty message!");
+                Support.toastMessageLong("you can't send empty message!", MessageViewActivity.this);
             }
         }
         binding.etTypeMessage.setText("");
@@ -197,21 +197,6 @@ public class MessageViewActivity extends AppCompatActivity {
         chatRef.push().setValue(hashMap);
     }
 
-    //A L E R T   D I A L O G   B O X
-    private void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MessageViewActivity.this);
-        builder.setMessage(message).setCancelable(false);
-        alertDialog = builder.create();
-        alertDialog.show();
-        //Closing Alert Dialog use this (alertDialog.cancel();)
-    }
-    //T O A S T    M E S S A G E
-    private void toastMessageShort(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-    private void toastMessageLong(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
     public void btnBackClicked(View view) {
         onBackPressed();
     }
