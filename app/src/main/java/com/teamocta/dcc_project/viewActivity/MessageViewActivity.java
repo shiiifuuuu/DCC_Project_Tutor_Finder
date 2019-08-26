@@ -67,41 +67,35 @@ public class MessageViewActivity extends AppCompatActivity {
 
 
     private void checkUserType() {
-        if(isUserStudent == null || isUserTutor == null){
-            DatabaseReference tutorReference = databaseReference.child("Tutor");
-            tutorReference.orderByChild("uid").equalTo(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.hasChildren()){
-                        isUserTutor = true;
+        DatabaseReference tutorReference = databaseReference.child("Tutor");
+        tutorReference.orderByChild("uid").equalTo(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChildren()){
+                    isUserTutor = true;
+                    senderUid = userUid;
+                    receiverUid = oppositeUid;
+                    getTutorInfo(senderUid);
                     /*toastMessageShort("user is tutor");
                     toastMessageShort("opposite is student");*/
-                        isUserStudent = false;
-                    }
-                    else{
-                        isUserStudent = true;
+                    isUserStudent = false;
+                }
+                else{
+                    isUserStudent = true;
+                    senderUid = userUid;
+                    receiverUid = oppositeUid;
+                    getStudentInfo(senderUid);
                     /*toastMessageShort("user is student");
                     toastMessageShort("opposite is tutor");*/
-                        isUserTutor = false;
-                    }
+                    isUserTutor = false;
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    databaseError.getMessage();
-                }
-            });
-        } else if(isUserTutor != null && isUserTutor == true){
-            senderUid = userUid;
-            receiverUid = oppositeUid;
-            getTutorInfo(senderUid);
-
-        }else if(isUserStudent != null && isUserStudent == true){
-            senderUid = userUid;
-            receiverUid = oppositeUid;
-            getStudentInfo(senderUid);
-
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                databaseError.getMessage();
+            }
+        });
     }
     private void getTutorInfo(String tutorId) {
         databaseReference.child("Tutor").child(tutorId).addValueEventListener(new ValueEventListener() {
