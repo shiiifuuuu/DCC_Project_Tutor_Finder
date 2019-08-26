@@ -10,16 +10,13 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityTutorViewBinding;
-import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
 
 public class TutorViewActivity extends AppCompatActivity{
 
     private ActivityTutorViewBinding binding;
-    private TutorProfile tutorProfile;
-    private String tutorUid, name, mobile, email, location, gender, experience, profession, institute;
-    private String tuitionType, daysPerWeek, areaCovered, teachingSubjects, minimumSalary, tutorPic,
-            tutorRating;
+    private UserProfile tutorProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +28,7 @@ public class TutorViewActivity extends AppCompatActivity{
     }
 
     private void getTutorInfo() {
-        tutorProfile = (TutorProfile) getIntent().getSerializableExtra("tutorProfile");
+        tutorProfile = (UserProfile) getIntent().getSerializableExtra("tutorProfile");
     }
     private void setData() {
         Glide.with(this).load(tutorProfile.getImageUrl()).into(binding.ivProfilePic);

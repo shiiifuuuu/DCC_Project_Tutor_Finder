@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityUpdateStudentProfileBinding;
+import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
     private String streetAddress,areaAddress,zipCode,guardianName,guardianMobile;
     private String daysPerWeek, subjects, salaryRange, additionalInfo;
 
+    private UserProfile studentProfile;
     private String[] subjectListItems;
     private boolean[] subjectCheckedItems;
     private ArrayList<Integer> subjectUserItems;
@@ -66,44 +68,27 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
 
     //getting values from previous activity
     private void getIntentExtras() {
-        firstName = getIntent().getExtras().getString("firstName");
-        lastName = getIntent().getExtras().getString("lastName");
-        mobile = getIntent().getExtras().getString("mobile");
-        studentClass = getIntent().getExtras().getString("studentClass");
-        institute = getIntent().getExtras().getString("institute");
-        department = getIntent().getExtras().getString("department");
-        gender = getIntent().getStringExtra("gender");
-        location = getIntent().getStringExtra("location");
-        streetAddress = getIntent().getStringExtra("streetAddress");
-        areaAddress = getIntent().getStringExtra("areaAddress");
-        zipCode = getIntent().getStringExtra("zipCode");
-        guardianName = getIntent().getExtras().getString("guardianName");
-        guardianMobile = getIntent().getExtras().getString("guardianMobile");
-
-        daysPerWeek = getIntent().getStringExtra("daysPerWeek");
-        subjects = getIntent().getStringExtra("subjects");
-        salaryRange = getIntent().getStringExtra("salaryRange");
-        additionalInfo = getIntent().getStringExtra("additionalInfo");
+        studentProfile = (UserProfile) getIntent().getSerializableExtra("studentProfile");
     }
     private void setCurrentField() {
-        binding.etFirstName.setText(firstName);
-        binding.etLastName.setText(lastName);
-        binding.etMobile.setText(mobile);
-        binding.etClass.setText(studentClass);
-        binding.etInstitute.setText(institute);
-        binding.etDept.setText(department);
-        binding.tvGender.setText(gender);
-        binding.tvLocation.setText(location);
-        binding.etStreet.setText(streetAddress);
-        binding.etArea.setText(areaAddress);
-        binding.etZipCode.setText(zipCode);
-        binding.etGuardianName.setText(guardianName);
-        binding.etGuardinaMobile.setText(guardianMobile);
+        binding.etFirstName.setText(studentProfile.getFirstName());
+        binding.etLastName.setText(studentProfile.getLastName());
+        binding.etMobile.setText(studentProfile.getMobile());
+        binding.etClass.setText(studentProfile.getStudentClass());
+        binding.etInstitute.setText(studentProfile.getInstitute());
+        binding.etDept.setText(studentProfile.getDepartment());
+        binding.tvGender.setText(studentProfile.getGender());
+        binding.tvLocation.setText(studentProfile.getLocation());
+        binding.etStreet.setText(studentProfile.getStreetAddress());
+        binding.etArea.setText(studentProfile.getAreaAddress());
+        binding.etZipCode.setText(studentProfile.getZipCode());
+        binding.etGuardianName.setText(studentProfile.getGuardianName());
+        binding.etGuardinaMobile.setText(studentProfile.getGuardianMobile());
 
-        binding.tvDaysPerWeek.setText(daysPerWeek);
-        binding.tvSubjects.setText(subjects);
-        binding.etSalaryRange.setText(salaryRange);
-        binding.etAdditionalInfo.setText(additionalInfo);
+        binding.tvDaysPerWeek.setText(studentProfile.getDaysPerWeek());
+        binding.tvSubjects.setText(studentProfile.getSubjects());
+        binding.etSalaryRange.setText(studentProfile.getSalaryRange());
+        binding.etAdditionalInfo.setText(studentProfile.getAdditionalInfo());
     }
 
     //Database Update

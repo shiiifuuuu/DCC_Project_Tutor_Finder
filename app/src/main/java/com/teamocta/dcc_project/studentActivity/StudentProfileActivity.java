@@ -4,11 +4,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,10 +37,8 @@ import com.google.firebase.storage.UploadTask;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityStudentProfileBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
-import com.teamocta.dcc_project.pojo.StudentProfile;
+import com.teamocta.dcc_project.pojo.UserProfile;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,7 +53,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     private StorageReference storageRef;
     private String uid;
 
-    private StudentProfile currentStudent;
+    private UserProfile currentStudent;
     private Uri mImageUri, downloadUri;
 
     private AlertDialog.Builder builder;
@@ -82,7 +78,7 @@ public class StudentProfileActivity extends AppCompatActivity {
         uid = firebaseAuth.getCurrentUser().getUid();
 
         builder = new AlertDialog.Builder(this);
-        currentStudent = new StudentProfile();
+        currentStudent = new UserProfile();
     }
 
     //-------ReadFromDatabase-------
@@ -92,7 +88,7 @@ public class StudentProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    currentStudent = dataSnapshot.getValue(StudentProfile.class);
+                    currentStudent = dataSnapshot.getValue(UserProfile.class);
                     setData();
                 }
             }
@@ -234,26 +230,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     //-------EDIT PROFILE-------
     public void updateProfileClicked(View view) {
         Intent intent = new Intent(StudentProfileActivity.this, UpdateStudentProfileActivity.class);
-
-        intent.putExtra("firstName", currentStudent.getFirstName());
-        intent.putExtra("lastName", currentStudent.getLastName());
-        intent.putExtra("mobile", binding.tvUserMobile.getText().toString());
-        intent.putExtra("studentClass", binding.tvUserClass.getText().toString());
-        intent.putExtra("department", currentStudent.getDepartment());
-        intent.putExtra("institute", binding.tvUserInstitute.getText().toString());
-        intent.putExtra("gender", binding.tvUserGender.getText().toString());
-        intent.putExtra("location", binding.tvUserLocation.getText().toString());
-        intent.putExtra("streetAddress", currentStudent.getStreetAddress());
-        intent.putExtra("areaAddress", currentStudent.getAreaAddress());
-        intent.putExtra("zipCode", currentStudent.getZipCode());
-        intent.putExtra("guardianName", binding.tvGuardianName.getText().toString());
-        intent.putExtra("guardianMobile", binding.tvGuardianMobile.getText().toString());
-
-        intent.putExtra("daysPerWeek", binding.tvDaysPerWeek.getText().toString());
-        intent.putExtra("subjects", binding.tvSubjects.getText().toString());
-        intent.putExtra("salaryRange", binding.tvSalaryRange.getText().toString());
-        intent.putExtra("additionalInfo", binding.tvAdditionalInfo.getText().toString());
-
+        intent.putExtra("studentProfile", currentStudent);
         startActivity(intent);
 
     }

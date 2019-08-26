@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.ArrayList;
 
@@ -19,11 +20,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class StudentMessageAdapter extends RecyclerView.Adapter<StudentMessageAdapter.ViewHolder> {
 
     private View view;
-    private ArrayList<TutorProfile> tutorList;
+    private ArrayList<UserProfile> tutorList;
     private OnMessageClickListener onMessageClickListener;
 
 
-    public StudentMessageAdapter(ArrayList<TutorProfile> tutorList, OnMessageClickListener onMessageClickListener) {
+    public StudentMessageAdapter(ArrayList<UserProfile> tutorList, OnMessageClickListener onMessageClickListener) {
         this.tutorList = tutorList;
         this.onMessageClickListener = onMessageClickListener;
     }
@@ -37,7 +38,7 @@ public class StudentMessageAdapter extends RecyclerView.Adapter<StudentMessageAd
 
     @Override
     public void onBindViewHolder(@NonNull StudentMessageAdapter.ViewHolder holder, int position) {
-        TutorProfile users = tutorList.get(position);
+        UserProfile users = tutorList.get(position);
         holder.tvName.setText(users.getFirstName() + " " + users.getLastName());
         Glide.with(view).load(users.getImageUrl()).into(holder.ivUserPic);
     }

@@ -26,6 +26,7 @@ import com.teamocta.dcc_project.adapter.TutorListAdapter;
 import com.teamocta.dcc_project.databinding.ActivityStudentSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.viewActivity.TutorViewActivity;
 import java.util.ArrayList;
 
@@ -34,8 +35,8 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
     private ActivityStudentSearchBinding binding;
     private AlertDialog alertDialog;
 
-    private TutorProfile tutorProfile;
-    private ArrayList<TutorProfile> tutorList, filteredList;
+    private UserProfile tutorProfile;
+    private ArrayList<UserProfile> tutorList, filteredList;
     private TutorListAdapter tutorListAdapter;
 
     private FirebaseAuth firebaseAuth;
@@ -56,7 +57,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         binding.navView.getMenu().getItem(1).setChecked(true);
 
-        tutorProfile = new TutorProfile();
+        tutorProfile = new UserProfile();
         tutorList = new ArrayList<>();
         tutorListAdapter = new TutorListAdapter(tutorList, this);
 
@@ -71,7 +72,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot tutors: dataSnapshot.getChildren()){
-                        tutorProfile = tutors.getValue(TutorProfile.class);
+                        tutorProfile = tutors.getValue(UserProfile.class);
                         tutorList.add(tutorProfile);
                         tutorListAdapter.notifyDataSetChanged();
                     }
@@ -104,7 +105,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
     }
     private void filter(String text) {
         filteredList = new ArrayList<>();
-        for(TutorProfile tutor: tutorList){
+        for(UserProfile tutor: tutorList){
             if(tutor.getFirstName().toLowerCase().contains(text.toLowerCase())
                 || tutor.getLastName().toLowerCase().contains(text.toLowerCase())
                 || tutor.getAreaCovered().toLowerCase().contains(text.toLowerCase())

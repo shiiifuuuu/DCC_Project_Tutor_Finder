@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.ArrayList;
 
@@ -19,10 +20,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.ViewHolder> {
 
     private OnTutorClickListener mOnTutorClickListener;
-    private ArrayList<TutorProfile> tutorList;
+    private ArrayList<UserProfile> tutorList;
     private View view;
 
-    public TutorListAdapter(ArrayList<TutorProfile> tutorList, OnTutorClickListener onTutorClickListener) {
+    public TutorListAdapter(ArrayList<UserProfile> tutorList, OnTutorClickListener onTutorClickListener) {
         this.tutorList = tutorList;
         this.mOnTutorClickListener = onTutorClickListener;
     }
@@ -36,7 +37,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TutorProfile currentTutor = tutorList.get(position);
+        UserProfile currentTutor = tutorList.get(position);
         Glide.with(view).load(currentTutor.getImageUrl()).into(holder.ivTutorPic);
         holder.tvName.setText(currentTutor.getFirstName() + " " + currentTutor.getLastName());
         holder.tvProfession.setText(currentTutor.getProfession());
@@ -80,7 +81,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
         void onTutorClick(int position);
     }
 
-    public void filterList(ArrayList<TutorProfile> filteredList) {
+    public void filterList(ArrayList<UserProfile> filteredList) {
         tutorList = filteredList;
         notifyDataSetChanged();
     }
