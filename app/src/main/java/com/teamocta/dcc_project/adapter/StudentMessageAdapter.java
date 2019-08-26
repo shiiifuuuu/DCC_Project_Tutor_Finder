@@ -17,17 +17,22 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StudentMessageAdapter extends RecyclerView.Adapter<StudentMessageAdapter.ViewHolder> {
+
     private View view;
     private ArrayList<TutorProfile> tutorList;
-    public StudentMessageAdapter(ArrayList<TutorProfile> tutorList) {
+    private OnMessageClickListener onMessageClickListener;
+
+
+    public StudentMessageAdapter(ArrayList<TutorProfile> tutorList, OnMessageClickListener onMessageClickListener) {
         this.tutorList = tutorList;
+        this.onMessageClickListener = onMessageClickListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_message_profile, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onMessageClickListener);
     }
 
     @Override
@@ -42,14 +47,29 @@ public class StudentMessageAdapter extends RecyclerView.Adapter<StudentMessageAd
         return tutorList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        private OnMessageClickListener onMessageClickListener;
 
         private CircleImageView ivUserPic;
         private TextView tvName;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnMessageClickListener onMessageClickListener) {
             super(itemView);
+            this.onMessageClickListener = onMessageClickListener;
+
             ivUserPic = itemView.findViewById(R.id.ivUserPic);
             tvName = itemView.findViewById(R.id.tvName);
+
+            itemView.setOnClickListener(this);
+
         }
+        @Override
+        public void onClick(View view) {
+            onMessageClickListener.onMessageClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnMessageClickListener{
+        void onMessageClick(int position);
     }
 }

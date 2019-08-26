@@ -30,7 +30,7 @@ import com.teamocta.dcc_project.pojo.TutorProfile;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-public class StudentMessageActivity extends AppCompatActivity {
+public class StudentMessageActivity extends AppCompatActivity implements StudentMessageAdapter.OnMessageClickListener {
 
     private ActivityStudentMessageBinding binding;
     private AlertDialog alertDialog;
@@ -66,7 +66,7 @@ public class StudentMessageActivity extends AppCompatActivity {
         msgSenderId = new ArrayList<>();
         tutorList = new ArrayList<>();
 
-        studentMessageAdapter = new StudentMessageAdapter(tutorList);
+        studentMessageAdapter = new StudentMessageAdapter(tutorList, this);
     }
 
     private void getMessageSenderList() {
@@ -128,6 +128,11 @@ public class StudentMessageActivity extends AppCompatActivity {
     private void configRecyclerView() {
         binding.rvMessageList.setLayoutManager(new LinearLayoutManager(this));
         binding.rvMessageList.setAdapter(studentMessageAdapter);
+    }
+
+    @Override
+    public void onMessageClick(int position) {
+        startActivity(new Intent(this, StudentProfileActivity.class));
     }
 
 
@@ -211,4 +216,5 @@ public class StudentMessageActivity extends AppCompatActivity {
     private void toastMessageLong(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
 }
