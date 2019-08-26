@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.StudentProfile;
 import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.ArrayList;
 
@@ -20,9 +21,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TutorMessageAdapter extends RecyclerView.Adapter<TutorMessageAdapter.ViewHolder> {
 
     private View view;
-    private ArrayList<StudentProfile> tuitionList;
+    private ArrayList<UserProfile> tuitionList;
 
-    public TutorMessageAdapter(ArrayList<StudentProfile> tuitionList) {
+    public TutorMessageAdapter(ArrayList<UserProfile> tuitionList) {
         this.tuitionList = tuitionList;
     }
 
@@ -35,7 +36,7 @@ public class TutorMessageAdapter extends RecyclerView.Adapter<TutorMessageAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TutorMessageAdapter.ViewHolder holder, int position) {
-        StudentProfile users = tuitionList.get(position);
+        UserProfile users = tuitionList.get(position);
         holder.tvName.setText(users.getFirstName() + " " + users.getLastName());
         Glide.with(view).load(users.getImageUrl()).into(holder.ivUserPic);
     }

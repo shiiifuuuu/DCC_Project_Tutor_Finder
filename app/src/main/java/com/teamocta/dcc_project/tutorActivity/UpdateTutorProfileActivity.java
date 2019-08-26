@@ -31,7 +31,6 @@ import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 public class UpdateTutorProfileActivity extends AppCompatActivity {
 
     private ActivityUpdateTutorProfileBinding binding;
-    private AlertDialog alertDialog;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;

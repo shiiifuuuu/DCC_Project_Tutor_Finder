@@ -26,6 +26,7 @@ import com.teamocta.dcc_project.databinding.ActivityTutorSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.StudentProfile;
 import com.teamocta.dcc_project.pojo.Support;
+import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.viewActivity.TuitionViewActivity;
 
 import java.util.ArrayList;
@@ -34,14 +35,13 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
 
     private ActivityTutorSearchBinding binding;
 
-    private ArrayList<StudentProfile> tuitionList;
-    private ArrayList<StudentProfile> filteredList;
+    private ArrayList<UserProfile> tuitionList, filteredList;
     private TuitionListAdapter tuitionListAdapter;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
-    private StudentProfile studentProfile;
+    private UserProfile studentProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         binding.navView.getMenu().getItem(1).setChecked(true);
 
-        studentProfile = new StudentProfile();
+        studentProfile = new UserProfile();
         tuitionList = new ArrayList<>();
         tuitionListAdapter= new TuitionListAdapter(tuitionList, this);
 
@@ -74,7 +74,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot tuitions: dataSnapshot.getChildren()){
-                        studentProfile = tuitions.getValue(StudentProfile.class);
+                        studentProfile = tuitions.getValue(UserProfile.class);
                         tuitionList.add(studentProfile);
                         tuitionListAdapter.notifyDataSetChanged();
                     }
@@ -111,7 +111,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
     }
     private void filter(String text) {
         filteredList = new ArrayList<>();
-        for(StudentProfile tuition: tuitionList){
+        for(UserProfile tuition: tuitionList){
             if(tuition.getFirstName().toLowerCase().contains(text.toLowerCase())
                 || tuition.getStudentClass().toLowerCase().contains(text.toLowerCase())
                 || tuition.getDepartment().toLowerCase().contains(text.toLowerCase())

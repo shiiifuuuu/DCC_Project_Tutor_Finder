@@ -28,6 +28,7 @@ import com.teamocta.dcc_project.pojo.Chat;
 import com.teamocta.dcc_project.pojo.StudentProfile;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.studentActivity.StudentMessageActivity;
 import com.teamocta.dcc_project.studentActivity.StudentProfileActivity;
 import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
@@ -43,7 +44,7 @@ public class TutorMessageActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     private ArrayList<String> msgSenderId;
-    private ArrayList<StudentProfile> tuitionList;
+    private ArrayList<UserProfile> tuitionList;
 
     private TutorMessageAdapter tutorMessageAdapter;
     private String userUid;
@@ -108,7 +109,7 @@ public class TutorMessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                        StudentProfile studentProfile = snapshot.getValue(StudentProfile.class);
+                        UserProfile studentProfile = snapshot.getValue(UserProfile.class);
 
                         for(String id: msgSenderId){
                             if(studentProfile.getUid().equals(id)){

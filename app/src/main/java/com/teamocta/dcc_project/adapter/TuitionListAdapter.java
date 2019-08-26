@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.StudentProfile;
+import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.ArrayList;
 
@@ -19,10 +20,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TuitionListAdapter extends RecyclerView.Adapter<TuitionListAdapter.ViewHolder>{
 
     private OnTuitionClickListener mOnTuitionClickListener;
-    private ArrayList<StudentProfile> tuitionList;
+    private ArrayList<UserProfile> tuitionList;
     private View view;
 
-    public TuitionListAdapter(ArrayList<StudentProfile> tuitionList, OnTuitionClickListener onTuitionClickListener) {
+    public TuitionListAdapter(ArrayList<UserProfile> tuitionList, OnTuitionClickListener onTuitionClickListener) {
         this.tuitionList = tuitionList;
         this.mOnTuitionClickListener = onTuitionClickListener;
     }
@@ -36,7 +37,7 @@ public class TuitionListAdapter extends RecyclerView.Adapter<TuitionListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        StudentProfile currentStudent = tuitionList.get(position);
+        UserProfile currentStudent = tuitionList.get(position);
         Glide.with(view).load(currentStudent.getImageUrl()).into(holder.ivStudentPic);
         holder.tvName.setText(currentStudent.getFirstName() + " " + currentStudent.getLastName());
         holder.tvClassDept.setText(currentStudent.getStudentClass() + " - " + currentStudent.getDepartment());
@@ -82,7 +83,7 @@ public class TuitionListAdapter extends RecyclerView.Adapter<TuitionListAdapter.
         void onTuitionClick(int position);
     }
 
-    public void filterList(ArrayList<StudentProfile> filteredList) {
+    public void filterList(ArrayList<UserProfile> filteredList) {
         tuitionList = filteredList;
         notifyDataSetChanged();
     }
