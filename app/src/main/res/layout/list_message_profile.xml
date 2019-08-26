@@ -5,7 +5,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/ivTutorPic"
+        android:id="@+id/ivUserPic"
         android:layout_width="60sp"
         android:layout_height="60sp"
         android:src="@drawable/ic_person_black_24dp"
@@ -18,7 +18,7 @@
         android:layout_height="24sp"
         android:id="@+id/tvName"
         android:text="Shahadat Hossain"
-        android:layout_toRightOf="@+id/ivTutorPic"
+        android:layout_toRightOf="@+id/ivUserPic"
         android:textSize="18sp"
         android:layout_centerVertical="true"
         android:layout_marginStart="15sp"/>

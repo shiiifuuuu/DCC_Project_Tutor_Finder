@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,15 +21,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
-import com.teamocta.dcc_project.adapter.studentMessageAdapter;
+import com.teamocta.dcc_project.adapter.StudentMessageAdapter;
 import com.teamocta.dcc_project.databinding.ActivityStudentMessageBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Chat;
 import com.teamocta.dcc_project.pojo.TutorProfile;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 public class StudentMessageActivity extends AppCompatActivity {
@@ -44,7 +41,7 @@ public class StudentMessageActivity extends AppCompatActivity {
     private ArrayList<String> msgSenderId;
     private ArrayList<TutorProfile> tutorList;
 
-    private studentMessageAdapter studentMessageAdapter;
+    private StudentMessageAdapter studentMessageAdapter;
     private String userUid;
 
     @Override
@@ -69,7 +66,7 @@ public class StudentMessageActivity extends AppCompatActivity {
         msgSenderId = new ArrayList<>();
         tutorList = new ArrayList<>();
 
-        studentMessageAdapter = new studentMessageAdapter(tutorList);
+        studentMessageAdapter = new StudentMessageAdapter(tutorList);
     }
 
     private void getMessageSenderList() {
@@ -89,7 +86,7 @@ public class StudentMessageActivity extends AppCompatActivity {
                         }
                     }
 
-                    readChats();
+                    removeDuplicates();
                 }
 
             }
@@ -100,8 +97,7 @@ public class StudentMessageActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void readChats() {
+    private void removeDuplicates() {
         // delete duplicates (if any) from 'ArrayList'
         msgSenderId = new ArrayList<>(new LinkedHashSet<>(msgSenderId));
         DatabaseReference chatRef = databaseReference.child("Tutor");
@@ -129,7 +125,6 @@ public class StudentMessageActivity extends AppCompatActivity {
             }
         });
     }
-
     private void configRecyclerView() {
         binding.rvMessageList.setLayoutManager(new LinearLayoutManager(this));
         binding.rvMessageList.setAdapter(studentMessageAdapter);

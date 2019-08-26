@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class studentMessageAdapter extends RecyclerView.Adapter<studentMessageAdapter.ViewHolder> {
+public class StudentMessageAdapter extends RecyclerView.Adapter<StudentMessageAdapter.ViewHolder> {
     private View view;
     private ArrayList<TutorProfile> tutorList;
-    public studentMessageAdapter(ArrayList<TutorProfile> tutorList) {
+    public StudentMessageAdapter(ArrayList<TutorProfile> tutorList) {
         this.tutorList = tutorList;
     }
 
@@ -31,10 +31,10 @@ public class studentMessageAdapter extends RecyclerView.Adapter<studentMessageAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull studentMessageAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StudentMessageAdapter.ViewHolder holder, int position) {
         TutorProfile users = tutorList.get(position);
         holder.tvName.setText(users.getFirstName() + " " + users.getLastName());
-        Glide.with(view).load(users.getImageUrl()).into(holder.ivTutorPic);
+        Glide.with(view).load(users.getImageUrl()).into(holder.ivUserPic);
     }
 
     @Override
@@ -44,11 +44,11 @@ public class studentMessageAdapter extends RecyclerView.Adapter<studentMessageAd
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private CircleImageView ivTutorPic;
+        private CircleImageView ivUserPic;
         private TextView tvName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivTutorPic = itemView.findViewById(R.id.ivTutorPic);
+            ivUserPic = itemView.findViewById(R.id.ivUserPic);
             tvName = itemView.findViewById(R.id.tvName);
         }
     }

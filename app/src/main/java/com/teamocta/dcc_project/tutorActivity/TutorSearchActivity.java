@@ -192,10 +192,6 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         intent.putExtra("tuitionRating", tuitionList.get(position).getTuitionRating());
     }
 
-
-    public void btnBackClicked(View view) {
-        onBackPressed();
-    }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

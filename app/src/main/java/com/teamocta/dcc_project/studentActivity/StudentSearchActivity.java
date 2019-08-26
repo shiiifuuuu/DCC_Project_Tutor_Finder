@@ -179,9 +179,6 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
     }
 
 
-    public void btnBackClicked(View view) {
-        onBackPressed();
-    }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
