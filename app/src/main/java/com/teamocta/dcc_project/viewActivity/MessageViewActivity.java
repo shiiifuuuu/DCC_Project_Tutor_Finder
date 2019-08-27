@@ -52,6 +52,7 @@ public class MessageViewActivity extends AppCompatActivity {
         checkUserType();
         getMessage();
         configRecyclerView();
+        //binding.rvMessageList.smoothScrollToPosition(chatList.size());
     }
 
     private void getIntentExtras() {
@@ -144,6 +145,7 @@ public class MessageViewActivity extends AppCompatActivity {
                         }
                         chatListAdapter.notifyDataSetChanged();
                     }
+                    binding.rvMessageList.smoothScrollToPosition(chatListAdapter.getItemCount());
                 }
 
             }

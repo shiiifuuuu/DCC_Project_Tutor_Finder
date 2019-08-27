@@ -44,11 +44,10 @@
             android:id="@+id/rvMessageList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/messageBox"
-            android:layout_below="@+id/upperLayout"
             tools:listitem="@layout/list_chat_message_left"
-            tools:itemCount="5">
-
+            tools:itemCount="20"
+            android:layout_above="@+id/messageBox"
+            android:layout_below="@+id/upperLayout">
         </androidx.recyclerview.widget.RecyclerView>
 
         <RelativeLayout
