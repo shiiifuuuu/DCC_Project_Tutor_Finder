@@ -10,7 +10,6 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="60sp"
-            android:layout_weight="1"
             android:id="@+id/etSearchTutor"
             android:hint="Search Tutor"
             android:inputType="text"
@@ -18,8 +17,7 @@
             android:drawableRight="@drawable/ic_search_black_24dp"
             android:paddingEnd="20sp"
             android:background="@drawable/search_outline"
-            android:textSize="24sp"
-            android:textColor="#000" />
+            android:layout_margin="10sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -28,9 +26,7 @@
             android:layout_below="@id/etSearchTutor"
             android:layout_above="@id/nav_view"
             tools:itemCount="2"
-            tools:listitem="@layout/list_tutor_search"
-            android:background="#363636"
-            android:layout_marginTop="20sp">
+            tools:listitem="@layout/list_tutor_search">
 
         </androidx.recyclerview.widget.RecyclerView>
 

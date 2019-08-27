@@ -3,7 +3,6 @@ package com.teamocta.dcc_project.tutorActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -18,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.teamocta.dcc_project.R;
-import com.teamocta.dcc_project.databinding.ActivityUpdateTutorProfileBinding;
+import com.teamocta.dcc_project.databinding.ActivityTutorUpdateProfileBinding;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
@@ -28,9 +27,9 @@ import java.util.Map;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
-public class UpdateTutorProfileActivity extends AppCompatActivity {
+public class TutorUpdateProfileActivity extends AppCompatActivity {
 
-    private ActivityUpdateTutorProfileBinding binding;
+    private ActivityTutorUpdateProfileBinding binding;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -49,7 +48,7 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_update_tutor_profile);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_tutor_update_profile);
         init();
         getIntentExtras();
     }
@@ -130,7 +129,7 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Support.cancelAlertDialog();
-                    Support.toastMessageLong("Profile Updated Successfully.", UpdateTutorProfileActivity.this);
+                    Support.toastMessageLong("Profile Updated Successfully.", TutorUpdateProfileActivity.this);
                     finish();
                 }
             }
@@ -138,7 +137,7 @@ public class UpdateTutorProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Support.cancelAlertDialog();
-                Support.toastMessageLong(e.getMessage(), UpdateTutorProfileActivity.this);
+                Support.toastMessageLong(e.getMessage(), TutorUpdateProfileActivity.this);
             }
         });
     }

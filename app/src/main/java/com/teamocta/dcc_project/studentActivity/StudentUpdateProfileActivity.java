@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.teamocta.dcc_project.R;
-import com.teamocta.dcc_project.databinding.ActivityUpdateStudentProfileBinding;
+import com.teamocta.dcc_project.databinding.ActivityStudentUpdateProfileBinding;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
@@ -27,9 +27,9 @@ import java.util.Map;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
-public class UpdateStudentProfileActivity extends AppCompatActivity {
+public class StudentUpdateProfileActivity extends AppCompatActivity {
 
-    private ActivityUpdateStudentProfileBinding binding;
+    private ActivityStudentUpdateProfileBinding binding;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -48,7 +48,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_update_student_profile);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_student_update_profile);
 
         init();
         getIntentExtras();
@@ -112,7 +112,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
     public void btnSaveProfileClicked(View view) {
         validationCheck();
         if(mAwesomeValidation.validate()){
-            Support.showAlertDialog("Updating user profile...", UpdateStudentProfileActivity.this);
+            Support.showAlertDialog("Updating user profile...", StudentUpdateProfileActivity.this);
             updateDatabase();
         }
     }
@@ -144,7 +144,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Support.cancelAlertDialog();
-                    Support.toastMessageLong("Profile Updated Successfully.", UpdateStudentProfileActivity.this);
+                    Support.toastMessageLong("Profile Updated Successfully.", StudentUpdateProfileActivity.this);
                     finish();
                 }
             }
@@ -152,7 +152,7 @@ public class UpdateStudentProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Support.cancelAlertDialog();
-                Support.toastMessageLong(e.getMessage(), UpdateStudentProfileActivity.this);
+                Support.toastMessageLong(e.getMessage(), StudentUpdateProfileActivity.this);
             }
         });
     }

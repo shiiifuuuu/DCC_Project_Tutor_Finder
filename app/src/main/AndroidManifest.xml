@@ -36,7 +36,7 @@
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".tutorActivity.UpdateTutorProfileActivity"
+            android:name=".tutorActivity.TutorUpdateProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="stateHidden" />
@@ -54,7 +54,7 @@
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".studentActivity.UpdateStudentProfileActivity"
+            android:name=".studentActivity.StudentUpdateProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="stateHidden" />

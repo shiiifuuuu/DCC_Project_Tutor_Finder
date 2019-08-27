@@ -76,6 +76,7 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         tutorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tutorList.clear();
                 if(dataSnapshot.exists()){
                     for(DataSnapshot tutors: dataSnapshot.getChildren()){
                         tutorProfile = tutors.getValue(UserProfile.class);

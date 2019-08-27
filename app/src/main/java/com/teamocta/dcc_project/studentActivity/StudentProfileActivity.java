@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -241,7 +240,7 @@ public class StudentProfileActivity extends AppCompatActivity {
 
     //-------EDIT PROFILE-------
     public void updateProfileClicked(View view) {
-        Intent intent = new Intent(StudentProfileActivity.this, UpdateStudentProfileActivity.class);
+        Intent intent = new Intent(StudentProfileActivity.this, StudentUpdateProfileActivity.class);
         intent.putExtra("studentProfile", currentStudent);
         startActivity(intent);
 

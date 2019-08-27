@@ -80,6 +80,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    tuitionList.clear();
                     for(DataSnapshot tuitions: dataSnapshot.getChildren()){
                         studentProfile = tuitions.getValue(UserProfile.class);
                         tuitionList.add(studentProfile);

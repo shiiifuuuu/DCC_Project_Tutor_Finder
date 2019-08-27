@@ -39,7 +39,6 @@ import com.teamocta.dcc_project.databinding.ActivityTutorProfileBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
-import com.teamocta.dcc_project.studentActivity.StudentProfileActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -245,7 +244,7 @@ public class TutorProfileActivity extends AppCompatActivity {
 
     //-------EDIT PROFILE-------
     public void updateProfileClicked(View view) {
-        Intent intent = new Intent(TutorProfileActivity.this, UpdateTutorProfileActivity.class);
+        Intent intent = new Intent(TutorProfileActivity.this, TutorUpdateProfileActivity.class);
         intent.putExtra("tutorProfile", currentTutor);
         startActivity(intent);
     }
