@@ -32,11 +32,12 @@ import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.studentActivity.StudentMessageActivity;
 import com.teamocta.dcc_project.studentActivity.StudentProfileActivity;
 import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
+import com.teamocta.dcc_project.viewActivity.MessageViewActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-public class TutorMessageActivity extends AppCompatActivity {
+public class TutorMessageActivity extends AppCompatActivity implements TutorMessageAdapter.OnMessageClickListener {
 
     private ActivityTutorMessageBinding binding;
 
@@ -70,7 +71,7 @@ public class TutorMessageActivity extends AppCompatActivity {
         msgSenderId = new ArrayList<>();
         tuitionList = new ArrayList<>();
 
-        tutorMessageAdapter = new TutorMessageAdapter(tuitionList);
+        tutorMessageAdapter = new TutorMessageAdapter(tuitionList, this);
     }
 
     private void getMessageSenderList() {
@@ -133,6 +134,13 @@ public class TutorMessageActivity extends AppCompatActivity {
         binding.rvMessageList.setAdapter(tutorMessageAdapter);
     }
 
+    @Override
+    public void onMessageClick(int position) {
+        Intent intent = new Intent(this, MessageViewActivity.class);
+        intent.putExtra("userProfile", tuitionList.get(position));
+        startActivity(intent);
+    }
+
     public void btnBackClicked(View view) {
         onBackPressed();
     }
@@ -183,4 +191,5 @@ public class TutorMessageActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
 }

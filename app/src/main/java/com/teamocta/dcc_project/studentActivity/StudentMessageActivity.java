@@ -26,8 +26,8 @@ import com.teamocta.dcc_project.databinding.ActivityStudentMessageBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Chat;
 import com.teamocta.dcc_project.pojo.Support;
-import com.teamocta.dcc_project.pojo.TutorProfile;
 import com.teamocta.dcc_project.pojo.UserProfile;
+import com.teamocta.dcc_project.viewActivity.MessageViewActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -133,7 +133,10 @@ public class StudentMessageActivity extends AppCompatActivity implements Student
 
     @Override
     public void onMessageClick(int position) {
-        //startActivity(new Intent(this, StudentProfileActivity.class));
+        Intent intent = new Intent(this, MessageViewActivity.class);
+        intent.putExtra("userProfile", tutorList.get(position));
+        startActivity(intent);
+
     }
 
 

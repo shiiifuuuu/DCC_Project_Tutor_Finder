@@ -18,9 +18,8 @@ import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.adapter.ChatListAdapter;
 import com.teamocta.dcc_project.databinding.ActivityMessageViewBinding;
 import com.teamocta.dcc_project.pojo.Chat;
-import com.teamocta.dcc_project.pojo.StudentProfile;
 import com.teamocta.dcc_project.pojo.Support;
-import com.teamocta.dcc_project.pojo.TutorProfile;
+import com.teamocta.dcc_project.pojo.UserProfile;
 
 import java.util.ArrayList;
 
@@ -35,8 +34,7 @@ public class MessageViewActivity extends AppCompatActivity {
     private String userUid, oppositeUid;
     private String receiverUid, senderUid;
     private String imageUrl;
-    private StudentProfile studentProfile;
-    private TutorProfile tutorProfile;
+    private UserProfile userProfile;
     private Chat chat;
     private ArrayList<Chat> chatList;
 
@@ -49,18 +47,23 @@ public class MessageViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_message_view);
 
+        getIntentExtras();
         init();
         checkUserType();
         getMessage();
         configRecyclerView();
     }
 
+    private void getIntentExtras() {
+        userProfile = (UserProfile) getIntent().getSerializableExtra("userProfile");
+    }
+
     private void init() {
-        binding.tvReceiverName.setText(getIntent().getStringExtra("receiverName"));
+        binding.tvReceiverName.setText(userProfile.getFirstName());
         chatList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        oppositeUid = getIntent().getStringExtra("msgReceiverUid");
+        oppositeUid = userProfile.getUid();
     }
 
 
@@ -100,7 +103,7 @@ public class MessageViewActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    tutorProfile = dataSnapshot.getValue(TutorProfile.class);
+                    userProfile = dataSnapshot.getValue(UserProfile.class);
                 }
             }
 
@@ -115,7 +118,7 @@ public class MessageViewActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    studentProfile = dataSnapshot.getValue(StudentProfile.class);
+                    userProfile = dataSnapshot.getValue(UserProfile.class);
                 }
             }
 
@@ -165,14 +168,14 @@ public class MessageViewActivity extends AppCompatActivity {
         String msg = binding.etTypeMessage.getText().toString();
         if(isUserTutor){
             if(!msg.equals("")){
-                imageUrl = tutorProfile.getImageUrl();
+                imageUrl = userProfile.getImageUrl();
                 sendMessage(msg);
             }else{
                 Support.toastMessageLong("you can't send empty message!", MessageViewActivity.this);
             }
         }else if(isUserStudent){
             if(!msg.equals("")){
-                imageUrl = studentProfile.getImageUrl();
+                imageUrl = userProfile.getImageUrl();
                 sendMessage(msg);
             }else{
                 Support.toastMessageLong("you can't send empty message!", MessageViewActivity.this);
