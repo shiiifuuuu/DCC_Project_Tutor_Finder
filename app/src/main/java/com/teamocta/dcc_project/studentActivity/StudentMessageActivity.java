@@ -146,6 +146,11 @@ public class StudentMessageActivity extends AppCompatActivity implements Message
     }
 
 
+    public void fabHiredClicked(View view) {
+        
+    }
+
+
     private Activity activity = StudentMessageActivity.this;
     private Context context = StudentMessageActivity.this;
     public void btnBackClicked(View view) {

@@ -1,10 +1,13 @@
 package com.teamocta.dcc_project.viewActivity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -34,7 +37,7 @@ public class MessageViewActivity extends AppCompatActivity {
     private String userUid, oppositeUid;
     private String receiverUid, senderUid;
     private String imageUrl;
-    private UserProfile userProfile;
+    private UserProfile userProfile, receiverProfile;
     private Chat chat;
     private ArrayList<Chat> chatList;
 
@@ -56,15 +59,16 @@ public class MessageViewActivity extends AppCompatActivity {
     }
 
     private void getIntentExtras() {
-        userProfile = (UserProfile) getIntent().getSerializableExtra("userProfile");
+        //opposite User Profile
+        receiverProfile = (UserProfile) getIntent().getSerializableExtra("userProfile");
     }
 
     private void init() {
-        binding.tvReceiverName.setText(userProfile.getFirstName());
+        binding.tvReceiverName.setText(receiverProfile.getFirstName());
         chatList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        oppositeUid = userProfile.getUid();
+        oppositeUid = receiverProfile.getUid();
     }
 
 
@@ -201,5 +205,28 @@ public class MessageViewActivity extends AppCompatActivity {
 
     public void btnBackClicked(View view) {
         onBackPressed();
+    }
+
+    public void userDetailsClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Go to...").setCancelable(true).setPositiveButton("Hire Service", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        }).setNegativeButton("Profile", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(isUserTutor){
+                    Intent intent = new Intent(MessageViewActivity.this, TuitionViewActivity.class);
+                    intent.putExtra("tuitionProfile", receiverProfile);
+                    startActivity(intent);
+                }else if(isUserStudent){
+                    Intent intent = new Intent(MessageViewActivity.this, TutorViewActivity.class);
+                    intent.putExtra("tutorProfile", receiverProfile);
+                    startActivity(intent);
+                }
+            }
+        }).create().show();
     }
 }

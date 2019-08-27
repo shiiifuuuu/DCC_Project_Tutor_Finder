@@ -30,13 +30,21 @@
                 android:id="@+id/tvReceiverName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="receiverName"
                 android:textStyle="bold"
                 android:textColor="#000000"
                 android:gravity="center_vertical"
                 android:layout_marginStart="5sp"
                 android:textSize="20sp"/>
+            <ImageButton
+                android:id="@+id/goToProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:src="@drawable/ic_info_outline_black_24dp"
+                android:background="?android:colorBackground"
+                android:onClick="userDetailsClicked"/>
 
         </LinearLayout>
 
