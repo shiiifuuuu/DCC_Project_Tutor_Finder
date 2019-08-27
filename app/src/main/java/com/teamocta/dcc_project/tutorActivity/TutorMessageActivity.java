@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -21,23 +20,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
-import com.teamocta.dcc_project.adapter.TutorMessageAdapter;
+import com.teamocta.dcc_project.adapter.MessageAdapter;
 import com.teamocta.dcc_project.databinding.ActivityTutorMessageBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Chat;
-import com.teamocta.dcc_project.pojo.StudentProfile;
 import com.teamocta.dcc_project.pojo.Support;
-import com.teamocta.dcc_project.pojo.TutorProfile;
 import com.teamocta.dcc_project.pojo.UserProfile;
-import com.teamocta.dcc_project.studentActivity.StudentMessageActivity;
-import com.teamocta.dcc_project.studentActivity.StudentProfileActivity;
-import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
 import com.teamocta.dcc_project.viewActivity.MessageViewActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-public class TutorMessageActivity extends AppCompatActivity implements TutorMessageAdapter.OnMessageClickListener {
+public class TutorMessageActivity extends AppCompatActivity implements MessageAdapter.OnMessageClickListener {
 
     private ActivityTutorMessageBinding binding;
 
@@ -47,7 +41,7 @@ public class TutorMessageActivity extends AppCompatActivity implements TutorMess
     private ArrayList<String> msgSenderId;
     private ArrayList<UserProfile> tuitionList;
 
-    private TutorMessageAdapter tutorMessageAdapter;
+    private MessageAdapter tutorMessageAdapter;
     private String userUid;
 
     @Override
@@ -58,6 +52,12 @@ public class TutorMessageActivity extends AppCompatActivity implements TutorMess
         init();
         getMessageSenderList();
         configRecyclerView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binding.navView.getMenu().getItem(2).setChecked(true);
     }
 
     private void init() {
@@ -71,7 +71,7 @@ public class TutorMessageActivity extends AppCompatActivity implements TutorMess
         msgSenderId = new ArrayList<>();
         tuitionList = new ArrayList<>();
 
-        tutorMessageAdapter = new TutorMessageAdapter(tuitionList, this);
+        tutorMessageAdapter = new MessageAdapter(tuitionList, this);
     }
 
     private void getMessageSenderList() {
@@ -80,7 +80,7 @@ public class TutorMessageActivity extends AppCompatActivity implements TutorMess
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-//                    userList.clear();
+                    tuitionList.clear();
                     for(DataSnapshot chats: dataSnapshot.getChildren()){
                         Chat chat = chats.getValue(Chat.class);
                         if(chat.getSender().equals(userUid)){
@@ -183,8 +183,8 @@ public class TutorMessageActivity extends AppCompatActivity implements TutorMess
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                binding.navView.getMenu().getItem(2).setChecked(true);
                 dialogInterface.cancel();
-                binding.navView.getMenu().getItem(3).setChecked(false);
             }
         });
 

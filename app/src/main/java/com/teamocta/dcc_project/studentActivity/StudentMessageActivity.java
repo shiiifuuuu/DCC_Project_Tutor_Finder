@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -21,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
-import com.teamocta.dcc_project.adapter.StudentMessageAdapter;
+import com.teamocta.dcc_project.adapter.MessageAdapter;
 import com.teamocta.dcc_project.databinding.ActivityStudentMessageBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Chat;
@@ -32,7 +31,7 @@ import com.teamocta.dcc_project.viewActivity.MessageViewActivity;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-public class StudentMessageActivity extends AppCompatActivity implements StudentMessageAdapter.OnMessageClickListener {
+public class StudentMessageActivity extends AppCompatActivity implements MessageAdapter.OnMessageClickListener {
 
     private ActivityStudentMessageBinding binding;
 
@@ -42,7 +41,7 @@ public class StudentMessageActivity extends AppCompatActivity implements Student
     private ArrayList<String> msgSenderId;
     private ArrayList<UserProfile> tutorList;
 
-    private StudentMessageAdapter studentMessageAdapter;
+    private MessageAdapter studentMessageAdapter;
     private String userUid;
 
     @Override
@@ -56,6 +55,12 @@ public class StudentMessageActivity extends AppCompatActivity implements Student
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binding.navView.getMenu().getItem(2).setChecked(true);
+    }
+
     private void init() {
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         binding.navView.getMenu().getItem(2).setChecked(true);
@@ -67,7 +72,7 @@ public class StudentMessageActivity extends AppCompatActivity implements Student
         msgSenderId = new ArrayList<>();
         tutorList = new ArrayList<>();
 
-        studentMessageAdapter = new StudentMessageAdapter(tutorList, this);
+        studentMessageAdapter = new MessageAdapter(tutorList, this);
     }
 
     private void getMessageSenderList() {
@@ -76,10 +81,9 @@ public class StudentMessageActivity extends AppCompatActivity implements Student
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-//                    userList.clear();
+                    tutorList.clear();
                     for(DataSnapshot chats: dataSnapshot.getChildren()){
                         Chat chat = chats.getValue(Chat.class);
-//                        userList.add(chat);
                         if(chat.getSender().equals(userUid)){
                             msgSenderId.add(chat.getReceiver());
                         }if (chat.getReceiver().equals(userUid)){
@@ -180,8 +184,8 @@ public class StudentMessageActivity extends AppCompatActivity implements Student
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                binding.navView.getMenu().getItem(2).setChecked(true);
                 dialogInterface.cancel();
-                binding.navView.getMenu().getItem(3).setChecked(false);
             }
         });
 

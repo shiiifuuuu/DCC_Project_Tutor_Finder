@@ -16,16 +16,17 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class StudentMessageAdapter extends RecyclerView.Adapter<StudentMessageAdapter.ViewHolder> {
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
     private View view;
-    private ArrayList<UserProfile> tutorList;
+    private ArrayList<UserProfile> userList;
     private OnMessageClickListener onMessageClickListener;
 
 
-    public StudentMessageAdapter(ArrayList<UserProfile> tutorList, OnMessageClickListener onMessageClickListener) {
-        this.tutorList = tutorList;
+    public MessageAdapter(ArrayList<UserProfile> userList, OnMessageClickListener onMessageClickListener) {
+        this.userList = userList;
         this.onMessageClickListener = onMessageClickListener;
+
     }
 
     @NonNull
@@ -36,15 +37,15 @@ public class StudentMessageAdapter extends RecyclerView.Adapter<StudentMessageAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StudentMessageAdapter.ViewHolder holder, int position) {
-        UserProfile users = tutorList.get(position);
+    public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
+        UserProfile users = userList.get(position);
         holder.tvName.setText(users.getFirstName() + " " + users.getLastName());
         Glide.with(view).load(users.getImageUrl()).into(holder.ivUserPic);
     }
 
     @Override
     public int getItemCount() {
-        return tutorList.size();
+        return userList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -53,9 +54,11 @@ public class StudentMessageAdapter extends RecyclerView.Adapter<StudentMessageAd
 
         private CircleImageView ivUserPic;
         private TextView tvName;
+
         public ViewHolder(@NonNull View itemView, OnMessageClickListener onMessageClickListener) {
             super(itemView);
             this.onMessageClickListener = onMessageClickListener;
+
 
             ivUserPic = itemView.findViewById(R.id.ivUserPic);
             tvName = itemView.findViewById(R.id.tvName);

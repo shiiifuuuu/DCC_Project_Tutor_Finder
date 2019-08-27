@@ -51,6 +51,12 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         etTextChangeListener();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binding.navView.getMenu().getItem(1).setChecked(true);
+    }
+
     private void init() {
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         binding.navView.getMenu().getItem(1).setChecked(true);
@@ -172,8 +178,8 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                binding.navView.getMenu().getItem(1).setChecked(true);
                 dialogInterface.cancel();
-                binding.navView.getMenu().getItem(3).setChecked(false);
             }
         });
 

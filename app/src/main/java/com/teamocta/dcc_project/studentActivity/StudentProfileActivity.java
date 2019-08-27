@@ -67,6 +67,12 @@ public class StudentProfileActivity extends AppCompatActivity {
         getStudentProfile();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binding.navView.getMenu().getItem(0).setChecked(true);
+    }
+
     private void init() {
         binding.navView.getMenu().getItem(0).setChecked(true);
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -276,8 +282,8 @@ public class StudentProfileActivity extends AppCompatActivity {
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                binding.navView.getMenu().getItem(0).setChecked(true);
                 dialogInterface.cancel();
-                binding.navView.getMenu().getItem(3).setChecked(false);
             }
         }).create().show();
     }

@@ -189,7 +189,6 @@ public class MessageViewActivity extends AppCompatActivity {
         DatabaseReference chatRef = databaseReference.child("chatMessage");
 
         Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("receiverName", getIntent().getStringExtra("receiverName"));
         hashMap.put("sender", senderUid);
         hashMap.put("receiver", receiverUid);
         hashMap.put("msg", msg);

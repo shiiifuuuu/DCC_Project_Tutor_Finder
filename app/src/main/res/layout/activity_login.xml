@@ -28,7 +28,7 @@
                 android:layout_width="200sp"
                 android:layout_height="200sp"
                 android:src="@drawable/search"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/etEmail"
