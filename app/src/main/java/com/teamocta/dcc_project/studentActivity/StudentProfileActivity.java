@@ -129,8 +129,13 @@ public class StudentProfileActivity extends AppCompatActivity {
         builder.setMessage("Choose Image using...").setCancelable(true).setPositiveButton("Camera", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_CODE);
+                try{
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_CODE);
+                }catch (Exception e){
+                    //Support.toastMessageLong(e.getMessage(), StudentProfileActivity.this);
+                    Support.toastMessageLong("Please turn on camera permission for this app", StudentProfileActivity.this);
+                }
             }
         }).setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
             @Override
