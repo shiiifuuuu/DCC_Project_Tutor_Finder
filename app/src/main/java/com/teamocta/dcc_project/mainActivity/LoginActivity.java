@@ -193,4 +193,9 @@ public class LoginActivity extends AppCompatActivity {
             saveUserProfileType = myPrefs.getString("USER", "");
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(true);
+    }
 }

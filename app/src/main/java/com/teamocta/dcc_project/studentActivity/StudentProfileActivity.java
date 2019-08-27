@@ -1,5 +1,6 @@
 package com.teamocta.dcc_project.studentActivity;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -246,6 +248,8 @@ public class StudentProfileActivity extends AppCompatActivity {
     }
     //-------EDIT PROFILE-------
 
+    private Activity activity = StudentProfileActivity.this;
+    private Context context = StudentProfileActivity.this;
     //N A V I G A T I O N   I T E M    L I S T E N E R
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -262,29 +266,15 @@ public class StudentProfileActivity extends AppCompatActivity {
                     startActivity(new Intent(StudentProfileActivity.this, StudentMessageActivity.class));
                     return true;
                 case R.id.navigation_logout:
-                    logoutCurrentUser();
+                    Support.logout(firebaseAuth, LoginActivity.class, activity, context);
                     return true;
             }
             return false;
         }
     };
-    //L O G O U T    D I A L O G
-    private void logoutCurrentUser() {
-        builder.setMessage("Are you sure you want to log out?").setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Support.toastMessageShort("Signing out user...", StudentProfileActivity.this);
-                        firebaseAuth.signOut();
-                        startActivity(new Intent(StudentProfileActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                binding.navView.getMenu().getItem(0).setChecked(true);
-                dialogInterface.cancel();
-            }
-        }).create().show();
+
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(true);
     }
 }

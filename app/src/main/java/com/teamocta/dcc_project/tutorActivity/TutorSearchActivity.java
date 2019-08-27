@@ -1,5 +1,7 @@
 package com.teamocta.dcc_project.tutorActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.teamocta.dcc_project.databinding.ActivityTutorSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
+import com.teamocta.dcc_project.studentActivity.StudentProfileActivity;
 import com.teamocta.dcc_project.viewActivity.TuitionViewActivity;
 
 import java.util.ArrayList;
@@ -147,6 +150,9 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         }
     }
 
+
+    private Activity activity = TutorSearchActivity.this;
+    private Context context = TutorSearchActivity.this;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -154,43 +160,20 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
-                    startActivity(new Intent(TutorSearchActivity.this, TutorProfileActivity.class));
+                    startActivity(new Intent(context, TutorProfileActivity.class));
                     return true;
                 case R.id.navigation_search:
                     /*startActivity(new Intent(StudentSearchActivity.this, StudentSearchActivity.class));
                     finish();*/
                     return true;
                 case R.id.navigation_message:
-                    startActivity(new Intent(TutorSearchActivity.this, TutorMessageActivity.class));
+                    startActivity(new Intent(context, TutorMessageActivity.class));
                     return true;
                 case R.id.navigation_logout:
-                    logoutCurrentUser();
+                    Support.logout(firebaseAuth, LoginActivity.class, activity, context);
                     return true;
             }
             return false;
         }
     };
-    //L O G O U T    D I A L O G
-    private void logoutCurrentUser() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to log out?").setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Support.toastMessageShort("Signing out user...", TutorSearchActivity.this);
-                        firebaseAuth.signOut();
-                        startActivity(new Intent(TutorSearchActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                binding.navView.getMenu().getItem(1).setChecked(true);
-                dialogInterface.cancel();
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
 }

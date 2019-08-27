@@ -1,5 +1,7 @@
 package com.teamocta.dcc_project.studentActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -141,7 +143,8 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
 
 
 
-
+    private Activity activity = StudentSearchActivity.this;
+    private Context context = StudentSearchActivity.this;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -149,41 +152,18 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
-                    startActivity(new Intent(StudentSearchActivity.this, StudentProfileActivity.class));
+                    startActivity(new Intent(context, StudentProfileActivity.class));
                     return true;
                 case R.id.navigation_search:
                     return true;
                 case R.id.navigation_message:
-                    startActivity(new Intent(StudentSearchActivity.this, StudentMessageActivity.class));
+                    startActivity(new Intent(context, StudentMessageActivity.class));
                     return true;
                 case R.id.navigation_logout:
-                    logoutCurrentUser();
+                    Support.logout(firebaseAuth, LoginActivity.class, activity, context);
                     return true;
             }
             return false;
         }
     };
-    //L O G O U T    D I A L O G
-    private void logoutCurrentUser() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to log out?").setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Support.toastMessageShort("Signing out user...", StudentSearchActivity.this);
-                        firebaseAuth.signOut();
-                        startActivity(new Intent(StudentSearchActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                binding.navView.getMenu().getItem(1).setChecked(true);
-                dialogInterface.cancel();
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
 }

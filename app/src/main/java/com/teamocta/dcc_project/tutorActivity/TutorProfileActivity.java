@@ -1,5 +1,6 @@
 package com.teamocta.dcc_project.tutorActivity;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -38,6 +39,7 @@ import com.teamocta.dcc_project.databinding.ActivityTutorProfileBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
+import com.teamocta.dcc_project.studentActivity.StudentProfileActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -250,7 +252,8 @@ public class TutorProfileActivity extends AppCompatActivity {
     //-------EDIT PROFILE-------
 
 
-
+    private Activity activity = TutorProfileActivity.this;
+    private Context context = TutorProfileActivity.this;
     //N A V I G A T I O N   I T E M    L I S T E N E R
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -263,36 +266,21 @@ public class TutorProfileActivity extends AppCompatActivity {
                     finish();*/
                     return true;
                 case R.id.navigation_search:
-                    startActivity(new Intent(TutorProfileActivity.this, TutorSearchActivity.class));
+                    startActivity(new Intent(context, TutorSearchActivity.class));
                     return true;
                 case R.id.navigation_message:
-                    startActivity(new Intent(TutorProfileActivity.this, TutorMessageActivity.class));
+                    startActivity(new Intent(context, TutorMessageActivity.class));
                     return true;
                 case R.id.navigation_logout:
-                    logoutCurrentUser();
+                    Support.logout(firebaseAuth, LoginActivity.class, activity, context);
                     return true;
             }
             return false;
         }
     };
-    //L O G O U T    D I A L O G
-    private void logoutCurrentUser() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to log out?").setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Support.toastMessageShort("Signing out user...", TutorProfileActivity.this);
-                        firebaseAuth.signOut();
-                        startActivity(new Intent(TutorProfileActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                binding.navView.getMenu().getItem(0).setChecked(true);
-                dialogInterface.cancel();
-            }
-        }).create().show();
+
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(true);
     }
 }
