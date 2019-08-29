@@ -47,7 +47,7 @@ dependencies {
     //AwesomeValidation library
     implementation 'com.basgeekball:awesome-validation:4.2'
 
-    //Circular imageview
+    //Circular imageView
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
     //Glide

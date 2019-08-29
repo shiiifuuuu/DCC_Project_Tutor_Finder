@@ -5,7 +5,7 @@ public class Chat {
     private String receiver;
     private String msg;
     private String imageUrl;
-
+    private String hireService;
 
     public Chat() {
     }
@@ -15,6 +15,10 @@ public class Chat {
         this.receiver = receiver;
         this.msg = msg;
         this.imageUrl = imageUrl;
+    }
+
+    public String getHireService() {
+        return hireService;
     }
 
     public String getImageUrl() {
