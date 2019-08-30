@@ -1,5 +1,6 @@
 package com.teamocta.dcc_project.viewActivity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -8,27 +9,51 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityTutorViewBinding;
+import com.teamocta.dcc_project.pojo.Chat;
+import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.teamocta.dcc_project.studentActivity.StudentProfileActivity.currentStudent;
 
 public class TutorViewActivity extends AppCompatActivity{
 
     private ActivityTutorViewBinding binding;
     private UserProfile tutorProfile;
+    private DatabaseReference databaseReference;
+
+    private Boolean requestExist = false;
+    private String senderUid, receiverUid, senderImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tutor_view);
 
-        getTutorInfo();
+        getIntentExtras();
+        init();
         setData();
     }
 
-    private void getTutorInfo() {
+    private void getIntentExtras() {
         tutorProfile = (UserProfile) getIntent().getSerializableExtra("tutorProfile");
+    }
+    private void init() {
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        receiverUid = tutorProfile.getUid();
+        senderImage = currentStudent.getImageUrl();
     }
     private void setData() {
         Glide.with(this).load(tutorProfile.getImageUrl()).into(binding.ivProfilePic);
@@ -63,5 +88,53 @@ public class TutorViewActivity extends AppCompatActivity{
         Intent intent = new Intent(this, MessageViewActivity.class);
         intent.putExtra("userProfile", tutorProfile);
         startActivity(intent);
+    }
+
+    public void btnHireClicked(View view) {
+        checkingForMatchingRequest();
+    }
+
+    private void checkingForMatchingRequest() {
+
+        DatabaseReference requestRef = databaseReference.child("hireRequest");
+        requestRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        Chat request = snapshot.getValue(Chat.class);
+                        if((request.getSender().equals(senderUid) && request.getReceiver().equals(receiverUid))){
+                            requestExist = true;
+                            Support.toastMessageShort("Sorry Request Exist", TutorViewActivity.this);
+                        }
+                    }
+                }
+                sendRequest();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void sendRequest(){
+
+        if(!requestExist){
+            try{
+                DatabaseReference chatRef = databaseReference.child("hireRequest");
+
+                Map<String, Object> hashMap = new HashMap<>();
+                hashMap.put("sender", senderUid);
+                hashMap.put("receiver", receiverUid);
+                hashMap.put("imageUrl", senderImage);
+
+                chatRef.push().setValue(hashMap);
+
+                Support.toastMessageLong("Thank you for sending request.", TutorViewActivity.this);
+            }catch (Exception e){
+                Support.toastMessageLong(e.getMessage(), TutorViewActivity.this);
+            }
+        }
     }
 }

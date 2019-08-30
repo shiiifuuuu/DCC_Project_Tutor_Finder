@@ -53,7 +53,7 @@ public class TutorProfileActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private StorageReference storageRef;
     private String uid;
-    private UserProfile currentTutor;
+    public static UserProfile currentTutor;
     private Uri mImageUri, downloadUri;
 
     private AlertDialog.Builder builder;

@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/list_chat_message_left"
-            tools:itemCount="20"
+            tools:itemCount="2"
             android:layout_above="@+id/messageBox"
             android:layout_below="@+id/upperLayout">
         </androidx.recyclerview.widget.RecyclerView>

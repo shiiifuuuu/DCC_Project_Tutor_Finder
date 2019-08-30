@@ -36,6 +36,8 @@
             android:layout_height="wrap_content"
             android:background="?android:attr/windowBackground"
             android:layout_alignParentBottom="true"
-            app:menu="@menu/bottom_nav_menu" />
+            app:menu="@menu/bottom_nav_menu"
+            app:itemIconTint="#2196F3"
+            app:itemTextColor="#000000"/>
     </RelativeLayout>
 </layout>

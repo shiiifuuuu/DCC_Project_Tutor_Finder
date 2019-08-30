@@ -2,14 +2,13 @@ package com.teamocta.dcc_project.studentActivity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,7 +27,9 @@ import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Chat;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
+import com.teamocta.dcc_project.viewActivity.ActiveSessionActivity;
 import com.teamocta.dcc_project.viewActivity.MessageViewActivity;
+import com.teamocta.dcc_project.viewActivity.ShowRequestActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -142,14 +143,26 @@ public class StudentMessageActivity extends AppCompatActivity implements Message
         Intent intent = new Intent(this, MessageViewActivity.class);
         intent.putExtra("userProfile", tutorList.get(position));
         startActivity(intent);
-
     }
 
-
-    public void fabHiredClicked(View view) {
-        
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.message_activity_menu, menu);
+        return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.showRequests:
+                startActivity(new Intent(context, ShowRequestActivity.class));
+                return true;
+            case R.id.activeSessions:
+                startActivity(new Intent(context, ActiveSessionActivity.class));
+                return true;
+        }
+        return false;
+    }
 
     private Activity activity = StudentMessageActivity.this;
     private Context context = StudentMessageActivity.this;

@@ -8,10 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="NoActionBar" parent="AppTheme">
+    <style name="NoActionBar" parent="Theme.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowDisablePreview">true</item>
+    </style>
+
+    <style name="MessageView" parent="Theme.AppCompat.Light">
     </style>
 
 </resources>

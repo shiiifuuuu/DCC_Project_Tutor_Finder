@@ -1,11 +1,4 @@
 <resources>
-    <string name="app_name">DCC_Project</string>
-    <string name="err_email">Enter Email</string>
-    <string name="err_password">Enter Password</string>
-    <string name="err_name">Enter Name</string>
-    <string name="err_mobile">Enter valid number</string>
-    <string name="err_password_confirmation">Password not matched</string>
-
     <array name="teaching_subjects">
         <item>-</item>
 
@@ -41,7 +34,6 @@
         <item>Social Science</item>
         <item>Statistics</item>
     </array>
-
     <array name="area_covered">
         <item>-</item>
 
@@ -99,7 +91,6 @@
         <item>Vatara</item>
         <item>Wari</item>
     </array>
-
     <array name="medium">
         <item>-</item>
 
@@ -111,7 +102,6 @@
         <item>Language Learning</item>
         <item>Computer Learning</item>
     </array>
-
     <array name="days_per_week">
         <item>-</item>
 
@@ -123,7 +113,6 @@
         <item>6 days</item>
         <item>7 days</item>
     </array>
-
     <array name="tuition_type">
         <item>-</item>
 
@@ -200,6 +189,17 @@
         <item>Vatara</item>
         <item>Wari</item>
     </array>
+
+    <string name="app_name">DCC_Project</string>
+
+    <string name="err_email">Enter Email</string>
+
+    <string name="err_password">Enter Password</string>
+    <string name="err_name">Enter Name</string>
+
+    <string name="err_mobile">Enter valid number</string>
+
+    <string name="err_password_confirmation">Password not matched</string>
 
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

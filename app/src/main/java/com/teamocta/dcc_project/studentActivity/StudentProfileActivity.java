@@ -54,7 +54,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     private StorageReference storageRef;
     private String uid;
 
-    private UserProfile currentStudent;
+    public static UserProfile currentStudent;
     private Uri mImageUri, downloadUri;
 
     private AlertDialog.Builder builder;
