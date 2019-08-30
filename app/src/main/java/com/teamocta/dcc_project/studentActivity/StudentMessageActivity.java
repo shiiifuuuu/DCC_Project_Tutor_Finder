@@ -34,6 +34,8 @@ import com.teamocta.dcc_project.viewActivity.ShowRequestActivity;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+import static com.teamocta.dcc_project.studentActivity.StudentProfileActivity.currentStudent;
+
 public class StudentMessageActivity extends AppCompatActivity implements MessageAdapter.OnMessageClickListener {
 
     private ActivityStudentMessageBinding binding;
@@ -93,7 +95,6 @@ public class StudentMessageActivity extends AppCompatActivity implements Message
                             msgSenderId.add(chat.getSender());
                         }
                     }
-
                     removeDuplicates();
                 }
 
@@ -155,7 +156,9 @@ public class StudentMessageActivity extends AppCompatActivity implements Message
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.showRequests:
-                startActivity(new Intent(context, ShowRequestActivity.class));
+                Intent intent = new Intent(context, ShowRequestActivity.class);
+                intent.putExtra("userProfile", currentStudent);
+                startActivity(intent);
                 return true;
             case R.id.activeSessions:
                 startActivity(new Intent(context, ActiveSessionActivity.class));

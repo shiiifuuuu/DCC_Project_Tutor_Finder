@@ -25,7 +25,9 @@
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".tutorActivity.TutorMessageActivity"
-            android:screenOrientation="portrait" />
+            android:label="Messages"
+            android:screenOrientation="portrait"
+            android:theme="@style/MessageView"/>
         <activity
             android:name=".tutorActivity.TutorSearchActivity"
             android:screenOrientation="portrait"

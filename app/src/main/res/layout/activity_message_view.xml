@@ -45,7 +45,6 @@
                 android:src="@drawable/ic_info_outline_black_24dp"
                 android:background="?android:colorBackground"
                 android:onClick="userDetailsClicked"/>
-
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

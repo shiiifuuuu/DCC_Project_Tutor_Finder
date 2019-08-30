@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityTutorViewBinding;
-import com.teamocta.dcc_project.pojo.Chat;
+import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
@@ -102,7 +102,7 @@ public class TutorViewActivity extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                        Chat request = snapshot.getValue(Chat.class);
+                        HireService request = snapshot.getValue(HireService.class);
                         if((request.getSender().equals(senderUid) && request.getReceiver().equals(receiverUid))){
                             requestExist = true;
                             Support.toastMessageShort("Sorry Request Exist", TutorViewActivity.this);
@@ -128,6 +128,8 @@ public class TutorViewActivity extends AppCompatActivity{
                 hashMap.put("sender", senderUid);
                 hashMap.put("receiver", receiverUid);
                 hashMap.put("imageUrl", senderImage);
+                hashMap.put("name", currentStudent.getFirstName());
+                hashMap.put("mobile", currentStudent.getMobile());
 
                 chatRef.push().setValue(hashMap);
 

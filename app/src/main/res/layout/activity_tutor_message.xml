@@ -7,21 +7,14 @@
         android:layout_height="match_parent"
         tools:context=".tutorActivity.TutorMessageActivity">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tx1"
-            android:text="Message List"
-            android:textSize="40sp"
-            android:layout_marginBottom="20sp"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMessageList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tx1"
             android:layout_above="@+id/nav_view"
             tools:listitem="@layout/list_message_profile"
-            tools:itemCount="5">
+            tools:itemCount="5"
+            android:layout_margin="5sp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
