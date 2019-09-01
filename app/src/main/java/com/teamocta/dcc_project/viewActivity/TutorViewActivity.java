@@ -20,7 +20,6 @@ import com.teamocta.dcc_project.databinding.ActivityTutorViewBinding;
 import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
-import com.teamocta.dcc_project.studentActivity.StudentSearchActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,8 +79,12 @@ public class TutorViewActivity extends AppCompatActivity{
     }
 
     public void btnBackClicked(View view) {
-        startActivity(new Intent(this, StudentSearchActivity.class));
-        finish();
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
     }
 
     public void btnSendMessageClicked(View view) {

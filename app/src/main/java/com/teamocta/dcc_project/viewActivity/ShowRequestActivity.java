@@ -1,12 +1,17 @@
 package com.teamocta.dcc_project.viewActivity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -27,6 +32,8 @@ import java.util.ArrayList;
 public class ShowRequestActivity extends AppCompatActivity {
 
     private ActivityShowRequestBinding binding;
+    private ActionBar actionBar;
+
     private DatabaseReference databaseReference;
     private UserProfile userProfile;
     private ShowRequestAdapter showRequestAdapter;
@@ -47,10 +54,14 @@ public class ShowRequestActivity extends AppCompatActivity {
     //then show those ids to recycler view.
 
     private void getIntentExtras() {
+        //student or tutor profile
         userProfile = (UserProfile) getIntent().getSerializableExtra("userProfile");
     }
 
     private void init() {
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Request List");
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         requSenderList = new ArrayList<>();
         showRequestAdapter = new ShowRequestAdapter(requSenderList);
@@ -85,9 +96,12 @@ public class ShowRequestActivity extends AppCompatActivity {
         binding.rvRequestList.setAdapter(showRequestAdapter);
     }
 
-
-
     public void btnBackClicked(View view) {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
     }
 }

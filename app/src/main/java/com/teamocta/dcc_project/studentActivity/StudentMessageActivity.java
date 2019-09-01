@@ -163,8 +163,9 @@ public class StudentMessageActivity extends AppCompatActivity implements Message
             case R.id.activeSessions:
                 startActivity(new Intent(context, ActiveSessionActivity.class));
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return false;
     }
 
     private Activity activity = StudentMessageActivity.this;

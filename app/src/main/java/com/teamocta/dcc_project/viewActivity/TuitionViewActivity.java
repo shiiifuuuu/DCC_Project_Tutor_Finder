@@ -80,8 +80,12 @@ public class TuitionViewActivity extends AppCompatActivity {
     }
 
     public void btnBackClicked(View view) {
-        startActivity(new Intent(this, TutorSearchActivity.class));
-        finish();
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
     }
 
     public void btnSendMessageClicked(View view) {

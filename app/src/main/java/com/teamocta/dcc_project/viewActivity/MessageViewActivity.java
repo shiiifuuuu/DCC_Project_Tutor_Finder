@@ -1,6 +1,7 @@
 package com.teamocta.dcc_project.viewActivity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -63,6 +64,7 @@ public class MessageViewActivity extends AppCompatActivity {
     }
 
     private void init() {
+
         binding.tvReceiverName.setText(receiverProfile.getFirstName());
         chatList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -204,6 +206,11 @@ public class MessageViewActivity extends AppCompatActivity {
 
     public void btnBackClicked(View view) {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
     }
 
     public void userDetailsClicked(View view) {

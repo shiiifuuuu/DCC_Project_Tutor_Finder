@@ -169,8 +169,9 @@ public class TutorMessageActivity extends AppCompatActivity implements MessageAd
             case R.id.activeSessions:
                 startActivity(new Intent(context, ActiveSessionActivity.class));
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return false;
     }
 
     private Activity activity = TutorMessageActivity.this;

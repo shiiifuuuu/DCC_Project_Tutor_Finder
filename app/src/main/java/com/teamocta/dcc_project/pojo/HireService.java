@@ -6,6 +6,7 @@ public class HireService {
     private String imageUrl;
     private String name;
     private String mobile;
+    private String status;
 
     public HireService(String sender, String receiver, String imageUrl, String name) {
         this.sender = sender;
@@ -15,6 +16,34 @@ public class HireService {
     }
 
     public HireService() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getSender() {
