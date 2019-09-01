@@ -17,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.HireService;
-import com.teamocta.dcc_project.pojo.Support;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +25,9 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.ViewHolder> {
+
+    public static String STATUS_ACCEPTED = "Accepted";
+    public static String STATUS_REJECTED = "Rejected";
 
     private View view;
     private ArrayList<HireService> requSenderList;
@@ -53,8 +55,11 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
 
         if(currentRequest.getStatus()!=null){
             holder.tvResult.setText("Request " + currentRequest.getStatus());
+
             holder.btnAccept.setEnabled(false);
+            holder.btnReject.setEnabled(false);
             holder.btnAccept.setBackgroundColor(holder.btnAccept.getResources().getColor(R.color.gray));
+            holder.btnReject.setBackgroundColor(holder.btnReject.getResources().getColor(R.color.gray));
         }
 
         holder.btnAccept.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +75,20 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
                 senderId = currentRequest.getSender();
                 receiverId = currentRequest.getReceiver();
 
-                getKey(senderId, receiverId);
+                getKey_updateData(senderId, receiverId, STATUS_ACCEPTED);
+            }
+        });
+        holder.btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.tvResult.setText("Request rejected");
+                holder.btnReject.setEnabled(false);
+                holder.btnReject.setBackgroundColor(holder.btnReject.getResources().getColor(R.color.gray));
+
+                senderId = currentRequest.getSender();
+                receiverId = currentRequest.getReceiver();
+
+                getKey_updateData(senderId, receiverId, STATUS_REJECTED);
             }
         });
     }
@@ -102,7 +120,7 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
         }
     }
 
-    public void getKey(final String senderId, final String receiverId){
+    private void getKey_updateData(final String senderId, final String receiverId, final String value){
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         databaseReference.child("hireRequest").addValueEventListener(new ValueEventListener() {
@@ -112,12 +130,12 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                         hireService = snapshot.getValue(HireService.class);
                         if(hireService.getSender().equals(senderId) && hireService.getReceiver().equals(receiverId)){
-                            //Support.toastMessageShort(snapshot.getKey(), view.getContext());
+                            //Support.toastMessageShort(snapshot.getKey_updateData(), view.getContext());
                             key = snapshot.getKey();
                         }
                     }
                 }
-                updateDatabase("accepted");
+                updateDatabase(value);
             }
 
             @Override
@@ -127,7 +145,6 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
         });
 
     }
-
     private void updateDatabase(String value) {
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("status", value);
