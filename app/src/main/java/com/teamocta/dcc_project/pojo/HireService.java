@@ -8,6 +8,7 @@ public class HireService {
     private String mobile = "";
     private String status;
     private String rating;
+    private String parentKey;
 
     public HireService(String sender, String receiver, String imageUrl, String name) {
         this.sender = sender;
@@ -17,6 +18,10 @@ public class HireService {
     }
 
     public HireService() {
+    }
+
+    public String getParentKey() {
+        return parentKey;
     }
 
     public String getRating() {

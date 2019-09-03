@@ -125,16 +125,16 @@ public class TutorViewActivity extends AppCompatActivity{
 
         if(!requestExist){
             try{
-                DatabaseReference chatRef = databaseReference.child("hireRequest");
-
+                DatabaseReference chatRef = databaseReference.child("hireRequest").push();
                 Map<String, Object> hashMap = new HashMap<>();
                 hashMap.put("sender", senderUid);
                 hashMap.put("receiver", receiverUid);
                 hashMap.put("imageUrl", senderImage);
                 hashMap.put("name", currentStudent.getFirstName());
                 hashMap.put("mobile", currentStudent.getMobile());
+                hashMap.put("parentKey", chatRef.getKey());
 
-                chatRef.push().setValue(hashMap);
+                chatRef.setValue(hashMap);
 
                 Support.toastMessageLong("Thank you for sending request.", TutorViewActivity.this);
             }catch (Exception e){

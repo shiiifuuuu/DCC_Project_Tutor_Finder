@@ -126,7 +126,7 @@ public class TuitionViewActivity extends AppCompatActivity {
 
         if(!requestExist){
             try{
-                DatabaseReference chatRef = databaseReference.child("hireRequest");
+                DatabaseReference chatRef = databaseReference.child("hireRequest").push();
 
                 Map<String, Object> hashMap = new HashMap<>();
                 hashMap.put("sender", senderUid);
@@ -134,8 +134,9 @@ public class TuitionViewActivity extends AppCompatActivity {
                 hashMap.put("imageUrl", senderImage);
                 hashMap.put("name", currentTutor.getFirstName());
                 hashMap.put("mobile", currentTutor.getMobile());
+                hashMap.put("parentKey", chatRef.getKey());
 
-                chatRef.push().setValue(hashMap);
+                chatRef.setValue(hashMap);
 
                 Support.toastMessageLong("Thank you for sending request.", TuitionViewActivity.this);
             }catch (Exception e){

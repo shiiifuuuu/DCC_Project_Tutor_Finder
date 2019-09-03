@@ -26,8 +26,6 @@ import static com.teamocta.dcc_project.adapter.ShowRequestAdapter.STATUS_ACCEPTE
 
 public class ActiveSessionActivity extends AppCompatActivity {
 
-    public static String snapshotKey;
-
     private ActivityActiveSessionBinding binding;
     private ActionBar actionBar;
 
@@ -66,7 +64,6 @@ public class ActiveSessionActivity extends AppCompatActivity {
                         if(hiredProfile.getStatus()!=null){
                             if(hiredProfile.getReceiver().equals(userUid) && hiredProfile.getStatus().equals(STATUS_ACCEPTED)){
                                 hiredList.add(hiredProfile);
-                                snapshotKey = snapshot.getKey();
                             }
                             adapter.notifyDataSetChanged();
                         }
