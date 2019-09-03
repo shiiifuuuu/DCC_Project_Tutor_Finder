@@ -1,12 +1,13 @@
 package com.teamocta.dcc_project.pojo;
 
 public class HireService {
-    private String sender;
-    private String receiver;
-    private String imageUrl;
-    private String name;
-    private String mobile;
+    private String sender = "";
+    private String receiver = "";
+    private String imageUrl = "";
+    private String name = "";
+    private String mobile = "";
     private String status;
+    private String rating;
 
     public HireService(String sender, String receiver, String imageUrl, String name) {
         this.sender = sender;
@@ -16,6 +17,10 @@ public class HireService {
     }
 
     public HireService() {
+    }
+
+    public String getRating() {
+        return rating;
     }
 
     public String getStatus() {

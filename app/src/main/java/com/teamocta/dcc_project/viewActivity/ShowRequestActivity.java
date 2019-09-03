@@ -31,6 +31,8 @@ import java.util.ArrayList;
 
 public class ShowRequestActivity extends AppCompatActivity {
 
+    public static String snapshotKey;
+
     private ActivityShowRequestBinding binding;
     private ActionBar actionBar;
 
@@ -78,6 +80,7 @@ public class ShowRequestActivity extends AppCompatActivity {
                         HireService requSender = snapshot.getValue(HireService.class);
                         if(requSender.getReceiver().equals(userProfile.getUid())){
                             requSenderList.add(requSender);
+                            snapshotKey = snapshot.getKey();
                         }
                         showRequestAdapter.notifyDataSetChanged();
                     }
