@@ -21,6 +21,7 @@ import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,9 +32,10 @@ public class TutorViewActivity extends AppCompatActivity{
     private ActivityTutorViewBinding binding;
     private UserProfile tutorProfile;
     private DatabaseReference databaseReference;
+    private ArrayList<Float> userRatingList;
 
     private Boolean requestExist = false;
-    private String senderUid, receiverUid, senderImage;
+    private String senderUid, receiverUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class TutorViewActivity extends AppCompatActivity{
 
         getIntentExtras();
         init();
+        gatherRating();
         setData();
     }
 
@@ -52,8 +55,63 @@ public class TutorViewActivity extends AppCompatActivity{
         databaseReference = FirebaseDatabase.getInstance().getReference();
         senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         receiverUid = tutorProfile.getUid();
-        senderImage = currentStudent.getImageUrl();
+
+        userRatingList = new ArrayList<>();
     }
+
+
+    private void gatherRating() {
+        DatabaseReference reference = databaseReference.child("hireRequest");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    userRatingList.clear();
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        HireService hireService = snapshot.getValue(HireService.class);
+
+                        if(hireService.getSenderId().equals(tutorProfile.getUid())){
+                            if(hireService.getSenderRating()!=null){
+                                float rating = Float.valueOf(hireService.getSenderRating());
+                                userRatingList.add(rating);
+                            }
+                        }
+                        else if (hireService.getReceiverId().equals(tutorProfile.getUid())){
+                            if(hireService.getReceiverRating()!=null){
+                                float rating = Float.valueOf(hireService.getReceiverRating());
+                                userRatingList.add(rating);
+                            }
+                        }
+                    }
+                }
+                calculateAverage();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void calculateAverage() {
+        float sum = 0;
+        for(int i=0; i<userRatingList.size(); i++){
+            sum = sum + userRatingList.get(i);
+        }
+        float avg = sum / userRatingList.size();
+        Support.toastMessageShort(String.valueOf(avg), TutorViewActivity.this);
+        updateDatabase(avg);
+        binding.tutorRating.setRating(avg);
+    }
+
+    private void updateDatabase(float avg) {
+        DatabaseReference tutorRef = databaseReference.child("Tutor");
+        Map<String, Object> rating = new HashMap<>();
+        rating.put("tutorRating", String.valueOf(avg));
+        tutorRef.child(receiverUid).updateChildren(rating);
+    }
+
+
     private void setData() {
         Glide.with(this).load(tutorProfile.getImageUrl()).into(binding.ivProfilePic);
         binding.tvUserName.setText(tutorProfile.getFirstName() + " " + tutorProfile.getLastName());
@@ -64,6 +122,8 @@ public class TutorViewActivity extends AppCompatActivity{
         binding.tvExperience.setText(tutorProfile.getExperience());
         binding.tvProfession.setText(tutorProfile.getProfession());
         binding.tvUserInstitute.setText(tutorProfile.getInstitute());
+
+        //binding.tutorRating.setRating(Float.parseFloat(tutorProfile.getTutorRating()));
 
         binding.tvTuitionType.setText(tutorProfile.getTuitionType());
         if(binding.tvTuitionType.getText().toString().equals("Available")){
@@ -77,6 +137,8 @@ public class TutorViewActivity extends AppCompatActivity{
         binding.tvTeachingSubjects.setText(tutorProfile.getTeachingSubjects());
         binding.tvMinimumSalary.setText(tutorProfile.getMinimumSalary() + "/=");
     }
+
+
 
     public void btnBackClicked(View view) {
         onBackPressed();
@@ -106,7 +168,7 @@ public class TutorViewActivity extends AppCompatActivity{
                 if(dataSnapshot.exists()){
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                         HireService request = snapshot.getValue(HireService.class);
-                        if((request.getSender().equals(senderUid) && request.getReceiver().equals(receiverUid))){
+                        if((request.getSenderId().equals(senderUid) && request.getReceiverId().equals(receiverUid))){
                             requestExist = true;
                             Support.toastMessageShort("Sorry Request Exist", TutorViewActivity.this);
                         }
@@ -127,11 +189,14 @@ public class TutorViewActivity extends AppCompatActivity{
             try{
                 DatabaseReference chatRef = databaseReference.child("hireRequest").push();
                 Map<String, Object> hashMap = new HashMap<>();
-                hashMap.put("sender", senderUid);
-                hashMap.put("receiver", receiverUid);
-                hashMap.put("imageUrl", senderImage);
-                hashMap.put("name", currentStudent.getFirstName());
-                hashMap.put("mobile", currentStudent.getMobile());
+                hashMap.put("senderId", senderUid);
+                hashMap.put("receiverId", receiverUid);
+                hashMap.put("senderImageUrl", currentStudent.getImageUrl());
+                hashMap.put("senderName", currentStudent.getFirstName());
+                hashMap.put("senderMobile", currentStudent.getMobile());
+                hashMap.put("receiverImageUrl", tutorProfile.getImageUrl());
+                hashMap.put("receiverName", tutorProfile.getFirstName());
+                hashMap.put("receiverMobile", tutorProfile.getMobile());
                 hashMap.put("parentKey", chatRef.getKey());
 
                 chatRef.setValue(hashMap);

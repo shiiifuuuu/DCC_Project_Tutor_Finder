@@ -1,9 +1,12 @@
 package com.teamocta.dcc_project.adapter;
 
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,14 +28,14 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.teamocta.dcc_project.viewActivity.ActiveSessionActivity.userUid;
+
 public class ActiveSessionAdapter extends RecyclerView.Adapter<ActiveSessionAdapter.ViewHolder> {
 
     private View view;
+    private Dialog rankDialog;
+    private float userRating;
     private ArrayList<HireService> hiredList;
-
-    private DatabaseReference databaseReference;
-    private HireService hiredProfile;
-    private String senderId, receiverId, key;
 
     public ActiveSessionAdapter(ArrayList<HireService> hiredList) {
         this.hiredList = hiredList;
@@ -48,27 +51,66 @@ public class ActiveSessionAdapter extends RecyclerView.Adapter<ActiveSessionAdap
     @Override
     public void onBindViewHolder(@NonNull ActiveSessionAdapter.ViewHolder holder, int position) {
         final HireService currentProfile = hiredList.get(position);
-        holder.tvName.setText(currentProfile.getName());
-        holder.tvMobile.setText(currentProfile.getMobile());
-        Glide.with(view).load(currentProfile.getImageUrl()).into(holder.ivUserPic);
 
-        if(currentProfile.getRating()!=null){
-            holder.tvRating.setText(currentProfile.getRating());
+        if (currentProfile.getSenderId().equals(userUid)){
+            holder.tvName.setText(currentProfile.getReceiverName());
+            holder.tvMobile.setText(currentProfile.getReceiverMobile());
+            Glide.with(view).load(currentProfile.getReceiverImageUrl()).into(holder.ivUserPic);
 
-        }else{
-            holder.tvRating.setText("In Progress");
+            if(currentProfile.getReceiverRating()!=null){
+                holder.tvRating.setText(currentProfile.getReceiverRating() + "/5.0");
 
+            }else{
+                holder.tvRating.setText("In Progress");
+
+            }
+
+        }else if (currentProfile.getReceiverId().equals(userUid)){
+            holder.tvName.setText(currentProfile.getSenderName());
+            holder.tvMobile.setText(currentProfile.getSenderMobile());
+            Glide.with(view).load(currentProfile.getSenderImageUrl()).into(holder.ivUserPic);
+
+            if(currentProfile.getSenderRating()!=null){
+                holder.tvRating.setText(currentProfile.getSenderRating() + "/5.0");
+
+            } else{
+                holder.tvRating.setText("In Progress");
+
+            }
         }
 
         holder.provideRating.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Support.toastMessageShort("Clicked", view.getContext());
+            public void onClick(final View view) {
 
-                senderId = currentProfile.getSender();
-                receiverId = currentProfile.getReceiver();
+                rankDialog = new Dialog(view.getContext(), R.style.FullHeightDialog);
+                rankDialog.setContentView(R.layout.rank_dialog);
+                rankDialog.setCancelable(true);
+                RatingBar ratingBar = rankDialog.findViewById(R.id.dialog_ratingbar);
+                ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        ratingBar.setRating(rating);
+                        userRating = ratingBar.getRating();
+                    }
+                });
+                final Button updateButton = rankDialog.findViewById(R.id.rank_dialog_button);
+                updateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(currentProfile.getSenderId().equals(userUid)){
+                            updateDatabase("receiverRating", String.valueOf(userRating), currentProfile.getParentKey());
+                            rankDialog.dismiss();
+                        }else if(currentProfile.getReceiverId().equals(userUid)){
+                            updateDatabase("senderRating", String.valueOf(userRating), currentProfile.getParentKey());
+                            rankDialog.dismiss();
+                        }
 
-                getKey(senderId, receiverId);
+                        //Support.toastMessageShort(String.valueOf(userRating), view.getContext());
+                    }
+                });
+                //now that the dialog is set up, it's time to show it
+                rankDialog.show();
             }
         });
     }
@@ -96,35 +138,11 @@ public class ActiveSessionAdapter extends RecyclerView.Adapter<ActiveSessionAdap
         }
     }
 
+    private void updateDatabase(String key, String value, String pushKey) {
 
-    private String getKey(final String senderId, final String receiverId){
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        databaseReference.child("hireRequest").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                        hiredProfile = snapshot.getValue(HireService.class);
-                        if(hiredProfile.getSender().equals(senderId) && hiredProfile.getReceiver().equals(receiverId)){
-                            key = snapshot.getKey();
-                        }
-                    }
-                }
-                //updateDatabase();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        return key;
-    }
-    private void updateDatabase(String value) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> userMap = new HashMap<>();
-        userMap.put("rating", value);
-        databaseReference.child("hireRequest").child(key).updateChildren(userMap);
+        userMap.put(key, value);
+        databaseReference.child("hireRequest").child(pushKey).updateChildren(userMap);
     }
 }

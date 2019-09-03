@@ -10,11 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.HireService;
 
@@ -31,9 +28,6 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
 
     private View view;
     private ArrayList<HireService> requSenderList;
-    private DatabaseReference databaseReference;
-    private HireService hireService;
-    private String senderId, receiverId, key;
 
     public ShowRequestAdapter(ArrayList<HireService> requSenderList) {
         this.requSenderList = requSenderList;
@@ -49,9 +43,10 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
     @Override
     public void onBindViewHolder(@NonNull final ShowRequestAdapter.ViewHolder holder, int position) {
         final HireService currentRequest = requSenderList.get(position);
-        holder.tvName.setText(currentRequest.getName());
-        holder.tvMobile.setText(currentRequest.getMobile());
-        Glide.with(view).load(currentRequest.getImageUrl()).into(holder.ivUserPic);
+
+        holder.tvName.setText(currentRequest.getSenderName());
+        holder.tvMobile.setText(currentRequest.getSenderMobile());
+        Glide.with(view).load(currentRequest.getSenderImageUrl()).into(holder.ivUserPic);
 
         if(currentRequest.getStatus()!=null){
             holder.tvResult.setText("Request " + currentRequest.getStatus());
@@ -65,17 +60,12 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
         holder.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Support.toastMessageShort(currentRequest.getName() + " Clicked", view.getContext());
-//                Support.toastMessageShort(currentRequest.getSender(), view.getContext());
 
                 holder.tvResult.setText("Request accepted");
                 holder.btnAccept.setEnabled(false);
                 holder.btnAccept.setBackgroundColor(holder.btnAccept.getResources().getColor(R.color.gray));
 
-                senderId = currentRequest.getSender();
-                receiverId = currentRequest.getReceiver();
-
-                getKey_updateData(senderId, receiverId, STATUS_ACCEPTED);
+                updateDatabase(STATUS_ACCEPTED, currentRequest.getParentKey());
             }
         });
         holder.btnReject.setOnClickListener(new View.OnClickListener() {
@@ -85,10 +75,7 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
                 holder.btnReject.setEnabled(false);
                 holder.btnReject.setBackgroundColor(holder.btnReject.getResources().getColor(R.color.gray));
 
-                senderId = currentRequest.getSender();
-                receiverId = currentRequest.getReceiver();
-
-                getKey_updateData(senderId, receiverId, STATUS_REJECTED);
+                updateDatabase(STATUS_REJECTED, currentRequest.getParentKey());
             }
         });
     }
@@ -120,32 +107,8 @@ public class ShowRequestAdapter extends RecyclerView.Adapter<ShowRequestAdapter.
         }
     }
 
-    private void getKey_updateData(final String senderId, final String receiverId, final String value){
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        databaseReference.child("hireRequest").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                        hireService = snapshot.getValue(HireService.class);
-                        if(hireService.getSender().equals(senderId) && hireService.getReceiver().equals(receiverId)){
-                            //Support.toastMessageShort(snapshot.getKey_updateData(), view.getContext());
-                            key = snapshot.getKey();
-                        }
-                    }
-                }
-                updateDatabase(value);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-    private void updateDatabase(String value) {
+    private void updateDatabase(String value, String key) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("status", value);
         databaseReference.child("hireRequest").child(key).updateChildren(userMap);

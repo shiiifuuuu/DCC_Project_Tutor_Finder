@@ -42,6 +42,10 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
         holder.tvProfession.setText(currentTutor.getProfession());
         holder.tvInstitute.setText(currentTutor.getInstitute());
         holder.tvMinimumSalary.setText(currentTutor.getMinimumSalary() + "/=");
+
+        if(currentTutor.getTutorRating()!=null){
+            holder.tvUserRating.setText(currentTutor.getTutorRating());
+        }
     }
 
     @Override
@@ -57,6 +61,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
         private TextView tvProfession;
         private TextView tvInstitute;
         private TextView tvMinimumSalary;
+        private TextView tvUserRating;
 
         public ViewHolder(@NonNull View itemView, OnTutorClickListener onTutorClickListener) {
             super(itemView);
@@ -66,6 +71,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
             tvProfession=itemView.findViewById(R.id.tvProfession);
             tvInstitute=itemView.findViewById(R.id.tvInstitute);
             tvMinimumSalary=itemView.findViewById(R.id.tvMinimumSalary);
+            tvUserRating=itemView.findViewById(R.id.tvUserRating);
 
             itemView.setOnClickListener(this);
         }

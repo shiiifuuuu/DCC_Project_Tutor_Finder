@@ -17,16 +17,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityTuitionViewBinding;
-import com.teamocta.dcc_project.pojo.Chat;
 import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
-import com.teamocta.dcc_project.tutorActivity.TutorSearchActivity;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.teamocta.dcc_project.studentActivity.StudentProfileActivity.currentStudent;
 import static com.teamocta.dcc_project.tutorActivity.TutorProfileActivity.currentTutor;
 
 public class TuitionViewActivity extends AppCompatActivity {
@@ -36,7 +33,7 @@ public class TuitionViewActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     private Boolean requestExist = false;
-    private String senderUid, receiverUid, senderImage;
+    private String senderUid, receiverUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +53,6 @@ public class TuitionViewActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         receiverUid = tuitionProfile.getUid();
-        senderImage = currentTutor.getImageUrl();
     }
 
     private void setData() {
@@ -107,7 +103,7 @@ public class TuitionViewActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                         HireService request = snapshot.getValue(HireService.class);
-                        if((request.getSender().equals(senderUid) && request.getReceiver().equals(receiverUid))){
+                        if((request.getSenderId().equals(senderUid) && request.getReceiverId().equals(receiverUid))){
                             requestExist = true;
                             Support.toastMessageShort("Sorry Request Exist", TuitionViewActivity.this);
                         }
@@ -129,11 +125,14 @@ public class TuitionViewActivity extends AppCompatActivity {
                 DatabaseReference chatRef = databaseReference.child("hireRequest").push();
 
                 Map<String, Object> hashMap = new HashMap<>();
-                hashMap.put("sender", senderUid);
-                hashMap.put("receiver", receiverUid);
-                hashMap.put("imageUrl", senderImage);
-                hashMap.put("name", currentTutor.getFirstName());
-                hashMap.put("mobile", currentTutor.getMobile());
+                hashMap.put("senderId", senderUid);
+                hashMap.put("receiverId", receiverUid);
+                hashMap.put("senderImageUrl", currentTutor.getImageUrl());
+                hashMap.put("senderName", currentTutor.getFirstName());
+                hashMap.put("senderMobile", currentTutor.getMobile());
+                hashMap.put("receiverImageUrl", tuitionProfile.getImageUrl());
+                hashMap.put("receiverName", tuitionProfile.getFirstName());
+                hashMap.put("receiverMobile", tuitionProfile.getMobile());
                 hashMap.put("parentKey", chatRef.getKey());
 
                 chatRef.setValue(hashMap);

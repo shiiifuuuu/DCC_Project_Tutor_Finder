@@ -3,17 +3,11 @@ package com.teamocta.dcc_project.viewActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.adapter.ShowRequestAdapter;
 import com.teamocta.dcc_project.databinding.ActivityShowRequestBinding;
-import com.teamocta.dcc_project.pojo.Chat;
 import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
@@ -76,7 +69,7 @@ public class ShowRequestActivity extends AppCompatActivity {
                     requSenderList.clear();
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                         HireService requSender = snapshot.getValue(HireService.class);
-                        if(requSender.getReceiver().equals(userProfile.getUid())){
+                        if(requSender.getReceiverId().equals(userProfile.getUid())){
                             requSenderList.add(requSender);
                         }
                         showRequestAdapter.notifyDataSetChanged();

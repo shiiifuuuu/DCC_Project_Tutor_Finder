@@ -47,14 +47,24 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvMobile"
                 android:text="mobile no"/>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvRating"
-                android:text="3.5/5.0"
-                android:textColor="#4CAF50"
-                android:textStyle="bold"
-                android:gravity="right"/>
+                android:orientation="horizontal"
+                android:background="#FFEB3B">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Feedback: " />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/tvRating"
+                    android:text="3.5/5.0"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

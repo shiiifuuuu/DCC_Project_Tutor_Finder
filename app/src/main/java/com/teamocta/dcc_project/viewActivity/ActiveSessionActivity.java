@@ -18,7 +18,6 @@ import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.adapter.ActiveSessionAdapter;
 import com.teamocta.dcc_project.databinding.ActivityActiveSessionBinding;
 import com.teamocta.dcc_project.pojo.HireService;
-import com.teamocta.dcc_project.pojo.Support;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ public class ActiveSessionActivity extends AppCompatActivity {
     private ActionBar actionBar;
 
     private DatabaseReference databaseReference;
-    private String userUid;
+    public static String userUid;
     private ArrayList<HireService> hiredList;
     private ActiveSessionAdapter adapter;
 
@@ -59,10 +58,11 @@ public class ActiveSessionActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    hiredList.clear();
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                         HireService hiredProfile = snapshot.getValue(HireService.class);
-                        if(hiredProfile.getStatus()!=null){
-                            if(hiredProfile.getReceiver().equals(userUid) && hiredProfile.getStatus().equals(STATUS_ACCEPTED)){
+                        if(hiredProfile.getStatus()!=null && hiredProfile.getStatus().equals(STATUS_ACCEPTED)){
+                            if(hiredProfile.getReceiverId().equals(userUid) || hiredProfile.getSenderId().equals(userUid)){
                                 hiredList.add(hiredProfile);
                             }
                             adapter.notifyDataSetChanged();
