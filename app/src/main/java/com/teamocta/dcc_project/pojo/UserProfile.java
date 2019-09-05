@@ -6,6 +6,7 @@ public class UserProfile implements Serializable {
 
     private String uid;
     private String imageUrl;
+    private String rating;
 
     private String firstName = "";
     private String lastName = "";
@@ -21,7 +22,6 @@ public class UserProfile implements Serializable {
     private String tuitionType = "";
     private String experience = "";
     private String areaCovered = "";
-    private String tutorRating = "";
 
     private String studentClass = "";
     private String department = "";
@@ -33,7 +33,6 @@ public class UserProfile implements Serializable {
     private String subjects = "";
     private String salaryRange = "";
     private String additionalInfo = "";
-    private String tuitionRating = "";
 
     public UserProfile() {
     }
@@ -54,6 +53,10 @@ public class UserProfile implements Serializable {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getRating() {
+        return rating;
     }
 
     public String getFirstName() {
@@ -112,10 +115,6 @@ public class UserProfile implements Serializable {
         return areaCovered;
     }
 
-    public String getTutorRating() {
-        return tutorRating;
-    }
-
     public String getStudentClass() {
         return studentClass;
     }
@@ -154,9 +153,5 @@ public class UserProfile implements Serializable {
 
     public String getAdditionalInfo() {
         return additionalInfo;
-    }
-
-    public String getTuitionRating() {
-        return tuitionRating;
     }
 }

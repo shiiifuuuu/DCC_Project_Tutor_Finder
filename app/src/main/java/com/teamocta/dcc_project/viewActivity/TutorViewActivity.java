@@ -32,7 +32,7 @@ public class TutorViewActivity extends AppCompatActivity{
     private ActivityTutorViewBinding binding;
     private UserProfile tutorProfile;
     private DatabaseReference databaseReference;
-    private ArrayList<Float> userRatingList;
+    private ArrayList<Float> ratingList;
 
     private Boolean requestExist = false;
     private String senderUid, receiverUid;
@@ -56,7 +56,7 @@ public class TutorViewActivity extends AppCompatActivity{
         senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         receiverUid = tutorProfile.getUid();
 
-        userRatingList = new ArrayList<>();
+        ratingList = new ArrayList<>();
     }
 
 
@@ -66,20 +66,20 @@ public class TutorViewActivity extends AppCompatActivity{
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    userRatingList.clear();
+                    ratingList.clear();
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                         HireService hireService = snapshot.getValue(HireService.class);
 
                         if(hireService.getSenderId().equals(tutorProfile.getUid())){
                             if(hireService.getSenderRating()!=null){
                                 float rating = Float.valueOf(hireService.getSenderRating());
-                                userRatingList.add(rating);
+                                ratingList.add(rating);
                             }
                         }
                         else if (hireService.getReceiverId().equals(tutorProfile.getUid())){
                             if(hireService.getReceiverRating()!=null){
                                 float rating = Float.valueOf(hireService.getReceiverRating());
-                                userRatingList.add(rating);
+                                ratingList.add(rating);
                             }
                         }
                     }
@@ -95,10 +95,10 @@ public class TutorViewActivity extends AppCompatActivity{
     }
     private void calculateAverage() {
         float sum = 0;
-        for(int i=0; i<userRatingList.size(); i++){
-            sum = sum + userRatingList.get(i);
+        for(int i = 0; i< ratingList.size(); i++){
+            sum = sum + ratingList.get(i);
         }
-        float avg = sum / userRatingList.size();
+        float avg = sum / ratingList.size();
         Support.toastMessageShort(String.valueOf(avg), TutorViewActivity.this);
         updateDatabase(avg);
         binding.tutorRating.setRating(avg);
@@ -107,7 +107,7 @@ public class TutorViewActivity extends AppCompatActivity{
     private void updateDatabase(float avg) {
         DatabaseReference tutorRef = databaseReference.child("Tutor");
         Map<String, Object> rating = new HashMap<>();
-        rating.put("tutorRating", String.valueOf(avg));
+        rating.put("rating", String.valueOf(avg));
         tutorRef.child(receiverUid).updateChildren(rating);
     }
 

@@ -3,5 +3,5 @@
     <item android:id="@+id/showRequests"
         android:title="Show Requests"/>
     <item android:id="@+id/activeSessions"
-        android:title="Active Sessions"/>
+        android:title="History &amp; Feedback"/>
 </menu>

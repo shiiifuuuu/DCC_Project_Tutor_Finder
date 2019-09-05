@@ -43,6 +43,10 @@ public class TuitionListAdapter extends RecyclerView.Adapter<TuitionListAdapter.
         holder.tvDaysPerWeek.setText(currentStudent.getDaysPerWeek());
         holder.tvSalaryRange.setText(currentStudent.getSalaryRange());
         holder.tvSubject.setText(currentStudent.getSubjects());
+
+        if(currentStudent.getRating()!=null){
+            holder.tvUserRating.setText(currentStudent.getRating());
+        }
     }
 
     @Override
@@ -59,6 +63,8 @@ public class TuitionListAdapter extends RecyclerView.Adapter<TuitionListAdapter.
         private TextView tvSubject;
         private TextView tvDaysPerWeek;
         private TextView tvSalaryRange;
+        private TextView tvUserRating;
+
 
         public ViewHolder(@NonNull View itemView, OnTuitionClickListener onTuitionClickListener) {
             super(itemView);
@@ -70,6 +76,7 @@ public class TuitionListAdapter extends RecyclerView.Adapter<TuitionListAdapter.
             tvSubject=itemView.findViewById(R.id.tvSubject);
             tvDaysPerWeek=itemView.findViewById(R.id.tvDaysPerWeek);
             tvSalaryRange=itemView.findViewById(R.id.tvSalaryRange);
+            tvUserRating=itemView.findViewById(R.id.tvUserRating);
 
             itemView.setOnClickListener(this);
         }
