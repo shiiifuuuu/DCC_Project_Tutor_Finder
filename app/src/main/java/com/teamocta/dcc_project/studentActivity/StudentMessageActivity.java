@@ -114,6 +114,7 @@ public class StudentMessageActivity extends AppCompatActivity implements Message
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    tutorList.clear();
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                         UserProfile tutorProfile = snapshot.getValue(UserProfile.class);
 

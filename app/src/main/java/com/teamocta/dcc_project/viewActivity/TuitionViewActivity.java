@@ -21,7 +21,6 @@ import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,7 +74,10 @@ public class TuitionViewActivity extends AppCompatActivity {
         binding.tvSalaryRange.setText(tuitionProfile.getSalaryRange() + " tk/month");
         binding.tvAdditionalInfo.setText(tuitionProfile.getAdditionalInfo());
 
-        binding.tuitionRating.setRating(Float.valueOf(tuitionProfile.getRating()));
+        if(tuitionProfile.getRating()!=null){
+            binding.tuitionRating.setRating(Float.valueOf(tuitionProfile.getRating()));
+
+        }
     }
 
     public void btnBackClicked(View view) {

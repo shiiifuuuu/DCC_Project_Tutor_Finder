@@ -21,7 +21,6 @@ import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,8 +65,6 @@ public class TutorViewActivity extends AppCompatActivity{
         binding.tvProfession.setText(tutorProfile.getProfession());
         binding.tvUserInstitute.setText(tutorProfile.getInstitute());
 
-        binding.tutorRating.setRating(Float.parseFloat(tutorProfile.getRating()));
-
         binding.tvTuitionType.setText(tutorProfile.getTuitionType());
         if(binding.tvTuitionType.getText().toString().equals("Available")){
             binding.tvTuitionType.setTextColor(getResources().getColor(R.color.oneTimeTuitionTrue));
@@ -79,6 +76,11 @@ public class TutorViewActivity extends AppCompatActivity{
         binding.tvAreaCovered.setText(tutorProfile.getAreaCovered());
         binding.tvTeachingSubjects.setText(tutorProfile.getTeachingSubjects());
         binding.tvMinimumSalary.setText(tutorProfile.getMinimumSalary() + "/=");
+
+        if(tutorProfile.getRating()!=null){
+            binding.tutorRating.setRating(Float.parseFloat(tutorProfile.getRating()));
+
+        }
     }
 
 
