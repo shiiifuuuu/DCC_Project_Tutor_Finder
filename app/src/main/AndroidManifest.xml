@@ -38,7 +38,7 @@
         <activity
             android:name=".viewActivity.MessageViewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/MessageView" />
         <activity
             android:name=".viewActivity.TuitionViewActivity"
             android:screenOrientation="portrait"

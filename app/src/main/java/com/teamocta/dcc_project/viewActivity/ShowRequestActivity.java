@@ -39,8 +39,8 @@ public class ShowRequestActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_request);
 
         getIntentExtras();
-        init();
         setActionBar();
+        init();
         getRequestSenderList();
         configRecyclerView();
     }
@@ -54,8 +54,6 @@ public class ShowRequestActivity extends AppCompatActivity {
     }
 
     private void init() {
-        actionBar = getSupportActionBar();
-        actionBar.setTitle("Request List");
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         requSenderList = new ArrayList<>();
@@ -65,7 +63,7 @@ public class ShowRequestActivity extends AppCompatActivity {
     private void setActionBar() {
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("History and Feedback");
+        actionBar.setTitle("Request List");
     }
 
     private void getRequestSenderList() {

@@ -7,46 +7,6 @@
         android:layout_height="match_parent"
         tools:context=".viewActivity.MessageViewActivity">
 
-        <LinearLayout
-            android:id="@+id/upperLayout"
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            android:orientation="horizontal"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:layout_marginTop="5sp"
-            android:layout_marginBottom="20sp"
-            android:layout_marginStart="5sp"
-            android:layout_marginEnd="5sp">
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:src="@drawable/ic_keyboard_backspace_black_24dp"
-                android:background="@drawable/search_outline"
-                android:onClick="btnBackClicked"/>
-            <TextView
-                android:id="@+id/tvReceiverName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text="receiverName"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:gravity="center_vertical"
-                android:layout_marginStart="5sp"
-                android:textSize="20sp"/>
-            <ImageButton
-                android:id="@+id/goToProfile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:src="@drawable/ic_info_outline_black_24dp"
-                android:background="?android:colorBackground"
-                android:onClick="userDetailsClicked"/>
-        </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMessageList"
             android:layout_width="match_parent"

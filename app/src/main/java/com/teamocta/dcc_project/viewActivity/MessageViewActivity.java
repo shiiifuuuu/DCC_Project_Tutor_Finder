@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,7 @@ import java.util.Map;
 public class MessageViewActivity extends AppCompatActivity {
 
     private ActivityMessageViewBinding binding;
+    private ActionBar actionBar;
 
     private Boolean isUserTutor, isUserStudent;
     private String userUid, oppositeUid;
@@ -52,6 +55,7 @@ public class MessageViewActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_message_view);
 
         getIntentExtras();
+        setActionBar();
         init();
         checkUserType();
         getMessage();
@@ -63,15 +67,19 @@ public class MessageViewActivity extends AppCompatActivity {
         receiverProfile = (UserProfile) getIntent().getSerializableExtra("userProfile");
     }
 
+    private void setActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(receiverProfile.getFirstName());
+    }
+
     private void init() {
 
-        binding.tvReceiverName.setText(receiverProfile.getFirstName());
         chatList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         oppositeUid = receiverProfile.getUid();
     }
-
 
     private void checkUserType() {
         DatabaseReference tutorReference = databaseReference.child("Tutor");
@@ -204,25 +212,19 @@ public class MessageViewActivity extends AppCompatActivity {
         chatRef.push().setValue(hashMap);
     }
 
-    public void btnBackClicked(View view) {
-        onBackPressed();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.message_view_menu, menu);
+        return true;
     }
 
     @Override
-    public void onBackPressed() {
-        this.finish();
-    }
-
-    public void userDetailsClicked(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Go to...").setCancelable(true).setPositiveButton("Hire Service", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        }).setNegativeButton("Profile", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case (R.id.goToProfile):
                 if(isUserTutor){
                     Intent intent = new Intent(MessageViewActivity.this, TuitionViewActivity.class);
                     intent.putExtra("tuitionProfile", receiverProfile);
@@ -232,7 +234,11 @@ public class MessageViewActivity extends AppCompatActivity {
                     intent.putExtra("tutorProfile", receiverProfile);
                     startActivity(intent);
                 }
-            }
-        }).create().show();
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }
