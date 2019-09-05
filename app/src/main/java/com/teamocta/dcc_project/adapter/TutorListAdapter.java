@@ -42,10 +42,8 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
         holder.tvProfession.setText(currentTutor.getProfession());
         holder.tvInstitute.setText(currentTutor.getInstitute());
         holder.tvMinimumSalary.setText(currentTutor.getMinimumSalary() + "/=");
+        holder.tvUserRating.setText(currentTutor.getRating());
 
-        if(currentTutor.getRating()!=null){
-            holder.tvUserRating.setText(currentTutor.getRating());
-        }
     }
 
     @Override

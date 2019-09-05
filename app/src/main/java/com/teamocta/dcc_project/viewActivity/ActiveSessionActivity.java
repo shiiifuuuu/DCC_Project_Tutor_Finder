@@ -28,7 +28,7 @@ public class ActiveSessionActivity extends AppCompatActivity {
     private ActivityActiveSessionBinding binding;
     private ActionBar actionBar;
 
-    private DatabaseReference databaseReference;
+    public static DatabaseReference databaseReference;
     public static String userUid;
     private ArrayList<HireService> hiredList;
     private ActiveSessionAdapter adapter;

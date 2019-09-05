@@ -21,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.Support;
+import com.teamocta.dcc_project.pojo.UserProfile;
+import com.teamocta.dcc_project.viewActivity.ActiveSessionActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +30,9 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.teamocta.dcc_project.studentActivity.StudentProfileActivity.currentStudent;
+import static com.teamocta.dcc_project.tutorActivity.TutorProfileActivity.currentTutor;
+import static com.teamocta.dcc_project.viewActivity.ActiveSessionActivity.databaseReference;
 import static com.teamocta.dcc_project.viewActivity.ActiveSessionActivity.userUid;
 
 public class ActiveSessionAdapter extends RecyclerView.Adapter<ActiveSessionAdapter.ViewHolder> {
@@ -36,6 +41,7 @@ public class ActiveSessionAdapter extends RecyclerView.Adapter<ActiveSessionAdap
     private Dialog rankDialog;
     private float userRating;
     private ArrayList<HireService> hiredList;
+    private ArrayList<Float> ratingList = new ArrayList<>();
 
     public ActiveSessionAdapter(ArrayList<HireService> hiredList) {
         this.hiredList = hiredList;
@@ -99,10 +105,10 @@ public class ActiveSessionAdapter extends RecyclerView.Adapter<ActiveSessionAdap
                     @Override
                     public void onClick(View v) {
                         if(currentProfile.getSenderId().equals(userUid)){
-                            updateDatabase("receiverRating", String.valueOf(userRating), currentProfile.getParentKey());
+                            updateHireRequest("receiverRating", String.valueOf(userRating), currentProfile.getParentKey(), currentProfile.getReceiverId(), currentProfile.getSenderId());
                             rankDialog.dismiss();
                         }else if(currentProfile.getReceiverId().equals(userUid)){
-                            updateDatabase("senderRating", String.valueOf(userRating), currentProfile.getParentKey());
+                            updateHireRequest("senderRating", String.valueOf(userRating), currentProfile.getParentKey(), currentProfile.getSenderId(), currentProfile.getReceiverId());
                             rankDialog.dismiss();
                         }
 
@@ -138,11 +144,69 @@ public class ActiveSessionAdapter extends RecyclerView.Adapter<ActiveSessionAdap
         }
     }
 
-    private void updateDatabase(String key, String value, String pushKey) {
+    private void updateHireRequest(String key, String value, String pushKey, String userId, String oppositeId) {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> userMap = new HashMap<>();
         userMap.put(key, value);
         databaseReference.child("hireRequest").child(pushKey).updateChildren(userMap);
+
+        setRatingToId(userId, value, oppositeId);
+    }
+    private void setRatingToId(String userId, String value, String oppositeId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rating", value);
+        databaseReference.child("Ratings").child(userId).child(oppositeId).updateChildren(map);
+
+        gatherRatings(userId);
+    }
+
+    private void gatherRatings(final String userId) {
+        DatabaseReference userRef = databaseReference.child("Ratings").child(userId);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ratingList.clear();
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        UserProfile user = snapshot.getValue(UserProfile.class);
+                        ratingList.add(Float.valueOf(user.getRating()));
+                    }
+                }
+                calculateAverage(userId);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void calculateAverage(String userId) {
+        float sum = 0;
+        for(int i = 0; i< ratingList.size(); i++){
+            sum = sum + ratingList.get(i);
+        }
+        float avg = sum / ratingList.size();
+        Support.toastMessageShort(String.valueOf(avg), view.getContext());
+
+        updateUserProfileRating(userId, avg);
+    }
+
+    private void updateUserProfileRating(String userId, float avg) {
+
+        if (currentStudent.getUid() != null){
+            Map<String, Object> map = new HashMap<>();
+            map.put("rating", String.valueOf(avg));
+            databaseReference.child("Tutor").child(userId).updateChildren(map);
+        }else if (currentTutor.getUid() != null){
+            Map<String, Object> map = new HashMap<>();
+            map.put("rating", String.valueOf(avg));
+            databaseReference.child("Student").child(userId).updateChildren(map);
+        }
+
+        //Support.toastMessageShort(currentStudent.getUid(), view.getContext());
+        //Support.toastMessageShort(currentTutor.getUid(), view.getContext());
     }
 }

@@ -24,7 +24,7 @@
                         android:layout_width="40sp"
                         android:layout_height="40sp"
                         android:id="@+id/btnBack"
-                        android:src="@drawable/ic_keyboard_backspace_black_24dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp"
                         android:onClick="btnBackClicked"
                         android:background="@drawable/search_outline"
                         android:layout_margin="5sp"/>

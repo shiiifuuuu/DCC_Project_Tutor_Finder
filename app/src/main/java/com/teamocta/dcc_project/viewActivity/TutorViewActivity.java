@@ -32,7 +32,6 @@ public class TutorViewActivity extends AppCompatActivity{
     private ActivityTutorViewBinding binding;
     private UserProfile tutorProfile;
     private DatabaseReference databaseReference;
-    private ArrayList<Float> ratingList;
 
     private Boolean requestExist = false;
     private String senderUid, receiverUid;
@@ -44,7 +43,6 @@ public class TutorViewActivity extends AppCompatActivity{
 
         getIntentExtras();
         init();
-        gatherRating();
         setData();
     }
 
@@ -55,62 +53,7 @@ public class TutorViewActivity extends AppCompatActivity{
         databaseReference = FirebaseDatabase.getInstance().getReference();
         senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         receiverUid = tutorProfile.getUid();
-
-        ratingList = new ArrayList<>();
     }
-
-
-    private void gatherRating() {
-        DatabaseReference reference = databaseReference.child("hireRequest");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    ratingList.clear();
-                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                        HireService hireService = snapshot.getValue(HireService.class);
-
-                        if(hireService.getSenderId().equals(tutorProfile.getUid())){
-                            if(hireService.getSenderRating()!=null){
-                                float rating = Float.valueOf(hireService.getSenderRating());
-                                ratingList.add(rating);
-                            }
-                        }
-                        else if (hireService.getReceiverId().equals(tutorProfile.getUid())){
-                            if(hireService.getReceiverRating()!=null){
-                                float rating = Float.valueOf(hireService.getReceiverRating());
-                                ratingList.add(rating);
-                            }
-                        }
-                    }
-                }
-                calculateAverage();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-    private void calculateAverage() {
-        float sum = 0;
-        for(int i = 0; i< ratingList.size(); i++){
-            sum = sum + ratingList.get(i);
-        }
-        float avg = sum / ratingList.size();
-        Support.toastMessageShort(String.valueOf(avg), TutorViewActivity.this);
-        updateDatabase(avg);
-        binding.tutorRating.setRating(avg);
-    }
-
-    private void updateDatabase(float avg) {
-        DatabaseReference tutorRef = databaseReference.child("Tutor");
-        Map<String, Object> rating = new HashMap<>();
-        rating.put("rating", String.valueOf(avg));
-        tutorRef.child(receiverUid).updateChildren(rating);
-    }
-
 
     private void setData() {
         Glide.with(this).load(tutorProfile.getImageUrl()).into(binding.ivProfilePic);
@@ -123,7 +66,7 @@ public class TutorViewActivity extends AppCompatActivity{
         binding.tvProfession.setText(tutorProfile.getProfession());
         binding.tvUserInstitute.setText(tutorProfile.getInstitute());
 
-        //binding.tutorRating.setRating(Float.parseFloat(tutorProfile.getTutorRating()));
+        binding.tutorRating.setRating(Float.parseFloat(tutorProfile.getRating()));
 
         binding.tvTuitionType.setText(tutorProfile.getTuitionType());
         if(binding.tvTuitionType.getText().toString().equals("Available")){

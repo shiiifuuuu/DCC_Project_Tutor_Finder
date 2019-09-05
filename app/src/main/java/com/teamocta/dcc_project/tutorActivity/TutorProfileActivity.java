@@ -43,6 +43,8 @@ import com.teamocta.dcc_project.pojo.UserProfile;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.teamocta.dcc_project.studentActivity.StudentProfileActivity.currentStudent;
+
 public class TutorProfileActivity extends AppCompatActivity {
 
     private ActivityTutorProfileBinding binding;
@@ -84,7 +86,8 @@ public class TutorProfileActivity extends AppCompatActivity {
         uid = firebaseAuth.getCurrentUser().getUid();
 
         builder = new AlertDialog.Builder(this);
-        currentTutor = new UserProfile();
+
+        currentStudent = new UserProfile();
     }
 
     //-------ReadFromDatabase-------

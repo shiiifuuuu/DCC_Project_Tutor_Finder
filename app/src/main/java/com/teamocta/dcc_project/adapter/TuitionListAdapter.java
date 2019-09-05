@@ -43,10 +43,8 @@ public class TuitionListAdapter extends RecyclerView.Adapter<TuitionListAdapter.
         holder.tvDaysPerWeek.setText(currentStudent.getDaysPerWeek());
         holder.tvSalaryRange.setText(currentStudent.getSalaryRange());
         holder.tvSubject.setText(currentStudent.getSubjects());
+        holder.tvUserRating.setText(currentStudent.getRating());
 
-        if(currentStudent.getRating()!=null){
-            holder.tvUserRating.setText(currentStudent.getRating());
-        }
     }
 
     @Override
