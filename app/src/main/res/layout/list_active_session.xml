@@ -3,17 +3,10 @@
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:layout_marginTop="10sp">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="5sp"
-        android:background="#707070" />
-
     <RelativeLayout
         android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/view"
         android:padding="10sp">
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -67,4 +60,10 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="#707070"
+        android:layout_below="@id/relative"/>
 </RelativeLayout>

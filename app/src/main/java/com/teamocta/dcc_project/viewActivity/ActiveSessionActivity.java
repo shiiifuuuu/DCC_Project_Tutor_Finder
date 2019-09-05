@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,17 +40,22 @@ public class ActiveSessionActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_active_session);
 
         init();
+        setActionBar();
         getData();
         configRecyclerView();
     }
 
     private void init() {
-        actionBar = getSupportActionBar();
-        actionBar.setTitle("History and Feedback");
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         hiredList = new ArrayList<>();
+    }
+
+    private void setActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("History and Feedback");
     }
 
     private void getData() {
@@ -85,6 +91,13 @@ public class ActiveSessionActivity extends AppCompatActivity {
         binding.rvActiveSession.setAdapter(adapter);
     }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
+    }
 }

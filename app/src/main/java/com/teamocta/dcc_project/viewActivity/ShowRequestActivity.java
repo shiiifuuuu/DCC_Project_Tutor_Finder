@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +40,7 @@ public class ShowRequestActivity extends AppCompatActivity {
 
         getIntentExtras();
         init();
+        setActionBar();
         getRequestSenderList();
         configRecyclerView();
     }
@@ -58,6 +60,12 @@ public class ShowRequestActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         requSenderList = new ArrayList<>();
         showRequestAdapter = new ShowRequestAdapter(requSenderList);
+    }
+
+    private void setActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("History and Feedback");
     }
 
     private void getRequestSenderList() {
@@ -89,12 +97,13 @@ public class ShowRequestActivity extends AppCompatActivity {
         binding.rvRequestList.setAdapter(showRequestAdapter);
     }
 
-    public void btnBackClicked(View view) {
-        onBackPressed();
-    }
-
     @Override
-    public void onBackPressed() {
-        this.finish();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
     }
 }

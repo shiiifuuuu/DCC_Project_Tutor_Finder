@@ -14,6 +14,7 @@ import com.teamocta.dcc_project.mainActivity.LoginActivity;
 public class Support {
 
     private static AlertDialog alertDialog;
+
     //A L E R T   D I A L O G   B O X
     public static void showAlertDialog(String message, Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
