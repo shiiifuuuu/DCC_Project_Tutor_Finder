@@ -55,7 +55,7 @@
         <activity
             android:name=".tutorActivity.TutorSearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
+            android:theme="@style/MessageView"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".tutorActivity.TutorUpdateProfileActivity"
@@ -74,7 +74,7 @@
         <activity
             android:name=".studentActivity.StudentSearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"
+            android:theme="@style/MessageView"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".studentActivity.StudentUpdateProfileActivity"

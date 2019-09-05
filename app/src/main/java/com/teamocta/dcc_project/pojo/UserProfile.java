@@ -6,7 +6,7 @@ public class UserProfile implements Serializable {
 
     private String uid;
     private String imageUrl = "";
-    private String rating;
+    private String rating = "";
 
     private String firstName = "";
     private String lastName = "";

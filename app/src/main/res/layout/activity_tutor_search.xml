@@ -7,22 +7,10 @@
         android:layout_height="match_parent"
         tools:context=".tutorActivity.TutorSearchActivity">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="60sp"
-            android:id="@+id/etSearchTuition"
-            android:hint="Search Tuition"
-            android:paddingStart="10sp"
-            android:drawableRight="@drawable/ic_search_black_24dp"
-            android:paddingEnd="20sp"
-            android:background="@drawable/search_outline"
-            android:layout_margin="10sp"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/rvTutorList"
-            android:layout_below="@id/etSearchTuition"
             android:layout_above="@id/nav_view"
             tools:itemCount="2"
             tools:listitem="@layout/list_tuition_search">

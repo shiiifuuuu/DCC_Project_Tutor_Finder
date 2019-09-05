@@ -2,16 +2,17 @@ package com.teamocta.dcc_project.studentActivity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 public class StudentSearchActivity extends AppCompatActivity implements TutorListAdapter.OnTutorClickListener {
 
     private ActivityStudentSearchBinding binding;
+    private ActionBar actionBar;
 
     private UserProfile tutorProfile;
     private ArrayList<UserProfile> tutorList, filteredList;
@@ -47,16 +49,21 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_student_search);
 
+        setActionBar();
         init();
         getTutors();
         configRecyclerView();
-        etTextChangeListener();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         binding.navView.getMenu().getItem(1).setChecked(true);
+    }
+
+    private void setActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Tutor Search");
     }
 
     private void init() {
@@ -96,20 +103,26 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
         binding.rvTutorList.setAdapter(tutorListAdapter);
     }
 
-    private void etTextChangeListener() {
-        binding.etSearchTutor.addTextChangedListener(new TextWatcher() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_activity_menu, menu);
+        MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
+        final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-                filter(editable.toString());
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
             }
         });
+        return true;
     }
+
     private void filter(String text) {
         filteredList = new ArrayList<>();
         for(UserProfile tutor: tutorList){
@@ -140,8 +153,6 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
             startActivity(intent);
         }
     }
-
-
 
 
     private Activity activity = StudentSearchActivity.this;

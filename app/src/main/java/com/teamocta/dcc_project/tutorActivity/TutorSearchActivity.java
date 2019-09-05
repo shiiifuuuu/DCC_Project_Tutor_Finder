@@ -2,16 +2,17 @@ package com.teamocta.dcc_project.tutorActivity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -28,7 +29,6 @@ import com.teamocta.dcc_project.databinding.ActivityTutorSearchBinding;
 import com.teamocta.dcc_project.mainActivity.LoginActivity;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
-import com.teamocta.dcc_project.studentActivity.StudentProfileActivity;
 import com.teamocta.dcc_project.viewActivity.TuitionViewActivity;
 
 import java.util.ArrayList;
@@ -36,6 +36,7 @@ import java.util.ArrayList;
 public class TutorSearchActivity extends AppCompatActivity implements TuitionListAdapter.OnTuitionClickListener{
 
     private ActivityTutorSearchBinding binding;
+    private ActionBar actionBar;
 
     private ArrayList<UserProfile> tuitionList, filteredList;
     private TuitionListAdapter tuitionListAdapter;
@@ -50,16 +51,21 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tutor_search);
 
+        setActionBar();
         init();
         getTuitions();
         configRecyclerView();
-        etTextChangeListener();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         binding.navView.getMenu().getItem(1).setChecked(true);
+    }
+
+    private void setActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Tuition Search");
     }
 
     private void init() {
@@ -99,24 +105,26 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         binding.rvTutorList.setAdapter(tuitionListAdapter);
     }
 
-    private void etTextChangeListener() {
-        binding.etSearchTuition.addTextChangedListener(new TextWatcher() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_activity_menu, menu);
+        MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
+        final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                filter(editable.toString());
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
             }
         });
+        return true;
     }
+
     private void filter(String text) {
         filteredList = new ArrayList<>();
         for(UserProfile tuition: tuitionList){
