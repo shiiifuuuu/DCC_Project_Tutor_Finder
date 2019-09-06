@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/etTypeMessage"
                 android:layout_toLeftOf="@+id/btnSendMessage"
-                android:background="@drawable/search_outline"
+                android:background="@drawable/outline_search"
                 android:layout_centerVertical="true"
                 android:padding="8sp"
                 android:hint="Type your message..."/>
@@ -39,7 +39,7 @@
                 android:src="@drawable/ic_send_black_24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/search_outline"
+                android:background="@drawable/outline_search"
                 android:onClick="btnSendMessageClicked"
                 android:layout_marginStart="5sp"/>
         </RelativeLayout>

@@ -1,11 +1,14 @@
 package com.teamocta.dcc_project.viewActivity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +32,8 @@ import static com.teamocta.dcc_project.studentActivity.StudentProfileActivity.cu
 public class TutorViewActivity extends AppCompatActivity{
 
     private ActivityTutorViewBinding binding;
+    private ActionBar actionBar;
+
     private UserProfile tutorProfile;
     private DatabaseReference databaseReference;
 
@@ -41,12 +46,18 @@ public class TutorViewActivity extends AppCompatActivity{
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tutor_view);
 
         getIntentExtras();
+        setActionBar();
         init();
         setData();
     }
 
     private void getIntentExtras() {
         tutorProfile = (UserProfile) getIntent().getSerializableExtra("tutorProfile");
+    }
+    private void setActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Tutor Profile");
     }
     private void init() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -84,16 +95,6 @@ public class TutorViewActivity extends AppCompatActivity{
     }
 
 
-
-    public void btnBackClicked(View view) {
-        onBackPressed();
-    }
-
-    @Override
-    public void onBackPressed() {
-        this.finish();
-    }
-
     public void btnSendMessageClicked(View view) {
         Intent intent = new Intent(this, MessageViewActivity.class);
         intent.putExtra("userProfile", tutorProfile);
@@ -115,7 +116,7 @@ public class TutorViewActivity extends AppCompatActivity{
                         HireService request = snapshot.getValue(HireService.class);
                         if((request.getSenderId().equals(senderUid) && request.getReceiverId().equals(receiverUid))){
                             requestExist = true;
-                            Support.toastMessageShort("Sorry Request Exist", TutorViewActivity.this);
+                            Support.toastMessageShort("You already sent offer to this person!", TutorViewActivity.this);
                         }
                     }
                 }
@@ -151,5 +152,26 @@ public class TutorViewActivity extends AppCompatActivity{
                 Support.toastMessageLong(e.getMessage(), TutorViewActivity.this);
             }
         }
+    }
+
+    public void mobileNmbrClicked(View view) {
+        try {
+            String uri = "tel:" + tutorProfile.getMobile() ;
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse(uri));
+            startActivity(callIntent);
+        }catch (Exception e){
+            Support.toastMessageShort(e.getMessage(), TutorViewActivity.this);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
     }
 }

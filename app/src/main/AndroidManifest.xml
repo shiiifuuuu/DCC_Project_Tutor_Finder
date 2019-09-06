@@ -43,9 +43,11 @@
             />
         <activity
             android:name=".viewActivity.TuitionViewActivity"
+            android:theme="@style/LightTheme"
             />
         <activity
             android:name=".viewActivity.TutorViewActivity"
+            android:theme="@style/LightTheme"
             />
         <activity
             android:name=".tutorActivity.TutorMessageActivity"

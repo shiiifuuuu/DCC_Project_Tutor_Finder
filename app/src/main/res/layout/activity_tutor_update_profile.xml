@@ -13,28 +13,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/upperLayout">
+            android:id="@+id/upperLayout"
+            android:gravity="center"
+            android:background="#00BCD4"
+            android:layout_margin="10sp">
             <ImageButton
                 android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
                 android:id="@+id/btnBack"
                 android:onClick="btnBackClicked"
-                android:background="#FFEB3B"
-                android:src="@drawable/ic_keyboard_backspace_black_24dp" />
+                android:background="#00BCD4"
+                android:src="@drawable/ic_signup_arrow_back"
+                />
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="60sp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/txt"
                 android:text="Update Profile"
                 android:gravity="center"
                 android:paddingEnd="40sp"
-                android:background="#FFEB3B"
+                android:textColor="#000000"
                 android:textSize="24sp"
-                android:textColor="#000"
-                android:textStyle="bold" />
+                android:padding="15sp" />
         </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -312,15 +316,19 @@
                 </LinearLayout>
 
                 <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="60sp"
                     android:id="@+id/btnSaveProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="btnSaveProfileClicked"
                     android:text="Save Profile"
-                    android:background="#FFEB3B"
+                    android:background="#03A9F4"
+                    android:padding="15sp"
+                    android:layout_margin="5sp"
+                    android:textColor="#FFF"
+                    android:textSize="20sp"
                     android:textAllCaps="false"
-                    android:textSize="24sp"
                     android:textStyle="bold"
-                    android:onClick="btnSaveProfileClicked"/>
+                    />
 
             </LinearLayout>
         </ScrollView>

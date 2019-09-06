@@ -19,7 +19,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/upperLayout"
-                    android:background="@drawable/rectangular_shape_gray">
+                    android:background="@drawable/shape_rectangular_gray">
 
                     <RelativeLayout
                         android:layout_width="240sp"
@@ -67,7 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:background="@drawable/rectangular_shape_std"
+                        android:background="@drawable/shape_rectangular_blue"
                         android:layout_margin="5sp"
                         android:padding="20sp">
                         <TextView
@@ -233,7 +233,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:background="@drawable/rectangular_shape_std"
+                        android:background="@drawable/shape_rectangular_blue"
                         android:layout_margin="5sp"
                         android:padding="20sp">
 
@@ -265,7 +265,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:background="@drawable/rectangular_shape_std"
+                        android:background="@drawable/shape_rectangular_blue"
                         android:layout_margin="5sp"
                         android:padding="20sp">
                         <TextView
@@ -330,7 +330,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:background="@drawable/rectangular_shape_std"
+                        android:background="@drawable/background_notice"
                         android:layout_margin="5sp"
                         android:padding="20sp">
                         <TextView
