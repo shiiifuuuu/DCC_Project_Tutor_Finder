@@ -39,10 +39,16 @@ public class ActiveSessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_active_session);
 
-        init();
         setActionBar();
+        init();
         getData();
         configRecyclerView();
+    }
+
+    private void setActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("History and Feedback");
     }
 
     private void init() {
@@ -50,12 +56,6 @@ public class ActiveSessionActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         hiredList = new ArrayList<>();
-    }
-
-    private void setActionBar() {
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("History and Feedback");
     }
 
     private void getData() {

@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/user_image"
+        android:icon="@drawable/ic_user_image"
         android:title="Profile" />
 
     <item

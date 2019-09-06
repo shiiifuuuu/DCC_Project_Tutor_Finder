@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +40,7 @@ import static com.teamocta.dcc_project.studentActivity.StudentProfileActivity.cu
 public class StudentMessageActivity extends AppCompatActivity implements MessageAdapter.OnMessageClickListener {
 
     private ActivityStudentMessageBinding binding;
+    private ActionBar actionBar;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -54,10 +56,16 @@ public class StudentMessageActivity extends AppCompatActivity implements Message
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_student_message);
 
+        setActionBar();
         init();
         getMessageSenderList();
         configRecyclerView();
 
+    }
+
+    private void setActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Messages");
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -41,6 +42,7 @@ import static com.teamocta.dcc_project.tutorActivity.TutorProfileActivity.curren
 public class TutorMessageActivity extends AppCompatActivity implements MessageAdapter.OnMessageClickListener {
 
     private ActivityTutorMessageBinding binding;
+    private ActionBar actionBar;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -56,6 +58,7 @@ public class TutorMessageActivity extends AppCompatActivity implements MessageAd
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tutor_message);
 
+        setActionBar();
         init();
         getMessageSenderList();
         configRecyclerView();
@@ -65,6 +68,11 @@ public class TutorMessageActivity extends AppCompatActivity implements MessageAd
     protected void onResume() {
         super.onResume();
         binding.navView.getMenu().getItem(2).setChecked(true);
+    }
+
+    private void setActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Messages");
     }
 
     private void init() {

@@ -106,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:id="@+id/tvUserName"
-                        android:drawableLeft="@drawable/ic_user_name"
+                        android:drawableLeft="@drawable/ic_user_image"
                         android:drawablePadding="10sp"
                         android:text="Md. Shahadat Hossain"
                         android:textColor="#000"
