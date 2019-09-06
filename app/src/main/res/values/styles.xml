@@ -14,11 +14,9 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowSoftInputMode">stateHidden</item>
         <item name="android:screenOrientation">portrait</item>
-        <item name="android:focusable">false</item>
-        <item name="android:focusableInTouchMode">true</item>
     </style>
 
-    <style name="MessageView" parent="Theme.AppCompat.Light">
+    <style name="LightTheme" parent="Theme.AppCompat.Light">
         <item name="actionOverflowMenuStyle">@style/MyOverflowMenu</item>
     </style>
 

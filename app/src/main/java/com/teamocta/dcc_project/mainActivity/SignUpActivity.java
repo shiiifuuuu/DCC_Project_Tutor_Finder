@@ -2,9 +2,11 @@ package com.teamocta.dcc_project.mainActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -40,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
-        
+
         init();
     }
 
@@ -219,7 +221,12 @@ public class SignUpActivity extends AppCompatActivity {
         gender = binding.spnrGender.getSelectedItem().toString();
     }
 
-    public void btnBackClicked(View view) {
+    public void btnBack(View view) {
         onBackPressed();
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

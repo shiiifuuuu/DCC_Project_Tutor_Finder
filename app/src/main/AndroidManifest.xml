@@ -32,14 +32,14 @@
 
         <activity
             android:name=".viewActivity.ShowRequestActivity"
-            android:theme="@style/MessageView"
+            android:theme="@style/LightTheme"
             />
         <activity android:name=".viewActivity.ActiveSessionActivity"
-            android:theme="@style/MessageView"
+            android:theme="@style/LightTheme"
             />
         <activity
             android:name=".viewActivity.MessageViewActivity"
-            android:theme="@style/MessageView"
+            android:theme="@style/LightTheme"
             />
         <activity
             android:name=".viewActivity.TuitionViewActivity"
@@ -49,11 +49,11 @@
             />
         <activity
             android:name=".tutorActivity.TutorMessageActivity"
-            android:theme="@style/MessageView"
+            android:theme="@style/LightTheme"
             />
         <activity
             android:name=".tutorActivity.TutorSearchActivity"
-            android:theme="@style/MessageView"
+            android:theme="@style/LightTheme"
              />
         <activity
             android:name=".tutorActivity.TutorUpdateProfileActivity"
@@ -63,11 +63,11 @@
             />
         <activity
             android:name=".studentActivity.StudentMessageActivity"
-            android:theme="@style/MessageView"
+            android:theme="@style/LightTheme"
             />
         <activity
             android:name=".studentActivity.StudentSearchActivity"
-            android:theme="@style/MessageView"
+            android:theme="@style/LightTheme"
             />
         <activity
             android:name=".studentActivity.StudentUpdateProfileActivity"
