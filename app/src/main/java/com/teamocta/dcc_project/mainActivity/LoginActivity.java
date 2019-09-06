@@ -3,6 +3,7 @@ package com.teamocta.dcc_project.mainActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -194,8 +195,22 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed(){
-        moveTaskToBack(true);
+//        moveTaskToBack(true);
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity();
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Support.toastMessageShort("Please click BACK again to exit", LoginActivity.this);
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

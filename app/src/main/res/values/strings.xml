@@ -1,4 +1,6 @@
 <resources>
+    <string name="app_name">Find Tuition</string>
+
     <array name="teaching_subjects">
         <item>-</item>
 
@@ -189,8 +191,6 @@
         <item>Vatara</item>
         <item>Wari</item>
     </array>
-
-    <string name="app_name">DCC_Project</string>
 
     <string name="err_email">Enter Email</string>
 

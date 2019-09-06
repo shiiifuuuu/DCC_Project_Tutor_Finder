@@ -5,26 +5,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".mainActivity.SplashScreenActivity"
-    android:background="#00BCD4">
+    android:background="#fff">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="100sp"
+        android:src="@drawable/splash_screen_gif"
+        android:layout_above="@id/linear"/>
 
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="420sp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_centerInParent="true"
-        android:background="@drawable/splash_screen_shape">
+        android:layout_centerInParent="true">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="20sp"
             android:text="Find Tuition"
             android:fontFamily="sans-serif-smallcaps"
-            android:textColor="@color/red"
+            android:textColor="#08C510"
             android:textSize="50sp"
             android:textStyle="bold" />
 
@@ -33,7 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_splash_screen" />
+
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -41,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All Rights Reserved ©teamOcta"
-            android:textColor="#FAE950"
+            android:textColor="#2FA733"
             android:textStyle="bold"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
