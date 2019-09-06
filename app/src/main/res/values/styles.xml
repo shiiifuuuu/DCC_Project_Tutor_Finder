@@ -12,6 +12,10 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowSoftInputMode">stateHidden</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">true</item>
     </style>
 
     <style name="MessageView" parent="Theme.AppCompat.Light">
