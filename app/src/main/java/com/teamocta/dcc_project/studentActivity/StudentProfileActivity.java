@@ -174,7 +174,7 @@ public class StudentProfileActivity extends AppCompatActivity {
         }
     }
     public Uri getImageUri(Context inContext, Bitmap inImage) {
-        Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1000, 1000,true);
+        Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1080, 1920,true);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), OutImage, "Title", null);
         return Uri.parse(path);
     }

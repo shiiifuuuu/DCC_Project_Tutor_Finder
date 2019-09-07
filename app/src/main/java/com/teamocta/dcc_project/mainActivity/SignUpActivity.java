@@ -2,11 +2,9 @@ package com.teamocta.dcc_project.mainActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -80,14 +78,14 @@ public class SignUpActivity extends AppCompatActivity {
             else if(binding.rbUserStudent.isChecked()){
                 signUpStudent(userEmail,userPassword);
             }else if(!binding.rbUserTutor.isChecked() || !binding.rbUserStudent.isChecked()){
-                Support.toastMessageLong("Check box empty!!", SignUpActivity.this);
+                Support.toastMessageLong("Check box empty!!", getApplicationContext());
             }
         }
     }
 
     //S I G N    U P    M E T H O D -> TUTOR
     private void signUpTutor(String userEmail, String userPassword) {
-        Support.showAlertDialog("Signing Up...", SignUpActivity.this);
+        Support.showAlertDialog("Signing Up...", getApplicationContext());
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -96,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
                     setDataTutor();
                     firebaseAuth.signOut();
                     //sendVerificationEmail();
-                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     finish();
                     Support.cancelAlertDialog();
                 }
@@ -105,7 +103,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Support.cancelAlertDialog();
-                Support.toastMessageLong(e.getMessage(), SignUpActivity.this);
+                Support.toastMessageLong(e.getMessage(), getApplicationContext());
             }
         });
     }
@@ -128,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
         tutorReference.child(uid).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Support.toastMessageShort("Registered Successfully as a Tutor!", SignUpActivity.this);
+                Support.toastMessageShort("Registered Successfully as a Tutor!", getApplicationContext());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -140,7 +138,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //S I G N    U P    M E T H O D -> STUDENT
     private void signUpStudent(String userEmail, String userPassword) {
-        Support.showAlertDialog("Signing Up...", SignUpActivity.this);
+        Support.showAlertDialog("Signing Up...", getApplicationContext());
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -149,7 +147,7 @@ public class SignUpActivity extends AppCompatActivity {
                     setDataStudent();
                     firebaseAuth.signOut();
                     //sendVerificationEmail();
-                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     finish();
                     Support.cancelAlertDialog();
                 }
@@ -158,7 +156,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Support.cancelAlertDialog();
-                Support.toastMessageLong(e.getMessage(), SignUpActivity.this);
+                Support.toastMessageLong(e.getMessage(), getApplicationContext());
             }
         });
     }
@@ -181,7 +179,7 @@ public class SignUpActivity extends AppCompatActivity {
         studentReference.child(uid).setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Support.toastMessageShort("Registered Successfully as a Student!", SignUpActivity.this);
+                Support.toastMessageShort("Registered Successfully as a Student!", getApplicationContext());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -191,22 +189,22 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    /*private void sendVerificationEmail() {
+/*    private void sendVerificationEmail() {
         firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     finish();
-                    alertDialog.cancel();
-                    toastMessageLong("Please check your email for verification");
+                    Support.cancelAlertDialog();
+                    Support.toastMessageLong("Please check your email for verification", getApplicationContext());
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                alertDialog.cancel();
-                toastMessageLong(e.getMessage());
+                Support.cancelAlertDialog();
+                Support.toastMessageLong(e.getMessage(), getApplicationContext());
             }
         });
     }*/

@@ -5,10 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -81,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
     private void init() {
         firebaseAuth=FirebaseAuth.getInstance();
         databaseReference =FirebaseDatabase.getInstance().getReference(); //database root reference
-        myPrefs = getSharedPreferences(PREFS_NAME, 0);
+        myPrefs = getSharedPreferences(PREFS_NAME, 0); // mode 0 private
 
         databaseReference.keepSynced(true);
     }
@@ -122,10 +120,10 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     checkUserType();
                     /*if(firebaseAuth.getCurrentUser().isEmailVerified()){
-                        showAlertDialog("Logging In..");
+                        Support.showAlertDialog("Logging In..", getApplicationContext());
                         checkUserType();
                     }else{
-                        toastMessageLong("Verify your email first.");
+                        Support.toastMessageLong("Verify your email first.", getApplicationContext());
                     }*/
                 }
             }
@@ -133,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Support.cancelAlertDialog();
-                Support.toastMessageLong(e.getMessage(), LoginActivity.this);
+                Support.toastMessageLong(e.getMessage(), getApplicationContext());
             }
         });
     }
@@ -153,11 +151,11 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                         myPrefs.edit().clear().commit();
                     }
-                    Intent intent = new Intent(LoginActivity.this, TutorProfileActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), TutorProfileActivity.class);
                     startActivity(intent);
                     finish();
                     Support.cancelAlertDialog();
-                    Support.toastMessageShort("Tutor Login Successful", LoginActivity.this);
+                    Support.toastMessageShort("Tutor Login Successful", getApplicationContext());
                 }
                 else{
                     if(binding.cbRememberUser.isChecked()){
@@ -167,11 +165,11 @@ public class LoginActivity extends AppCompatActivity {
                     else{
                         myPrefs.edit().clear().commit();
                     }
-                    Intent intent = new Intent(LoginActivity.this, StudentProfileActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), StudentProfileActivity.class);
                     startActivity(intent);
                     finish();
                     Support.cancelAlertDialog();
-                    Support.toastMessageShort("Student Login Successful", LoginActivity.this);
+                    Support.toastMessageShort("Student Login Successful", getApplicationContext());
                 }
             }
 
@@ -203,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
             finishAffinity();
         }
         this.doubleBackToExitPressedOnce = true;
-        Support.toastMessageShort("Please click BACK again to exit", LoginActivity.this);
+        Support.toastMessageShort("Please click BACK again to exit", getApplicationContext());
 
         new Handler().postDelayed(new Runnable() {
 

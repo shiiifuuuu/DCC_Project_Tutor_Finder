@@ -18,8 +18,6 @@ public class ForgetPassActivity extends AppCompatActivity {
 
     private ActivityForgetPassBinding binding;
 
-    private String userEmail;
-
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -35,17 +33,17 @@ public class ForgetPassActivity extends AppCompatActivity {
     }
 
     public void btnSendEmailClicked(View view) {
-        userEmail=binding.etEmail.getText().toString();
+        String userEmail=binding.etEmail.getText().toString();
         if(userEmail.equals("")){
-            Support.toastMessageShort("Field Empty!!",ForgetPassActivity.this);
+            Support.toastMessageShort("Field Empty!!",getApplicationContext());
         }else{
             firebaseAuth.sendPasswordResetEmail(userEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(!task.isSuccessful()){
-                        Support.toastMessageShort("Email Not Found!!", ForgetPassActivity.this);
+                        Support.toastMessageShort("Email Not Found!!", getApplicationContext());
                     }else{
-                        Support.toastMessageLong("Password sent to your Email.", ForgetPassActivity.this);
+                        Support.toastMessageLong("Password sent to your Email.", getApplicationContext());
                     }
                 }
             });

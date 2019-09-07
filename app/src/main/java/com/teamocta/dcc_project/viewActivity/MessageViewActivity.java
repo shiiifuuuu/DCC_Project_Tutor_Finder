@@ -179,7 +179,7 @@ public class MessageViewActivity extends AppCompatActivity {
 
 
     public void btnSendMessageClicked(View view) {
-        Support.toastMessageLong("Button is clicked", MessageViewActivity.this);
+        //Support.toastMessageLong("Button is clicked", MessageViewActivity.this);
         String msg = binding.etTypeMessage.getText().toString();
         if(isUserTutor){
             if(!msg.equals("")){

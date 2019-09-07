@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".mainActivity.SplashScreenActivity"
-    android:background="#fff">
+    tools:context=".mainActivity.SplashScreenActivity">
 
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="match_parent"
         android:layout_height="100sp"
         android:src="@drawable/splash_screen_gif"
-        android:layout_above="@id/linear"/>
+        android:layout_below="@id/linear"
+        android:layout_marginTop="40sp"/>
 
     <LinearLayout
         android:id="@+id/linear"
@@ -19,14 +19,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_centerInParent="true">
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
+        android:padding="15sp">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20sp"
+            android:layout_marginBottom="30sp"
             android:text="Find Tuition"
+            android:background="@drawable/background_splash_screen"
+            android:padding="10sp"
             android:fontFamily="sans-serif-smallcaps"
             android:textColor="#08C510"
             android:textSize="50sp"

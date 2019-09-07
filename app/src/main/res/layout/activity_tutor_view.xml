@@ -88,7 +88,6 @@
                             android:background="#8BC34A"
                             android:layout_margin="5sp"/>
                     </LinearLayout>
-
                     <LinearLayout
                         android:id="@+id/tutorView"
                         android:layout_width="match_parent"
@@ -324,7 +323,6 @@
                             android:textSize="18sp"
                             android:layout_marginBottom="20sp"/>
                     </LinearLayout>
-
                     <LinearLayout
                         android:id="@+id/contact"
                         android:layout_width="match_parent"

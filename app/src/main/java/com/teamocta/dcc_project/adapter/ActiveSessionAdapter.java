@@ -22,7 +22,6 @@ import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
-import com.teamocta.dcc_project.viewActivity.ActiveSessionActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
