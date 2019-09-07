@@ -11,14 +11,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/nav_view">
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/upperLayout"
                     android:background="@drawable/shape_rectangular_gray">
 
                     <RelativeLayout
@@ -32,7 +32,7 @@
                             android:layout_height="1080sp"
                             android:src="@drawable/ic_add_box_black_24dp"
                             app:civ_border_width="2dp"
-                            app:civ_border_color="#FF000000"
+                            app:civ_border_color="#FFFFFF"
                             android:layout_centerHorizontal="true"
                             android:padding="10sp"
                             android:onClick="btnUpdatePicClicked"/>
@@ -41,13 +41,10 @@
                 </RelativeLayout>
 
                 <Button
-                    android:id="@+id/btnUpdateProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Update Profile"
                     android:onClick="updateProfileClicked"
-                    android:layout_below="@id/upperLayout"
-
                     android:background="#51DA56"
                     android:padding="15sp"
                     android:layout_margin="5sp"
@@ -56,393 +53,379 @@
                     android:textAllCaps="false"/>
 
                 <LinearLayout
+                    android:id="@+id/basicInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/btnUpdateProfile"
                     android:orientation="vertical"
-                    android:gravity="center_horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/basicInfo"
+                    android:background="@drawable/shape_rectangular_blue"
+                    android:layout_margin="5sp"
+                    android:padding="20sp">
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@drawable/shape_rectangular_blue"
-                        android:layout_margin="5sp"
-                        android:padding="20sp">
+                        android:text="Basic Info"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#E91E63"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/tvUserName"
+                        android:drawableLeft="@drawable/ic_user_image"
+                        android:drawablePadding="10sp"
+                        android:text="Md. Shahadat Hossain"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="#030303"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Basic Info"
-                            android:gravity="center"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="#E91E63"
-                            android:layout_marginTop="5sp"
-                            android:layout_marginBottom="5sp"/>
-
+                            android:layout_weight="3"
+                            android:text="Class: "
+                            android:textSize="18sp"/>
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:id="@+id/tvUserName"
-                            android:drawableLeft="@drawable/ic_user_image"
-                            android:drawablePadding="10sp"
-                            android:text="Md. Shahadat Hossain"
-                            android:textSize="24sp"
-                            android:textStyle="bold"
-                            android:textColor="#030303"
-                            android:layout_marginBottom="10dp"
-                            android:layout_gravity="center_horizontal"/>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5sp"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:text="Class: "
-                                android:textSize="18sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvUserClass"
-                                android:text="8"
-                                android:textSize="18sp"
-                                android:layout_marginStart="10sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5sp"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:text="Dept: "
-                                android:textSize="18sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvDepartment"
-                                android:text=""
-                                android:textSize="18sp"
-                                android:layout_marginStart="10sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5sp"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:text="Institute: "
-                                android:textSize="18sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvUserInstitute"
-                                android:text="Dhaka City College"
-                                android:textSize="18sp"
-                                android:layout_marginStart="10sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5sp"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:text="Gender: "
-                                android:textSize="18sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvUserGender"
-                                android:text="Male"
-                                android:textSize="18sp"
-                                android:layout_marginStart="10sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5sp"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:text="Location: "
-                                android:textSize="18sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvUserLocation"
-                                android:text="Dhaka"
-                                android:layout_marginStart="10sp"
-                                android:textSize="18sp"/>
-                        </LinearLayout>
-                        <TextView
-                            android:id="@+id/tvUserMobile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_user_mobile"
-                            android:drawablePadding="5sp"
-                            android:text="017xxxxxxx"
-                            android:padding="5sp"
-                            android:layout_gravity="center"
-                            android:textSize="20sp"
-                            android:textColor="#2196F3"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tvUserEmail"
-                            android:padding="5sp"
-                            android:drawableLeft="@drawable/ic_user_email"
-                            android:drawablePadding="5sp"
-                            android:text="email@gmail.com"
-                            android:layout_gravity="center"
-                            android:textSize="20sp"
-                            android:textColor="#4CAF50"
-                            android:textStyle="bold"/>
+                            android:id="@+id/tvUserClass"
+                            android:text="8"
+                            android:textSize="18sp"
+                            android:layout_marginStart="10sp"/>
                     </LinearLayout>
-
                     <LinearLayout
-                        android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@drawable/shape_rectangular_blue"
-                        android:layout_margin="5sp"
-                        android:padding="20sp">
-
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Full Address"
-                            android:gravity="center"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="#E91E63"
-                            android:layout_marginTop="5sp"
-                            android:layout_marginBottom="5sp"/>
-
+                            android:layout_weight="3"
+                            android:text="Dept: "
+                            android:textSize="18sp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tvUserAddress"
+                            android:layout_weight="1"
+                            android:id="@+id/tvDepartment"
                             android:text=""
-                            android:gravity="center"
+                            android:textSize="18sp"
+                            android:layout_marginStart="10sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="Institute: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvUserInstitute"
+                            android:text="Dhaka City College"
+                            android:textSize="18sp"
+                            android:layout_marginStart="10sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="Gender: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvUserGender"
+                            android:text="Male"
+                            android:textSize="18sp"
+                            android:layout_marginStart="10sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="Location: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvUserLocation"
+                            android:text="Dhaka"
+                            android:layout_marginStart="10sp"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvUserMobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_user_mobile"
+                        android:drawablePadding="5sp"
+                        android:text="017xxxxxxx"
+                        android:padding="5sp"
+                        android:layout_gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#2196F3"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvUserEmail"
+                        android:padding="5sp"
+                        android:drawableLeft="@drawable/ic_user_email"
+                        android:drawablePadding="5sp"
+                        android:text="email@gmail.com"
+                        android:layout_gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#4CAF50"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/shape_rectangular_blue"
+                    android:layout_margin="5sp"
+                    android:padding="20sp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Full Address"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#E91E63"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvUserAddress"
+                        android:text=""
+                        android:gravity="center"
+                        android:textSize="20sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/guardianInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/shape_rectangular_blue"
+                    android:layout_margin="5sp"
+                    android:padding="20sp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Guardian Info"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#E91E63"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="Name: "
+                            android:textSize="20sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvGuardianName"
+                            android:text="Guardian Name"
+                            android:textSize="24sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="Mobile: "
                             android:textSize="20sp" />
-                    </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/guardianInfo"
+                        <TextView
+                            android:id="@+id/tvGuardianMobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_weight="1"
+                            android:text="00175xxxxxx"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/requiredTutor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/background_notice"
+                    android:layout_margin="5sp"
+                    android:padding="20sp">
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@drawable/shape_rectangular_blue"
-                        android:layout_margin="5sp"
-                        android:padding="20sp">
+                        android:text="Required Tutor"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#E91E63"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Guardian Info"
-                            android:gravity="center"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="#E91E63"
-                            android:layout_marginTop="5sp"
-                            android:layout_marginBottom="5sp"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:text="Name: "
-                                android:textSize="20sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvGuardianName"
-                                android:text="Guardian Name"
-                                android:textSize="24sp"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:text="Mobile: "
-                                android:textSize="20sp" />
-
-                            <TextView
-                                android:id="@+id/tvGuardianMobile"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="20dp"
-                                android:layout_weight="1"
-                                android:text="00175xxxxxx"
-                                android:textSize="24sp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/requiredTutor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@drawable/background_notice"
-                        android:layout_margin="5sp"
-                        android:padding="20sp">
+                            android:layout_weight="2"
+                            android:text="Days per week: "
+                            android:textSize="18sp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Required Tutor"
-                            android:gravity="center"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="#E91E63"
-                            android:layout_marginTop="5sp"
-                            android:layout_marginBottom="5sp"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5sp"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="Days per week: "
-                                android:textSize="18sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvDaysPerWeek"
-                                android:text=""
-                                android:layout_marginStart="10sp"
-                                android:textSize="18sp"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5sp"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="Subjects: "
-                                android:textSize="18sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvSubjects"
-                                android:text=""
-                                android:layout_marginStart="10sp"
-                                android:textSize="18sp"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5sp"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="Desired Salary Range: "
-                                android:textSize="18sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvSalaryRange"
-                                android:text=""
-                                android:layout_gravity="center"
-                                android:layout_marginStart="10sp"
-                                android:textSize="18sp"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="5sp"
-                            android:gravity="center_horizontal">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="Additional Tuition Info: "
-                                android:textSize="18sp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/tvAdditionalInfo"
-                                android:text=""
-                                android:layout_gravity="center"
-                                android:layout_marginStart="10sp"
-                                android:textSize="18sp"/>
-                        </LinearLayout>
+                            android:layout_weight="1"
+                            android:id="@+id/tvDaysPerWeek"
+                            android:text=""
+                            android:layout_marginStart="10sp"
+                            android:textSize="18sp"/>
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Subjects: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvSubjects"
+                            android:text=""
+                            android:layout_marginStart="10sp"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Desired Salary Range: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvSalaryRange"
+                            android:text=""
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10sp"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5sp"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Additional Tuition Info: "
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/tvAdditionalInfo"
+                            android:text=""
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10sp"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
                 </LinearLayout>
 
-            </RelativeLayout>
-
+            </LinearLayout>
         </ScrollView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
