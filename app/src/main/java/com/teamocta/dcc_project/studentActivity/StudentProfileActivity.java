@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
@@ -275,8 +276,21 @@ public class StudentProfileActivity extends AppCompatActivity {
         }
     };
 
+    private boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed(){
-        moveTaskToBack(true);
+        if (doubleBackToExitPressedOnce) {
+            moveTaskToBack(true);
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Support.toastMessageShort("Please click BACK again to exit", getApplicationContext());
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }
