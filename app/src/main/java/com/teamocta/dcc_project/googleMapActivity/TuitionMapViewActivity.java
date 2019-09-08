@@ -52,6 +52,10 @@ public class TuitionMapViewActivity extends FragmentActivity implements OnMapRea
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.getUiSettings().setCompassEnabled(true);
 
+        showTuitionLocation();
+    }
+
+    private void showTuitionLocation() {
         if(currentStudent.getLatitude() != null && currentStudent.getLongitude() != null){
             double latitude = Double.parseDouble(currentStudent.getLatitude());
             double longitude = Double.parseDouble(currentStudent.getLongitude());
@@ -80,6 +84,7 @@ public class TuitionMapViewActivity extends FragmentActivity implements OnMapRea
                         currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
                         mMap.addMarker(new MarkerOptions().position(currentLatLng).title("Your Location"));
+
                     }else{
                         Support.toastMessageLong("Enable location from Device", getApplicationContext());
                     }

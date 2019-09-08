@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static com.teamocta.dcc_project.studentActivity.StudentProfileActivity.currentStudent;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -58,7 +60,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
+        mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setAllGesturesEnabled(true);
         getCurrentLocation();
     }
 
@@ -157,7 +160,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             location.put("latitude", String.valueOf(currentMarkerPosition.latitude));
             location.put("longitude", String.valueOf(currentMarkerPosition.longitude));
 
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String uid = currentStudent.getUid();
             DatabaseReference studentRef = FirebaseDatabase.getInstance().getReference();
             studentRef.child("Student").child(uid).updateChildren(location);
             Support.toastMessageLong("Location Saved", getApplicationContext());
