@@ -336,6 +336,14 @@
                             android:text=""
                             android:gravity="center"
                             android:textSize="20sp" />
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Show location on map"
+                            android:textAllCaps="false"
+                            android:onClick="ShowMapLocation"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="12sp"/>
                     </LinearLayout>
 
                     <LinearLayout

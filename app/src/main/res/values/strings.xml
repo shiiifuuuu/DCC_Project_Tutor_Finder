@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Find Tuition</string>
-
     <array name="teaching_subjects">
         <item>-</item>
 
@@ -36,6 +34,7 @@
         <item>Social Science</item>
         <item>Statistics</item>
     </array>
+
     <array name="area_covered">
         <item>-</item>
 
@@ -127,7 +126,6 @@
         <item>One Time Session</item>
         <item>Recurring Session</item>
     </array>
-
     <array name="gender">
         <item>-</item>
 
@@ -191,6 +189,8 @@
         <item>Vatara</item>
         <item>Wari</item>
     </array>
+
+    <string name="app_name">Find Tuition</string>
 
     <string name="err_email">Enter Email</string>
 

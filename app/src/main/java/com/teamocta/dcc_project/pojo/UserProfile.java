@@ -7,6 +7,8 @@ public class UserProfile implements Serializable {
     private String uid;
     private String imageUrl;
     private String rating;
+    private String latitude;
+    private String longitude;
 
     private String firstName = "";
     private String lastName = "";
@@ -57,6 +59,14 @@ public class UserProfile implements Serializable {
 
     public String getRating() {
         return rating;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
     }
 
     public String getFirstName() {

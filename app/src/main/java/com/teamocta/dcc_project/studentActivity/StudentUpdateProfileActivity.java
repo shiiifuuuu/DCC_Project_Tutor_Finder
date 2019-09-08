@@ -2,6 +2,7 @@ package com.teamocta.dcc_project.studentActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityStudentUpdateProfileBinding;
+import com.teamocta.dcc_project.googleMapActivity.MapsActivity;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
 
@@ -270,5 +272,9 @@ public class StudentUpdateProfileActivity extends AppCompatActivity {
     //B A C K   B U T T O N
     public void btnBackClicked(View view) {
         onBackPressed();
+    }
+
+    public void btnSaveMapLocation(View view) {
+        startActivity(new Intent(getApplicationContext(), MapsActivity.class));
     }
 }

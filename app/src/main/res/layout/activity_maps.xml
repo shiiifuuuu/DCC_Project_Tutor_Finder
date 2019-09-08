@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".googleMapActivity.MapsActivity" />
+    tools:context=".googleMapActivity.MapsActivity" >
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        tools:context=".googleMapActivity.MapsActivity" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Location"
+        android:textAllCaps="false"
+        android:onClick="btnCurrentLocation"
+        android:drawableRight="@drawable/ic_my_location_black_24dp"
+        android:drawablePadding="5sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="60sp"
+        android:layout_marginEnd="10sp"/>
+
+    <Button
+        android:id="@+id/btnLocationName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location Name"
+        android:background="@drawable/shape_rectangular_black"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:padding="20sp"
+        android:layout_margin="10sp" />
+
+</RelativeLayout>

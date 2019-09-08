@@ -2,20 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.teamocta.dcc_project">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/NoActionBar"
-        >
+        android:theme="@style/NoActionBar">
+        <activity android:name=".googleMapActivity.TuitionMapViewActivity"></activity>
 
+        <activity
+            android:name=".googleMapActivity.MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -25,69 +23,40 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <activity
-            android:name=".googleMapActivity.MapsActivity"
-            android:label="@string/title_activity_maps">
-
-        </activity>
-
-        <activity
             android:name=".viewActivity.ShowRequestActivity"
-            android:theme="@style/LightTheme"
-            />
-        <activity android:name=".viewActivity.ActiveSessionActivity"
-            android:theme="@style/LightTheme"
-            />
+            android:theme="@style/LightTheme" />
+        <activity
+            android:name=".viewActivity.ActiveSessionActivity"
+            android:theme="@style/LightTheme" />
         <activity
             android:name=".viewActivity.MessageViewActivity"
-            android:theme="@style/LightTheme"
-            />
+            android:theme="@style/LightTheme" />
         <activity
             android:name=".viewActivity.TuitionViewActivity"
-            android:theme="@style/LightTheme"
-            />
+            android:theme="@style/LightTheme" />
         <activity
             android:name=".viewActivity.TutorViewActivity"
-            android:theme="@style/LightTheme"
-            />
+            android:theme="@style/LightTheme" />
         <activity
             android:name=".tutorActivity.TutorMessageActivity"
-            android:theme="@style/LightTheme"
-            />
+            android:theme="@style/LightTheme" />
         <activity
             android:name=".tutorActivity.TutorSearchActivity"
-            android:theme="@style/LightTheme"
-             />
-        <activity
-            android:name=".tutorActivity.TutorUpdateProfileActivity"
-            />
-        <activity
-            android:name=".tutorActivity.TutorProfileActivity"
-            />
+            android:theme="@style/LightTheme" />
+        <activity android:name=".tutorActivity.TutorUpdateProfileActivity" />
+        <activity android:name=".tutorActivity.TutorProfileActivity" />
         <activity
             android:name=".studentActivity.StudentMessageActivity"
-            android:theme="@style/LightTheme"
-            />
+            android:theme="@style/LightTheme" />
         <activity
             android:name=".studentActivity.StudentSearchActivity"
-            android:theme="@style/LightTheme"
-            />
-        <activity
-            android:name=".studentActivity.StudentUpdateProfileActivity"
-            />
-        <activity
-            android:name=".studentActivity.StudentProfileActivity"
-            />
-        <activity
-            android:name=".mainActivity.ForgetPassActivity"
-            />
-        <activity
-            android:name=".mainActivity.SignUpActivity"
-            />
-        <activity
-            android:name=".mainActivity.LoginActivity"
-            />
-        <activity
-            android:name=".mainActivity.SplashScreenActivity">
+            android:theme="@style/LightTheme" />
+        <activity android:name=".studentActivity.StudentUpdateProfileActivity" />
+        <activity android:name=".studentActivity.StudentProfileActivity" />
+        <activity android:name=".mainActivity.ForgetPassActivity" />
+        <activity android:name=".mainActivity.SignUpActivity" />
+        <activity android:name=".mainActivity.LoginActivity" />
+        <activity android:name=".mainActivity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -97,12 +66,17 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

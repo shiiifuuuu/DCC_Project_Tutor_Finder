@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamocta.dcc_project.R;
 import com.teamocta.dcc_project.databinding.ActivityTuitionViewBinding;
+import com.teamocta.dcc_project.googleMapActivity.TuitionMapViewActivity;
 import com.teamocta.dcc_project.pojo.HireService;
 import com.teamocta.dcc_project.pojo.Support;
 import com.teamocta.dcc_project.pojo.UserProfile;
@@ -170,5 +171,15 @@ public class TuitionViewActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    public void ShowMapLocation(View view) {
+        if(tuitionProfile.getLatitude()!=null && tuitionProfile.getLongitude() != null){
+            Intent intent = new Intent(getApplicationContext(), TuitionMapViewActivity.class);
+            intent.putExtra("studentProfile", tuitionProfile);
+            startActivity(intent);
+        }else{
+            Support.toastMessageLong("Map location not found !", getApplicationContext());
+        }
     }
 }
