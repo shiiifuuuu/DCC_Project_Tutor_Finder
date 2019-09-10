@@ -82,7 +82,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
 
     private void getTuitions() {
         DatabaseReference tutorRef = databaseReference.child("Student");
-        tutorRef.addValueEventListener(new ValueEventListener() {
+        tutorRef.orderByChild("firstName").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
