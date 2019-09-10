@@ -129,6 +129,7 @@ public class TutorSearchActivity extends AppCompatActivity implements TuitionLis
         filteredList = new ArrayList<>();
         for(UserProfile tuition: tuitionList){
             if(tuition.getFirstName().toLowerCase().contains(text.toLowerCase())
+                || tuition.getLastName().toLowerCase().contains(text.toLowerCase())
                 || tuition.getStudentClass().toLowerCase().contains(text.toLowerCase())
                 || tuition.getDepartment().toLowerCase().contains(text.toLowerCase())
                 || tuition.getDaysPerWeek().toLowerCase().contains(text.toLowerCase())
