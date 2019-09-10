@@ -197,7 +197,7 @@
                     </RadioGroup>
                 </LinearLayout>
                 <Button
-                    android:id="@+id/btnSignup"
+                    android:id="@+id/btnSignUp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="btnSignUpClicked"

@@ -85,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //S I G N    U P    M E T H O D -> TUTOR
     private void signUpTutor(String userEmail, String userPassword) {
-        Support.showAlertDialog("Signing Up...", getApplicationContext());
+        Support.showAlertDialog("Signing Up...", SignUpActivity.this);
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -138,7 +138,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //S I G N    U P    M E T H O D -> STUDENT
     private void signUpStudent(String userEmail, String userPassword) {
-        Support.showAlertDialog("Signing Up...", getApplicationContext());
+        Support.showAlertDialog("Signing Up...", SignUpActivity.this);
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
