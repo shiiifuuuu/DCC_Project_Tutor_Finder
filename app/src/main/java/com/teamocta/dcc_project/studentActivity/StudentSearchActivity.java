@@ -132,7 +132,8 @@ public class StudentSearchActivity extends AppCompatActivity implements TutorLis
                 || tutor.getMinimumSalary().toLowerCase().contains(text.toLowerCase())
                 || tutor.getLocation().toLowerCase().contains(text.toLowerCase())
                 || tutor.getInstitute().toLowerCase().contains(text.toLowerCase())
-                || tutor.getProfession().toLowerCase().contains(text.toLowerCase())){
+                || tutor.getProfession().toLowerCase().contains(text.toLowerCase())
+                || tutor.getTeachingSubjects().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(tutor);
             }
             tutorListAdapter.filterList(filteredList);
